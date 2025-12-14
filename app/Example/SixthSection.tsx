@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Play } from 'lucide-react';
 
 // --- Custom Icon: AnchorLogoBlock ---
-const AnchorLogoBlock = (props) => (
+const AnchorLogoBlock = (props: React.SVGProps<SVGSVGElement>) => (
   <svg width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
     <path fill="currentColor" fillRule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm-.5 17.145s.638-.579.706-.983c.025-.154-.037-.624-.116-1.22c-.188-1.413-.47-3.532.116-3.78c.5-.21 1.24 1.231 1.834 2.39c.394.77.725 1.414.88 1.37c.132-.038-.005-.84-.185-1.902c-.348-2.044-.86-5.047.077-5.388c.91-.33 2.109 2.54 2.976 4.62c.49 1.175.876 2.097 1.043 2.043c.183-.058-.03-1.786-.282-3.851c-.387-3.154-.87-7.096-.193-7.096c1.19 0 2.47 3.86 3.428 6.747c.58 1.75 1.043 3.142 1.294 3.1c.263-.044.273-.774.285-1.679c.019-1.381.043-3.17.983-3.551c.82-.333 1.651 0 1.651 0l.503 2.007c-.522-.09-1.52.045-1.594.932c-.022.268-.032.732-.044 1.294c-.043 2.067-.115 5.472-.944 5.472c-.964 0-2.22-3.62-3.115-6.197c-.509-1.467-.9-2.596-1.055-2.529c-.156.068-.047 1.243.09 2.71c.235 2.51.55 5.876-.256 6.016c-.833.145-2.028-2.728-2.85-4.705c-.437-1.05-.769-1.847-.884-1.802c-.123.047-.057.897.027 1.968c.143 1.848.338 4.354-.293 4.54c-.849.248-1.48-1.4-1.947-2.617c-.27-.704-.484-1.263-.653-1.229c-.133.027-.104.375-.064.852c.092 1.104.24 2.897-1.418 2.993z" clipRule="evenodd"></path>
   </svg>
@@ -72,7 +72,7 @@ export default function SixthSection() {
   }, [visualSlides.length]);
 
   return (
-    <section className="w-full bg-white font-sans py-16 border-b border-gray-100 overflow-hidden">
+    <section className="w-full bg-white dark:bg-[#0A0A0A] font-sans py-16 border-b border-gray-100 dark:border-gray-800 overflow-hidden transition-colors duration-300">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:grid lg:grid-cols-12 gap-12">
           
@@ -80,8 +80,8 @@ export default function SixthSection() {
           {/* Mobile: Order 2 (Bottom), Desktop: Order 1 (Left) */}
           <div className="order-2 lg:order-1 lg:col-span-8 flex flex-col gap-6">
             <div className="flex items-center gap-4 mb-2">
-               <h2 className="text-2xl font-serif font-bold uppercase text-black whitespace-nowrap">Berita Lainnya</h2>
-               <div className="w-full h-px bg-gray-200"></div>
+               <h2 className="text-2xl font-serif font-bold uppercase text-black dark:text-white whitespace-nowrap">Berita Lainnya</h2>
+               <div className="w-full h-px bg-gray-200 dark:bg-gray-800"></div>
             </div>
 
             {/* --- MOBILE VIEW: Featured + List (< md) --- */}
@@ -89,7 +89,7 @@ export default function SixthSection() {
                 {/* Featured Item (Index 0) */}
                 {leftNews.length > 0 && (
                   <div className="mb-8 group cursor-pointer">
-                      <div className="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-sm bg-gray-100">
+                      <div className="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-sm bg-gray-100 dark:bg-gray-800">
                           <img 
                               src={leftNews[0].image} 
                               alt={leftNews[0].title} 
@@ -97,24 +97,24 @@ export default function SixthSection() {
                           />
                       </div>
                       <div className="flex items-center gap-2 mb-2">
-                          <span className="text-[10px] font-bold text-gray-600 uppercase">{leftNews[0].author}</span>
-                          <span className="text-[10px] text-gray-400 font-light">• {leftNews[0].date}</span>
+                          <span className="text-[10px] font-bold text-gray-600 dark:text-gray-400 uppercase">{leftNews[0].author}</span>
+                          <span className="text-[10px] text-gray-400 dark:text-gray-600 font-light">• {leftNews[0].date}</span>
                       </div>
-                      <h2 className="text-xl font-bold text-black leading-snug group-hover:text-[#D91B1B] transition-colors">
+                      <h2 className="text-xl font-bold text-black dark:text-white leading-snug group-hover:text-[#D91B1B] transition-colors">
                           {leftNews[0].title}
                       </h2>
                   </div>
                 )}
 
                 {/* List Items (Index 1+) */}
-                <div className="flex flex-col gap-6 border-l border-gray-200 ml-2 pl-6">
+                <div className="flex flex-col gap-6 border-l border-gray-200 dark:border-gray-800 ml-2 pl-6">
                     {leftNews.slice(1).map((item) => (
                         <div key={item.id} className="relative flex gap-4 items-start group cursor-pointer">
                             {/* Dot Timeline */}
-                            <div className="absolute -left-[31px] top-4 w-2.5 h-2.5 bg-gray-300 rounded-full group-hover:bg-[#D91B1B] transition-colors"></div>
+                            <div className="absolute -left-[31px] top-4 w-2.5 h-2.5 bg-gray-300 dark:bg-gray-700 rounded-full group-hover:bg-[#D91B1B] transition-colors"></div>
 
                             {/* Thumbnail Kecil */}
-                            <div className="w-24 h-16 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
+                            <div className="w-24 h-16 flex-shrink-0 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-800">
                                 <img 
                                     src={item.image} 
                                     alt={item.title} 
@@ -124,11 +124,11 @@ export default function SixthSection() {
 
                             {/* Content */}
                             <div className="flex-1">
-                                <h3 className="text-sm font-bold text-black leading-snug line-clamp-3 group-hover:text-[#D91B1B] transition-colors mb-1">
+                                <h3 className="text-sm font-bold text-black dark:text-gray-200 leading-snug line-clamp-3 group-hover:text-[#D91B1B] transition-colors mb-1">
                                     {item.title}
                                 </h3>
                                 <div className="flex items-center gap-2">
-                                   <span className="text-[10px] text-gray-400 font-light">{item.date}</span>
+                                   <span className="text-[10px] text-gray-400 dark:text-gray-500 font-light">{item.date}</span>
                                 </div>
                             </div>
                         </div>
@@ -139,9 +139,9 @@ export default function SixthSection() {
             {/* --- DESKTOP VIEW: Original List (>= md) --- */}
             <div className="hidden md:flex flex-col gap-6">
               {leftNews.map((item) => (
-                <div key={item.id} className="group cursor-pointer bg-white border-b border-gray-100 pb-6 hover:bg-gray-50/50 transition-colors flex flex-col md:flex-row gap-6 items-start">
+                <div key={item.id} className="group cursor-pointer bg-white dark:bg-[#0A0A0A] border-b border-gray-100 dark:border-gray-800 pb-6 hover:bg-gray-50/50 dark:hover:bg-[#111]/50 transition-colors flex flex-col md:flex-row gap-6 items-start">
                   {/* Image */}
-                  <div className="w-full md:w-[240px] aspect-[4/3] md:h-[160px] flex-shrink-0 overflow-hidden rounded-md bg-gray-100 shadow-sm relative">
+                  <div className="w-full md:w-[240px] aspect-[4/3] md:h-[160px] flex-shrink-0 overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 shadow-sm relative">
                     <img 
                       src={item.image} 
                       alt="News Thumbnail" 
@@ -155,21 +155,21 @@ export default function SixthSection() {
                   <div className="flex-1 py-1">
                      {/* Meta */}
                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 border border-white shadow-sm">
+                        <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 border border-white dark:border-gray-600 shadow-sm">
                            <img src="https://placehold.co/50x50/333/fff?text=GA" alt="Author" className="w-full h-full object-cover grayscale" />
                         </div>
                         <div className="flex flex-col">
-                          <span className="text-xs font-bold text-black">{item.author}</span>
-                          <span className="text-[10px] text-gray-400">{item.date}</span>
+                          <span className="text-xs font-bold text-black dark:text-gray-300">{item.author}</span>
+                          <span className="text-[10px] text-gray-400 dark:text-gray-500">{item.date}</span>
                         </div>
                      </div>
 
                      {/* Title */}
-                     <h3 className="text-xl font-serif font-bold text-black leading-tight group-hover:text-[#D91B1B] transition-colors line-clamp-2">
+                     <h3 className="text-xl font-serif font-bold text-black dark:text-white leading-tight group-hover:text-[#D91B1B] transition-colors line-clamp-2">
                        {item.title}
                      </h3>
                      
-                     <p className="text-sm text-gray-500 mt-2 line-clamp-2 font-light">
+                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2 font-light">
                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...
                      </p>
                   </div>
@@ -179,7 +179,7 @@ export default function SixthSection() {
 
             {/* Button Muat Lagi */}
             <div className="mt-8">
-               <button className="w-full bg-gray-50 hover:bg-black hover:text-white text-gray-600 font-bold py-3 rounded-sm transition-all text-sm uppercase tracking-wider border border-gray-200 hover:border-black hover:shadow-lg">
+               <button className="w-full bg-gray-50 dark:bg-[#111] hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black text-gray-600 dark:text-gray-400 font-bold py-3 rounded-sm transition-all text-sm uppercase tracking-wider border border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white hover:shadow-lg">
                  Muat Berita Lainnya
                </button>
             </div>
@@ -193,7 +193,7 @@ export default function SixthSection() {
             <div className="relative">
                {/* Background Title (Miring & Pudar) - TETAP ADA */}
                <h2 
-                 className="absolute -top-4 -left-6 text-7xl md:text-8xl font-black text-gray-100 -rotate-6 select-none z-0"
+                 className="absolute -top-4 -left-6 text-7xl md:text-8xl font-black text-gray-100 dark:text-[#1a1a1a] -rotate-6 select-none z-0 transition-colors"
                  style={{ fontFamily: 'sans-serif' }}
                >
                  OPINI
@@ -204,51 +204,51 @@ export default function SixthSection() {
                   <div className="flex flex-col gap-6">
                      
                      {opinions.map((op, idx) => (
-                        <div key={op.id} className="bg-white p-5 rounded-lg border border-gray-100 hover:shadow-md transition-all cursor-pointer group">
+                        <div key={op.id} className="bg-white dark:bg-[#111] p-5 rounded-lg border border-gray-100 dark:border-gray-800 hover:shadow-md transition-all cursor-pointer group">
                            <div className="flex justify-between items-start mb-3">
-                              <span className="text-xs font-bold text-blue-900 uppercase tracking-wider">{op.author}</span>
-                              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 border-2 border-white shadow-sm group-hover:border-[#D91B1B] transition-colors">
+                              <span className="text-xs font-bold text-blue-900 dark:text-blue-400 uppercase tracking-wider">{op.author}</span>
+                              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 border-2 border-white dark:border-gray-600 shadow-sm group-hover:border-[#D91B1B] transition-colors">
                                  <img src={op.avatar} alt={op.author} className="w-full h-full object-cover grayscale" />
                               </div>
                            </div>
-                           <h3 className="text-lg font-serif font-bold text-black leading-tight mb-3 group-hover:text-[#D91B1B] transition-colors">
+                           <h3 className="text-lg font-serif font-bold text-black dark:text-white leading-tight mb-3 group-hover:text-[#D91B1B] transition-colors">
                               {op.title}
                            </h3>
-                           <span className="text-[10px] text-gray-400 font-medium">{op.date}</span>
+                           <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">{op.date}</span>
                         </div>
                      ))}
                   </div>
 
                   {/* Link 'lainnya' */}
                   <div className="flex items-center justify-end gap-2 mt-4 mb-8">
-                     <div className="h-px bg-gray-200 flex-1"></div>
-                     <span className="text-xs font-bold text-gray-400 cursor-pointer hover:text-[#D91B1B] uppercase tracking-wider hover:underline">Lihat Opini Lainnya</span>
+                     <div className="h-px bg-gray-200 dark:bg-gray-800 flex-1"></div>
+                     <span className="text-xs font-bold text-gray-400 dark:text-gray-500 cursor-pointer hover:text-[#D91B1B] uppercase tracking-wider hover:underline">Lihat Opini Lainnya</span>
                   </div>
 
                   {/* Audio Player Visual - UPDATED & STATIC COLOR */}
                   {/* Menggunakan hex codes eksplisit untuk background dan text agar tidak berubah saat tema berubah */}
-                  <div className="bg-[#ffffff] rounded-md p-5 flex flex-col gap-4 shadow-lg text-[#1a1a1a] relative overflow-hidden group">
+                  <div className="bg-[#ffffff] dark:bg-[#1a1a1a] rounded-md p-5 flex flex-col gap-4 shadow-lg text-[#1a1a1a] dark:text-white relative overflow-hidden group border border-gray-100 dark:border-gray-800 transition-colors">
                      
                     <div className="flex items-center gap-4 relative z-10">
                       <div className="flex items-center justify-center flex-shrink-0">
                         {/* New Anchor Logo Block Icon */}
-                        <div className="w-12 h-12 flex items-center justify-center text-[#1a1a1a]">
+                        <div className="w-12 h-12 flex items-center justify-center text-[#1a1a1a] dark:text-white">
                            <AnchorLogoBlock style={{ fontSize: '48px' }} />
                         </div>
                       </div>
-                      <h4 className="text-sm font-bold leading-tight line-clamp-2 text-[#1a1a1a]/90">
+                      <h4 className="text-sm font-bold leading-tight line-clamp-2 text-[#1a1a1a]/90 dark:text-white/90">
                         JUBIR DEMOKRAT OPTIMIS AHY SUKSES PIMPIN KEMENKO INFRASTRUKTUR DAN ...
                       </h4>
                     </div>
                     <div className="flex items-center gap-3 relative z-10">
-                      <button className="w-8 h-8 rounded-full bg-[#ffffff] flex items-center justify-center text-[#000000] hover:bg-[#D91B1B] hover:text-[#ffffff] transition-colors flex-shrink-0">
+                      <button className="w-8 h-8 rounded-full bg-[#ffffff] dark:bg-[#333] flex items-center justify-center text-[#000000] dark:text-white hover:bg-[#D91B1B] hover:text-[#ffffff] transition-colors flex-shrink-0">
                          <Play size={14} fill="currentColor" />
                       </button>
                       {/* Progress Bar Visual - FULL RED */}
-                      <div className="h-1 bg-[#ffffff]/20 flex-1 rounded-full overflow-hidden">
+                      <div className="h-1 bg-[#ffffff]/20 dark:bg-white/10 flex-1 rounded-full overflow-hidden">
                         <div className="h-full w-full bg-[#D91B1B] rounded-full"></div>
                       </div>
-                      <span className="text-[10px] text-[#1a1a1a]/60 font-mono">03:51</span>
+                      <span className="text-[10px] text-[#1a1a1a]/60 dark:text-white/60 font-mono">03:51</span>
                     </div>
                   </div>
                </div>
@@ -258,7 +258,7 @@ export default function SixthSection() {
             <div className="relative mt-12">
                {/* Background Title (Miring & Pudar) */}
                <h2 
-                 className="absolute -top-4 -left-6 text-7xl md:text-8xl font-black text-gray-100 -rotate-6 select-none z-0"
+                 className="absolute -top-4 -left-6 text-7xl md:text-8xl font-black text-gray-100 dark:text-[#1a1a1a] -rotate-6 select-none z-0 transition-colors"
                  style={{ fontFamily: 'sans-serif' }}
                >
                  VISUAL
@@ -294,7 +294,7 @@ export default function SixthSection() {
                         <button 
                            key={idx} 
                            onClick={() => setCurrentVisual(idx)} // Menambahkan fungsi klik
-                           className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === currentVisual ? 'bg-[#D91B1B] w-6' : 'bg-gray-300 w-2 hover:bg-gray-400'}`}
+                           className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === currentVisual ? 'bg-[#D91B1B] w-6' : 'bg-gray-300 dark:bg-gray-700 w-2 hover:bg-gray-400'}`}
                            aria-label={`Pindah ke slide ${idx + 1}`}
                         />
                      ))}

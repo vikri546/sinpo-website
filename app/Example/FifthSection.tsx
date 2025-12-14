@@ -34,36 +34,6 @@ export default function FifthSection() {
       responses: "553 Respon",
       isActive: true
     }
-    // {
-    //   id: 4,
-    //   category: "OLAHRAGA",
-    //   image: "https://placehold.co/400x250/475569/1e293b?text=Football",
-    //   question: "POLLING: SIAPA PEMAIN TIMNAS INDONESIA FAVORITMU SAAT INI?",
-    //   options: ["Marselino Ferdinan", "Jay Idzes", "Rafael Struick"],
-    //   status: "5 hari",
-    //   responses: "2.5K Respon",
-    //   isActive: true
-    // },
-    // {
-    //   id: 5,
-    //   category: "HIBURAN",
-    //   image: "https://placehold.co/400x250/fca5a5/b91c1c?text=Concert",
-    //   question: "POLLING: KONSER MUSIK INTERNASIONAL MANA YANG PALING KAMU TUNGGU?",
-    //   options: ["Bruno Mars", "Coldplay", "Taylor Swift"],
-    //   status: "2 hari",
-    //   responses: "3.1K Respon",
-    //   isActive: true
-    // },
-    // {
-    //   id: 6,
-    //   category: "TEKNOLOGI",
-    //   image: "https://placehold.co/400x250/334155/0f172a?text=AI",
-    //   question: "POLLING: APAKAH ANDA PERCAYA AI AKAN MENGGANTIKAN PEKERJAAN MANUSIA?",
-    //   options: ["Ya, Sangat Mungkin", "Hanya Sebagian", "Tidak Mungkin"],
-    //   status: "3 hari",
-    //   responses: "890 Respon",
-    //   isActive: true
-    // }
   ];
 
   // Tentukan slide, tiap slide tampilkan 3 konten
@@ -87,20 +57,17 @@ export default function FifthSection() {
   };
 
   return (
-    <section className="hidden md:block w-full bg-white font-sans py-16 border-b border-gray-100">
+    <section className="hidden md:block w-full bg-white dark:bg-[#0A0A0A] font-sans py-16 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 overflow-hidden">
         
         {/* Header: Title & Navigation Buttons */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-             {/* <div className="w-16 h-16 bg-black text-white flex items-center justify-center font-black text-2xl rounded-sm">
-               ?
-             </div> */}
               <div>
                 <span className="text-[#D91B1B] font-bold uppercase tracking-widest text-sm block">
                   Suara Anda
                 </span>
-                <h2 className="text-3xl md:text-4xl font-serif font-black tracking-tight uppercase text-[#1a1a1a]">
+                <h2 className="text-3xl md:text-4xl font-serif font-black tracking-tight uppercase text-[#1a1a1a] dark:text-white transition-colors">
                   <span className="text-[#D91B1B]">JAJAK</span> PENDAPAT
                 </h2>
               </div>
@@ -109,13 +76,13 @@ export default function FifthSection() {
           <div className="flex gap-3">
             <button 
               onClick={prevSlide}
-              className="w-10 h-10 text-[#1a1a1a] rounded-full border border-gray-200 flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white hover:border-[#1a1a1a] transition-all shadow-sm"
+              className="w-10 h-10 text-[#1a1a1a] dark:text-white rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white hover:border-[#1a1a1a] dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all shadow-sm"
             >
               <ArrowLeft size={18} strokeWidth={2} />
             </button>
             <button 
               onClick={nextSlide}
-              className="w-10 h-10 text-[#1a1a1a] rounded-full border border-gray-200 flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white hover:border-[#1a1a1a] transition-all shadow-sm"
+              className="w-10 h-10 text-[#1a1a1a] dark:text-white rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-[#1a1a1a] hover:text-white hover:border-[#1a1a1a] dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all shadow-sm"
             >
               <ArrowRight size={18} strokeWidth={2} />
             </button>
@@ -138,10 +105,10 @@ export default function FifthSection() {
                   {slideItems.map((item) => (
                       <div
                         key={item.id}
-                        className="flex flex-col h-full group bg-white border border-gray-100 p-5 rounded-lg hover:shadow-xl transition-all duration-300"
+                        className="flex flex-col h-full group bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 p-5 rounded-lg hover:shadow-xl transition-all duration-300"
                       >
                         {/* Image */}
-                        <div className="w-full aspect-[16/9] overflow-hidden mb-5 bg-gray-100 rounded-md relative">
+                        <div className="w-full aspect-[16/9] overflow-hidden mb-5 bg-gray-100 dark:bg-gray-800 rounded-md relative">
                           <img 
                             src={item.image} 
                             alt={item.category} 
@@ -153,7 +120,7 @@ export default function FifthSection() {
                         </div>
 
                         {/* Question */}
-                        <h3 className="text-lg font-serif font-bold text-[#1a1a1a] leading-snug mb-4 h-[56px] overflow-hidden line-clamp-2 group-hover:text-[#D91B1B] transition-colors">
+                        <h3 className="text-lg font-serif font-bold text-[#1a1a1a] dark:text-gray-100 leading-snug mb-4 h-[56px] overflow-hidden line-clamp-2 group-hover:text-[#D91B1B] transition-colors">
                           {item.question}
                         </h3>
 
@@ -161,21 +128,21 @@ export default function FifthSection() {
                         <div className="space-y-3 mb-6 flex-grow">
                           {item.options.map((option, opIdx) => (
                             <div key={opIdx} className="relative group/option">
-                               <div className="flex items-center justify-between p-3 bg-gray-50 border border-gray-100 rounded-md cursor-pointer hover:bg-white hover:border-[#D91B1B] transition-colors">
-                                   <span className="text-[13px] text-gray-600 font-medium group-hover/option:text-[#1a1a1a] transition-colors">{option}</span>
-                                   <div className="w-4 h-4 rounded-full border border-gray-300 group-hover/option:border-[#D91B1B]"></div>
+                               <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-[#1a1a1a] border border-gray-100 dark:border-gray-700 rounded-md cursor-pointer hover:bg-white dark:hover:bg-[#222] hover:border-[#D91B1B] dark:hover:border-[#D91B1B] transition-colors">
+                                   <span className="text-[13px] text-gray-600 dark:text-gray-300 font-medium group-hover/option:text-[#1a1a1a] dark:group-hover/option:text-white transition-colors">{option}</span>
+                                   <div className="w-4 h-4 rounded-full border border-gray-300 dark:border-gray-600 group-hover/option:border-[#D91B1B]"></div>
                                </div>
                             </div>
                           ))}
                         </div>
 
                         {/* Footer Metadata */}
-                        <div className="flex items-center justify-between text-xs text-gray-400 mt-auto pt-4 border-t border-gray-50">
+                        <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-auto pt-4 border-t border-gray-50 dark:border-gray-800">
                           <div className="flex items-center gap-2">
-                            <span className={`w-2 h-2 rounded-full ${item.status.includes("selesai") ? 'bg-gray-400' : 'bg-green-500 animate-pulse'}`}></span>
+                            <span className={`w-2 h-2 rounded-full ${item.status.includes("selesai") ? 'bg-gray-400 dark:bg-gray-600' : 'bg-green-500 animate-pulse'}`}></span>
                             <span className="font-medium">{item.status}</span>
                           </div>
-                          <span className="font-semibold text-gray-600">{item.responses}</span>
+                          <span className="font-semibold text-gray-600 dark:text-gray-400">{item.responses}</span>
                         </div>
                       </div>
                     )

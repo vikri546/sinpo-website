@@ -45,9 +45,10 @@ export default function FourthSection() {
     <section className="w-full font-sans relative">
       
       {/* --- BACKGROUND LAYER --- */}
-      {/* Setengah hitam di atas, setengah putih di bawah untuk efek 'mix' */}
+      {/* Setengah hitam di atas, setengah putih di bawah untuk efek 'mix' pada light mode. */}
+      {/* Pada dark mode, bagian bawah juga menjadi hitam/gelap. */}
       <div className="absolute top-0 left-0 w-full h-[60%] bg-[#0A0A0A] z-0"></div>
-      <div className="absolute bottom-0 left-0 w-full h-[40%] bg-white z-0"></div>
+      <div className="absolute bottom-0 left-0 w-full h-[40%] bg-white dark:bg-[#0A0A0A] z-0 transition-colors duration-300"></div>
 
       {/* --- CONTENT LAYER --- */}
       <div className="container mx-auto px-4 relative z-10 pt-16 pb-16">
@@ -148,13 +149,13 @@ export default function FourthSection() {
 
         {/* --- ADVERTISEMENT --- */}
         <div className="mt-16 flex justify-center">
-           <div className="w-full max-w-[970px] h-[120px] bg-gray-50 border border-gray-100 flex items-center justify-center relative overflow-hidden rounded-md">
+           <div className="w-full max-w-[970px] h-[120px] bg-gray-50 dark:bg-[#111] border border-gray-100 dark:border-gray-800 flex items-center justify-center relative overflow-hidden rounded-md transition-colors">
               <img 
                 src="https://placehold.co/970x120/f3f4f6/d1d5db?text=Iklan+Space+Banner" 
                 alt="Ads" 
                 className="w-full h-full object-cover opacity-50 hover:opacity-100 transition-opacity"
               />
-              <span className="absolute bottom-1 right-1 text-[9px] text-gray-400 bg-white/80 px-1 rounded-sm">IKLAN</span>
+              <span className="absolute bottom-1 right-1 text-[9px] text-gray-400 bg-white/80 dark:bg-black/80 px-1 rounded-sm">IKLAN</span>
            </div>
         </div>
 

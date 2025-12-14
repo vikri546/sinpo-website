@@ -1,13 +1,24 @@
 @import "tailwindcss";
 
-:root {
-  --background: #F1F1F1;
-}
+/* Mengatur variabel warna dasar untuk Light & Dark Mode */
+@layer base {
+  :root {
+    /* Light Mode Colors */
+    --background: #F1F1F1;
+    --foreground: #171717;
+  }
 
-.dark {
-  --background: #0A0A0A;
-}
+  .dark {
+    /* Dark Mode Colors */
+    --background: #0A0A0A;
+    --foreground: #EDEDED;
+  }
 
-body {
-  background: var(--background);
+  /* Terapkan ke body */
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    /* Transisi halus saat ganti tema */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 }

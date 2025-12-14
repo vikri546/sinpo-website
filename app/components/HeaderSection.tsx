@@ -82,7 +82,8 @@ export default function Header() {
     setMounted(true);
     // Theme initialization
     if (typeof window !== 'undefined') {
-      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) {
         document.documentElement.classList.add('dark');
         setTheme('dark');
       } else {
@@ -108,7 +109,7 @@ export default function Header() {
     const updateDate = () => {
       const now = new Date();
       // Format: Rabu, 10 Desember 2025 | 10:30 WIB
-      const options = {
+      const options: Intl.DateTimeFormatOptions = {
         weekday: "long",
         year: "numeric",
         month: "long",

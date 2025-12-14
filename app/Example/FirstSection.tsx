@@ -3,7 +3,7 @@ import React from 'react';
 
 // --- Custom Icons ---
 
-const UpDownDuotone = (props) => (
+const UpDownDuotone = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
     <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4v16m0-16L9 7m3-3l3 3m-3 13l-3-3m3 3l3-3"></path>
   </svg>
@@ -55,7 +55,7 @@ export default function FirstSection() {
   ];
 
   return (
-    <section className="w-full bg-white font-sans pt-0 md:pt-8 pb-12 border-b border-gray-100">
+    <section className="w-full bg-white dark:bg-[#0A0A0A] font-sans pt-0 md:pt-8 pb-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-0 md:px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 md:gap-8">
           
@@ -63,7 +63,6 @@ export default function FirstSection() {
           <div className="lg:col-span-8 relative group cursor-pointer">
             
             {/* Image Container */}
-            {/* Mobile: Full width, square-ish/video aspect. Desktop: Fixed height rounded */}
             <div className="w-full h-auto aspect-[4/3] md:aspect-auto md:h-[600px] overflow-hidden md:rounded-md relative shadow-none md:shadow-sm">
               <img 
                 src="https://www.owrite.id/wp-content/uploads/2025/12/IMG-20251210-WA0005-860x482.webp" 
@@ -75,21 +74,21 @@ export default function FirstSection() {
             {/* --- MOBILE SPECIFIC CONTENT (Below Image) --- */}
             <div className="block md:hidden px-4 py-4">
                 {/* Meta Info Row */}
-                <div className="flex justify-between items-center text-[10px] text-gray-400 mb-3">
+                <div className="flex justify-between items-center text-[10px] text-gray-400 dark:text-gray-500 mb-3">
                     <span>Senin, 13 Desember 2025</span>
                     <span>Foto: Kontributor Sin Po</span>
                 </div>
 
                 {/* Title */}
-                <h2 className="text-xl font-bold leading-tight text-center text-black mb-4 uppercase">
+                <h2 className="text-xl font-bold leading-tight text-center text-black dark:text-white mb-4 uppercase">
                   TEGAS, PRABOWO KE PARA MENTERI: COPOT PEJABAT YANG TAK KERJA KERAS
                 </h2>
 
                 {/* Dots Indicator */}
                 <div className="flex justify-center gap-1.5 mb-6">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-400"></div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-200"></div>
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-200"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-500"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700"></div>
                 </div>
             </div>
 
@@ -119,9 +118,9 @@ export default function FirstSection() {
           {/* --- RIGHT COLUMN (Side News) --- */}
           <div className="lg:col-span-4 flex flex-col gap-6 px-4 md:px-0">
             
-            {/* Top Side Article (Static) - HIDDEN ON MOBILE as per reference image design */}
-            <div className="hidden md:flex flex-col gap-3 group cursor-pointer bg-white">
-              <div className="w-full h-48 overflow-hidden rounded-md relative">
+            {/* Top Side Article (Static) */}
+            <div className="hidden md:flex flex-col gap-3 group cursor-pointer bg-white dark:bg-[#0A0A0A] transition-colors">
+              <div className="w-full h-48 overflow-hidden rounded-md relative bg-gray-100 dark:bg-gray-900">
                 <img 
                   src="https://www.owrite.id/wp-content/uploads/2025/12/antarafoto-kilang-pertamina-dumai-tingkatkan-kualitas-produksi-bahan-bakar-1765349771-615x410.webp" 
                   alt="Side News 1" 
@@ -132,10 +131,10 @@ export default function FirstSection() {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                 <h3 className="text-xl font-serif font-bold text-black leading-snug group-hover:text-[#D91B1B] transition-colors line-clamp-3">
+                 <h3 className="text-xl font-serif font-bold text-black dark:text-white leading-snug group-hover:text-[#D91B1B] transition-colors line-clamp-3">
                    Tegas, Prabowo ke Para Menteri: Copot Pejabat yang Tak Kerja Keras
                  </h3>
-                 <div className="flex justify-between text-[11px] text-gray-500 font-medium">
+                 <div className="flex justify-between text-[11px] text-gray-500 dark:text-gray-400 font-medium">
                    <span>Oleh: Redaksi</span>
                    <span>10 Menit yang lalu</span>
                  </div>
@@ -143,20 +142,16 @@ export default function FirstSection() {
             </div>
 
             {/* Divider (Desktop Only) */}
-            <hr className="hidden md:block border-gray-100" />
+            <hr className="hidden md:block border-gray-100 dark:border-gray-800" />
 
             {/* --- LIST CONTAINER --- */}
-            {/* Desktop: Scrollable list with thumbnails */}
-            {/* Mobile: Gray box with large numbers */}
-            <div className="relative md:h-[300px] group/list bg-gray-50 md:bg-white rounded-xl md:rounded-none p-4 md:p-0">
-               
-               {/* Mobile Background Watermark/Decoration (Optional - to match gray feel) */}
+            <div className="relative md:h-[300px] group/list bg-gray-50 dark:bg-[#111] md:bg-white md:dark:bg-[#0A0A0A] rounded-xl md:rounded-none p-4 md:p-0 transition-colors">
                
                {/* Fade Effect Top (Desktop Only) */}
-               <div className="hidden md:block absolute -mt-6 left-0 w-full h-2 bg-gradient-to-b from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
+               <div className="hidden md:block absolute -mt-6 left-0 w-full h-2 bg-gradient-to-b from-white dark:from-[#0A0A0A] via-white/80 dark:via-[#0A0A0A]/80 to-transparent z-10 pointer-events-none"></div>
 
                {/* ICON SCROLL (Desktop Only) */}
-               <div className="hidden md:flex absolute right-0 mt-30 transform -translate-y-1/2 z-20 pl-2 bg-white items-center justify-center text-gray-300 hover:text-[#D91B1B] transition-colors cursor-pointer pointer-events-none md:pointer-events-auto">
+               <div className="hidden md:flex absolute right-0 mt-30 transform -translate-y-1/2 z-20 pl-2 bg-white dark:bg-[#0A0A0A] items-center justify-center text-gray-300 dark:text-gray-600 hover:text-[#D91B1B] dark:hover:text-[#D91B1B] transition-colors cursor-pointer pointer-events-none md:pointer-events-auto">
                   <UpDownDuotone width={24} height={24} />
                </div>
 
@@ -170,13 +165,13 @@ export default function FirstSection() {
                            
                            {/* --- MOBILE NUMBERING (1, 2, 3...) --- */}
                            <div className="block md:hidden w-8 text-center flex-shrink-0">
-                              <span className="text-6xl font-bold text-gray-200 leading-[0.8] font-sans">
+                              <span className="text-6xl font-bold text-gray-200 dark:text-gray-700 leading-[0.8] font-sans">
                                 {index + 1}
                               </span>
                            </div>
 
                            {/* --- DESKTOP IMAGE (Hidden on Mobile) --- */}
-                           <div className="hidden md:block w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100">
+                           <div className="hidden md:block w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-800">
                              <img 
                                src={item.image} 
                                alt={item.category} 
@@ -192,25 +187,23 @@ export default function FirstSection() {
                              </span>
 
                              {/* Title */}
-                             {/* Mobile: Uppercase, Sans-serif bold, darker */}
-                             {/* Desktop: Serif, bold */}
-                             <h4 className="text-sm md:text-sm font-bold text-black leading-snug mb-1 group-hover:text-[#D91B1B] transition-colors line-clamp-3 md:line-clamp-2 md:font-serif uppercase md:normal-case">
+                             <h4 className="text-sm md:text-sm font-bold text-black dark:text-gray-100 leading-snug mb-1 group-hover:text-[#D91B1B] transition-colors line-clamp-3 md:line-clamp-2 md:font-serif uppercase md:normal-case">
                                {item.title}
                              </h4>
 
                              {/* Time (Desktop Only) */}
-                             <p className="hidden md:block text-[10px] text-gray-400">{item.time}</p>
+                             <p className="hidden md:block text-[10px] text-gray-400 dark:text-gray-500">{item.time}</p>
                            </div>
                         </div>
 
                         {/* Divider (Desktop Only) */}
-                        <hr className="hidden md:block border-gray-50 w-full" />
+                        <hr className="hidden md:block border-gray-50 dark:border-gray-800 w-full" />
                     </div>
                   ))}
                </div>
 
                {/* Fade Effect Bottom (Desktop Only) */}
-               <div className="hidden md:block absolute -mt-2 left-0 w-full h-4 bg-gradient-to-t from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
+               <div className="hidden md:block absolute -mt-2 left-0 w-full h-4 bg-gradient-to-t from-white dark:from-[#0A0A0A] via-white/80 dark:via-[#0A0A0A]/80 to-transparent z-10 pointer-events-none"></div>
 
             </div>
 

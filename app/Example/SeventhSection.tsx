@@ -56,7 +56,7 @@ export default function SeventhSection() {
   ];
 
   return (
-    <section className="hidden md:block w-full bg-white font-sans py-16 border-b border-gray-100">
+    <section className="hidden md:block w-full bg-white dark:bg-[#0A0A0A] font-sans py-16 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4">
         
         {/* Grid 4 Kolom */}
@@ -64,9 +64,9 @@ export default function SeventhSection() {
           {newsCategories.map((cat) => (
             <div key={cat.id} className="flex flex-col group/cat">
               {/* Category Header */}
-              <div className="flex items-center justify-between mb-5 border-b border-gray-200 pb-2">
+              <div className="flex items-center justify-between mb-5 border-b border-gray-200 dark:border-gray-800 pb-2">
                  {/* text-news-dark diganti text-[#1a1a1a] */}
-                 <h2 className={`text-xl font-bold uppercase text-[#1a1a1a] tracking-wide pl-2 border-l-4 ${cat.borderColor}`}>
+                 <h2 className={`text-xl font-bold uppercase text-[#1a1a1a] dark:text-white tracking-wide pl-2 border-l-4 ${cat.borderColor}`}>
                    {cat.category}
                  </h2>
                  {/* text-news-red diganti text-[#D91B1B] */}
@@ -75,34 +75,34 @@ export default function SeventhSection() {
 
               {/* Main News Item */}
               <div className="group cursor-pointer mb-6">
-                <div className="w-full aspect-[16/10] overflow-hidden rounded-md bg-gray-100 mb-4 shadow-sm relative">
+                <div className="w-full aspect-[16/10] overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800 mb-4 shadow-sm relative">
                   <img 
                     src={cat.mainNews.image} 
                     alt={cat.category} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
+                  <div className="absolute inset-0 bg-black/5 dark:bg-black/20 group-hover:bg-black/0 transition-colors"></div>
                 </div>
-                <h3 className="text-base font-serif font-bold text-[#1a1a1a] leading-snug group-hover:text-[#D91B1B] transition-colors line-clamp-3">
+                <h3 className="text-base font-serif font-bold text-[#1a1a1a] dark:text-gray-100 leading-snug group-hover:text-[#D91B1B] transition-colors line-clamp-3">
                   {cat.mainNews.title}
                 </h3>
               </div>
 
               {/* Divider */}
-              <div className="w-full h-px bg-gray-200 mb-4"></div>
+              <div className="w-full h-px bg-gray-200 dark:bg-gray-800 mb-4"></div>
 
               {/* Sub News List */}
               <div className="flex flex-col gap-4">
                 {cat.subNews.map((sub) => (
                   <div key={sub.id} className="group cursor-pointer">
-                    <h4 className="text-[15px] font-medium text-gray-700 leading-snug group-hover:text-[#D91B1B] transition-colors line-clamp-2">
+                    <h4 className="text-[15px] font-medium text-gray-700 dark:text-gray-400 leading-snug group-hover:text-[#D91B1B] transition-colors line-clamp-2">
                       {sub.title}
                     </h4>
                   </div>
                 ))}
                 
                 {/* Additional Divider below sub news */}
-                <div className="w-full h-px bg-gray-100 mt-2"></div>
+                <div className="w-full h-px bg-gray-100 dark:bg-gray-800 mt-2"></div>
               </div>
             </div>
           ))}
@@ -110,7 +110,7 @@ export default function SeventhSection() {
 
         {/* Button Indeks Berita */}
         <div className="mt-20 flex justify-center">
-          <button className="px-10 py-3 w-full md:w-auto bg-white hover:bg-[#1a1a1a] hover:text-white text-[#1a1a1a] font-bold text-sm rounded-sm border-2 border-[#1a1a1a] transition-all uppercase tracking-widest shadow-sm hover:shadow-lg">
+          <button className="px-10 py-3 w-full md:w-auto bg-white dark:bg-[#1a1a1a] hover:bg-[#1a1a1a] dark:hover:bg-white hover:text-white dark:hover:text-[#1a1a1a] text-[#1a1a1a] dark:text-white font-bold text-sm rounded-sm border-2 border-[#1a1a1a] dark:border-gray-600 transition-all uppercase tracking-widest shadow-sm hover:shadow-lg">
             Indeks Berita Terkini
           </button>
         </div>

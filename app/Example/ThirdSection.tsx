@@ -46,12 +46,12 @@ export default function ThirdSection() {
   ];
 
   return (
-    <section className="hidden md:block w-full bg-white font-sans py-12 border-b border-gray-100">
+    <section className="hidden md:block w-full bg-white dark:bg-[#0A0A0A] font-sans py-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4">
         
         {/* Section Header - Centered */}
         <div className="text-center mb-10">
-           <h2 className="text-3xl font-black uppercase text-[#1a1a1a] tracking-tight">
+           <h2 className="text-3xl font-black uppercase text-[#1a1a1a] dark:text-white tracking-tight">
              Tren Hari Ini
            </h2>
         </div>
@@ -65,7 +65,7 @@ export default function ThirdSection() {
                 className="min-w-[260px] md:min-w-0 flex-shrink-0 snap-center group cursor-pointer flex flex-col"
               >
                 {/* Image Container with Overlay */}
-                <div className="relative w-full aspect-[4/3] overflow-hidden mb-4 bg-gray-100 shadow-sm">
+                <div className="relative w-full aspect-[4/3] overflow-hidden mb-4 bg-gray-100 dark:bg-gray-800 shadow-sm">
                   <img 
                     src={item.image} 
                     alt={item.title} 
@@ -89,10 +89,10 @@ export default function ThirdSection() {
 
                 {/* News Title with Number (Number hidden on Desktop) */}
                 <div className="flex gap-3">
-                   <span className="text-3xl font-black text-gray-400 group-hover:text-[#D91B1B] transition-colors leading-none pt-1 lg:hidden">
+                   <span className="text-3xl font-black text-gray-400 dark:text-gray-600 group-hover:text-[#D91B1B] transition-colors leading-none pt-1 lg:hidden">
                       {index + 1}
                    </span>
-                   <h3 className="text-sm font-bold leading-relaxed text-[#1a1a1a] uppercase group-hover:text-[#D91B1B] transition-colors line-clamp-3">
+                   <h3 className="text-sm font-bold leading-relaxed text-[#1a1a1a] dark:text-gray-200 uppercase group-hover:text-[#D91B1B] transition-colors line-clamp-3">
                      {item.title}
                    </h3>
                 </div>
@@ -100,13 +100,13 @@ export default function ThirdSection() {
             ))}
 
             {/* 6th Slot: Trending Topics (Hidden on Desktop) */}
-             <div className="min-w-[260px] md:min-w-0 flex-shrink-0 snap-center flex flex-col bg-gray-50 p-6 rounded-sm border border-gray-100 lg:hidden">
+             <div className="min-w-[260px] md:min-w-0 flex-shrink-0 snap-center flex flex-col bg-gray-50 dark:bg-[#111] p-6 rounded-sm border border-gray-100 dark:border-gray-800 lg:hidden">
                 <div className="text-center mb-6">
-                    <h3 className="text-xl font-medium tracking-wide uppercase text-gray-700">Trending Topics</h3>
+                    <h3 className="text-xl font-medium tracking-wide uppercase text-gray-700 dark:text-gray-300">Trending Topics</h3>
                 </div>
                 <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 content-start">
                    {trendingTopics.map((topic, i) => (
-                       <a key={i} href={topic.link} className="text-[11px] text-gray-500 hover:text-[#D91B1B] border-b border-transparent hover:border-[#D91B1B] transition-colors">
+                       <a key={i} href={topic.link} className="text-[11px] text-gray-500 dark:text-gray-400 hover:text-[#D91B1B] border-b border-transparent hover:border-[#D91B1B] transition-colors">
                           {topic.name}
                        </a>
                    ))}
@@ -127,11 +127,11 @@ export default function ThirdSection() {
           `}} />
         </div>
 
-        {/* Pagination Dots (Static Visual) - Omitted if not needed, but keeping for safe measure if user wants it, though layout is grid now */}
+        {/* Pagination Dots (Static Visual) */}
         <div className="flex justify-center gap-2 mt-2 md:hidden">
           <div className="w-2 h-2 rounded-full bg-[#D91B1B]"></div>
-          <div className="w-2 h-2 rounded-full bg-gray-300"></div>
-          <div className="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div className="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+          <div className="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-700"></div>
         </div>
 
       </div>

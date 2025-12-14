@@ -1,25 +1,28 @@
-import Header from "./components/HeaderSection";
-import FirstSection from "./components/FirstSection";
-import SecondSection from "./components/SecondSection";
-import ThirdSection from "./components/ThirdSection";
-import FourthSection from "./components/FourthSection";
-import FifthSection from "./components/FifthSection";
-import SixthSection from "./components/SixthSection";
-import SeventhSection from "./components/SeventhSection";
-import FooterSection from "./components/FooterSection";
+"use client";
+import React, { useState } from 'react';
+import HomeScreen from "./components/HomeScreen";
+import ArticleDetailScreen from "./components/ArticleDetailScreen";
 
-export default function Home() {
+export default function Page() {
+  const [activeScreen, setActiveScreen] = useState<'home' | 'detail'>('home');
+
   return (
-    <>
-      <Header />
-      <FirstSection />
-      <SecondSection />
-      <ThirdSection />
-      <FourthSection />
-      <FifthSection />
-      <SixthSection />
-      <SeventhSection />
-      <FooterSection />
-    </>
+    <main>
+      {activeScreen === 'home' ? (
+        <HomeScreen 
+          onNavigateToDetail={() => {
+            setActiveScreen('detail');
+            window.scrollTo(0, 0);
+          }} 
+        />
+      ) : (
+        <ArticleDetailScreen 
+          onNavigateToHome={() => {
+            setActiveScreen('home');
+            window.scrollTo(0, 0);
+          }} 
+        />
+      )}
+    </main>
   );
 }
