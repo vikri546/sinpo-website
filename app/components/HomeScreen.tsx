@@ -513,7 +513,7 @@ const SixthSection = () => {
 };
 
 // 7. SEVENTH SECTION
-const SeventhSection = () => {
+const SeventhSection = ({ onNavigateToCategory }: { onNavigateToCategory: () => void }) => {
     const newsCategories = [
     { id: 1, category: "POLITIK", borderColor: "border-[#D91B1B]", mainNews: { image: "https://www.owrite.id/wp-content/uploads/2025/12/a97d6fd2-6051-4d29-983c-d47e13fe0dc1-615x410.webp", title: "KAI Alihkan 32 Perjalanan Ke Stasiun Jatinegara Saat Pelantikan ..." }, subNews: [{ id: 101, title: "KAI Alihkan 32 Perjalanan Ke Stasiun Jatinegara Saat Pelantikan ..." }] },
     { id: 2, category: "EKBIS", borderColor: "border-[#D91B1B]", mainNews: { image: "https://www.owrite.id/wp-content/uploads/2025/12/antarafoto-sampah-kayu-gelondongan-banjir-bandang-di-tapanuli-selatan-1764575769-615x410.webp", title: "Lestari Moerdijat: Tantangan Dalam Pengembangan Sektor UMKM Harus Dapat ..." }, subNews: [{ id: 201, title: "KAI Alihkan 32 Perjalanan Ke Stasiun Jatinegara Saat Pelantikan ..." }] },
@@ -547,7 +547,7 @@ const SeventhSection = () => {
             </div>
           ))}
         </div>
-        <div className="mt-20 flex justify-center"><button className="px-10 py-3 w-full md:w-auto bg-white dark:bg-[#1a1a1a] hover:bg-[#1a1a1a] dark:hover:bg-white hover:text-white dark:hover:text-[#1a1a1a] text-[#1a1a1a] dark:text-white font-bold text-sm rounded-sm border-2 border-[#1a1a1a] dark:border-gray-600 transition-all uppercase tracking-widest shadow-sm hover:shadow-lg">Indeks Berita Terkini</button></div>
+        <div className="mt-20 flex justify-center"><button onClick={onNavigateToCategory} className="px-10 py-3 w-full md:w-auto bg-white dark:bg-[#1a1a1a] hover:bg-[#1a1a1a] dark:hover:bg-white hover:text-white dark:hover:text-[#1a1a1a] text-[#1a1a1a] dark:text-white font-bold text-sm rounded-sm border-2 border-[#1a1a1a] dark:border-gray-600 transition-all uppercase tracking-widest shadow-sm hover:shadow-lg">Indeks Berita Terkini</button></div>
       </div>
     </section>
   );
@@ -565,7 +565,7 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
       <FourthSection />
       <FifthSection />
       <SixthSection />
-      <SeventhSection />
+      <SeventhSection onNavigateToCategory={onNavigateToCategory} />
       <FooterSection />
     </>
   );

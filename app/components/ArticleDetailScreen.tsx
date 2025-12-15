@@ -67,41 +67,40 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
   ];
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900">
+    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] font-sans text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <HeaderSection onNavigateToCategory={onNavigateToCategory} />
       {/* Container Utama */}
       <main className="container mx-auto px-4 py-8">
         
         {/* Breadcrumb */}
-        <div className="flex items-center text-xs md:text-sm font-bold uppercase mb-4 text-gray-500">
-          <button onClick={onNavigateToHome} className="hover:text-red-600 transition-colors">
+        <div className="flex items-center text-xs md:text-sm font-bold uppercase mb-4 text-gray-500 dark:text-gray-400">
+          <button onClick={onNavigateToHome} className="hover:text-red-600 dark:hover:text-red-500 transition-colors">
             HOME
           </button>
           <span className="mx-2">/</span>
-          <span className="text-red-600 line-clamp-1">
+          <span className="text-red-600 dark:text-red-500 line-clamp-1">
              TEGAS, PRABOWO KE PARA MENTERI: COPOT PEJABAT YANG TAK KERJA KERAS
           </span>
         </div>
 
         {/* Judul Artikel Utama */}
-        <div className="mb-6 border-b pb-4">
-          <h1 className="text-3xl md:text-4xl font-extrabold uppercase leading-tight tracking-tight mb-4">
+        <div className="mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
+          <h1 className="text-3xl md:text-4xl font-extrabold uppercase leading-tight tracking-tight mb-4 text-black dark:text-white">
             Tegas, Prabowo ke Para Menteri: Copot Pejabat Yang Tak Kerja Keras
           </h1>
           
-          <div className="flex items-center text-xs text-gray-500 gap-4 uppercase font-semibold">
+          <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 gap-4 uppercase font-semibold">
             <div className="flex items-center gap-2">
-              <span className="bg-black text-white rounded-full p-1"><User size={12}/></span>
-              <span className="text-red-600">ACD</span>
-              <span className="text-gray-400">|</span>
-              <span className="text-red-600">SINPO.ID</span>
+              <span className="bg-black dark:bg-white text-white dark:text-black rounded-full p-1"><User size={12}/></span>
+              <span className="text-red-600 dark:text-red-500">ACD</span>
+              <span className="text-gray-400 dark:text-gray-600">|</span>
+              <span className="text-red-600 dark:text-red-500">SINPO.ID</span>
             </div>
             <span>Senin, 23 Okt 2024 - 17:15</span>
           </div>
         </div>
 
         {/* Layout Grid Artikel & Sidebar */}
-        {/* Added items-start to ensure sticky column has track space to move */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 items-start">
           
           {/* Kolom Kiri (Artikel Utama) */}
@@ -114,21 +113,21 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
                 alt="Presiden Prabowo Subianto" 
                 className="w-full h-auto object-cover rounded-sm aspect-video"
               />
-              <p className="text-xs text-gray-500 mt-2 italic">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
                 Presiden Prabowo Subianto saat memimpin rapat Kabinet Merah Putih (SinPo.id/ Tim Media)
               </p>
             </div>
 
             {/* Toolbar Kecil (Font Size & Comment) */}
-            <div className="flex justify-end items-center gap-4 border-b border-gray-100 pb-2 mb-6 text-gray-400">
-              <button className="hover:text-black"><Type size={20} /></button>
-              <button className="hover:text-black"><MessageSquare size={20} /></button>
+            <div className="flex justify-end items-center gap-4 border-b border-gray-100 dark:border-gray-800 pb-2 mb-6 text-gray-400 dark:text-gray-500">
+              <button className="hover:text-black dark:hover:text-white transition-colors"><Type size={20} /></button>
+              <button className="hover:text-black dark:hover:text-white transition-colors"><MessageSquare size={20} /></button>
             </div>
 
             {/* Isi Artikel */}
-            <div className="prose max-w-none text-gray-800 leading-relaxed">
+            <div className="prose max-w-none text-gray-800 dark:text-gray-300 leading-relaxed">
               <p className="mb-4">
-                <strong className="text-black">Sinpo.id</strong> - Presiden RI Prabowo Subianto meminta para menterinya bisa mengarahkan pejabat-pejabat di bawah mereka agar bekerja keras memberikan pelayanan.
+                <strong className="text-black dark:text-white">Sinpo.id</strong> - Presiden RI Prabowo Subianto meminta para menterinya bisa mengarahkan pejabat-pejabat di bawah mereka agar bekerja keras memberikan pelayanan.
               </p>
               <p className="mb-4">
                 terbaik bagi rakyat Indonesia. Hal ini disampaikannya saat membuka sidang kabinet paripurna perdana, di Istana Merdeka, Jakarta, Rabu, 23 Oktober 2024.
@@ -138,9 +137,9 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
               </p>
 
               {/* Kutipan 1 */}
-              <div className="bg-gray-50 p-6 md:p-8 mb-8 mt-10 relative rounded-sm">
-                <span className="text-6xl text-black absolute -top-4 left-6 font-serif font-bold leading-none">“</span>
-                <p className="relative z-10 text-gray-900 leading-relaxed text-lg pt-2">
+              <div className="bg-gray-50 dark:bg-[#111] p-6 md:p-8 mb-8 mt-10 relative rounded-sm border border-transparent dark:border-gray-800">
+                <span className="text-6xl text-black dark:text-gray-600 absolute -top-4 left-6 font-serif font-bold leading-none">“</span>
+                <p className="relative z-10 text-gray-900 dark:text-gray-200 leading-relaxed text-lg pt-2">
                   Bahkan ada pembicaraan oleh rakyat kita bahwa birokrasi pemerintah kita sering mempersulit, bukan mempermudah keperluan rakyat. Bahkan ada yang mengatakan kalau bisa dibikin sulit kenapa dibikin mudah. Ini saya minta menteri-menteri sekarang mari kita lebih berani, tidak ragu ragu untuk memberi pelayanan terbaik untuk rakyat kita," ujar Prabowo.
                 </p>
               </div>
@@ -156,15 +155,15 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
                   alt="Sidang Kabinet" 
                   className="w-full h-auto object-cover rounded-sm aspect-video"
                 />
-                <p className="text-xs text-gray-500 mt-2 italic">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
                   Presiden Prabowo Subianto saat memimpin rapat Kabinet Merah Putih (SinPo.id/ Tim Media)
                 </p>
               </div>
 
               {/* Kutipan 2 */}
-              <div className="bg-gray-50 p-6 md:p-8 mb-8 mt-10 relative rounded-sm">
-                <span className="text-6xl text-black absolute -top-4 left-6 font-serif font-bold leading-none">“</span>
-                <p className="relative z-10 text-gray-900 leading-relaxed text-lg pt-2">
+              <div className="bg-gray-50 dark:bg-[#111] p-6 md:p-8 mb-8 mt-10 relative rounded-sm border border-transparent dark:border-gray-800">
+                <span className="text-6xl text-black dark:text-gray-600 absolute -top-4 left-6 font-serif font-bold leading-none">“</span>
+                <p className="relative z-10 text-gray-900 dark:text-gray-200 leading-relaxed text-lg pt-2">
                   Kalau Anda tidak puas dengan pejabat pejabat di bawah Anda, laporkan, kita segera ganti. Begitu banyak orang yang mau mengabdi. Tidak ada orang di sini yang kebal. Yang tidak patuh, tidak bekerja keras untuk bangsa dan negara dan rakyat. Saudara saya beri wewenang, copot dan suruh tinggal di rumah saja dari pada bikin susah kita, tegasnya.
                 </p>
               </div>
@@ -177,17 +176,17 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
               </p>
 
               {/* Baca Juga Section */}
-              <div className="p-6 my-8 relative overflow-hidden">
+              <div className="p-6 my-8 relative overflow-hidden bg-gray-50 dark:bg-[#111] rounded-sm">
                 
                 {/* Watermark "S" Background */}
                 <div className="absolute right-10 -bottom-2 pointer-events-none select-none z-0">
-                   <span className="font-serif text-[150px] leading-none text-red-50 opacity-1000 italic">S</span>
+                   <span className="font-serif text-[150px] leading-none text-red-50 dark:text-red-900/10 opacity-1000 italic">S</span>
                 </div>
 
                 {/* Header Section dengan Garis */}
                 <div className="flex items-center mb-5 relative z-10">
-                  <h4 className="font-bold text-sm text-black mr-4 shrink-0">Baca Juga</h4>
-                  <div className="h-[1px] bg-gray-300 w-full"></div>
+                  <h4 className="font-bold text-sm text-black dark:text-white mr-4 shrink-0">Baca Juga</h4>
+                  <div className="h-[1px] bg-gray-300 dark:bg-gray-700 w-full"></div>
                 </div>
 
                 {/* Content */}
@@ -195,22 +194,22 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
                   <img 
                     src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300&h=200&fit=crop" 
                     alt="Luhut" 
-                    className="w-full sm:w-40 h-24 object-cover rounded-lg shadow-sm flex-shrink-0"
+                    className="w-full sm:w-40 h-24 object-cover rounded-lg shadow-sm flex-shrink-0 bg-gray-200 dark:bg-gray-800"
                   />
                   <div className="flex flex-col justify-center h-full pt-1">
-                    <h3 className="text-xl md:text-2xl font-normal text-gray-900 group-hover:text-red-600 transition-colors leading-tight mb-2">
+                    <h3 className="text-xl md:text-2xl font-normal text-gray-900 dark:text-gray-100 group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors leading-tight mb-2">
                       PKS Puji Luhut: Orang Yang Responsif, Wajar Diberi 2 Jabatan
                     </h3>
-                    <span className="text-xs text-gray-400 font-medium">Senin, 23 Mei 2023 - 19:15</span>
+                    <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">Senin, 23 Mei 2023 - 19:15</span>
                   </div>
                 </div>
               </div>
 
               {/* Subheading Program Andalan */}
               <div className="mb-4">
-                <h3 className="text-xl font-bold uppercase border-b-2 border-gray-200 inline-block pb-1 pr-4">
+                <h3 className="text-xl font-bold uppercase border-b-2 border-gray-200 dark:border-gray-700 inline-block pb-1 pr-4 text-black dark:text-white relative">
                   PROGRAM ANDALAN MAKAN BERGIZI
-                  <div className="h-[3px] w-1/4 bg-black mt-1 absolute"></div> 
+                  <div className="h-[3px] w-1/4 bg-black dark:bg-white mt-1 absolute bottom-[-2px] left-0"></div> 
                 </h3>
               </div>
               
@@ -227,7 +226,7 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
           <div className="lg:col-span-4 space-y-8 lg:sticky lg:top-36 h-fit self-start">
             
             {/* Widget: TDK KALAH PENTING */}
-            <div className="bg-black dark:bg-[#111] text-white p-6 rounded-md shadow-lg transition-colors">
+            <div className="bg-black dark:bg-[#111] text-white p-6 rounded-md shadow-lg transition-colors border border-gray-800">
               {/* Header Utama Sidebar */}
               <div className="mb-6 pb-4">
                 <h2 className="text-3xl font-bold uppercase tracking-wider text-white">TDK KALAH PENTING</h2>
@@ -264,14 +263,14 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
             </div>
 
             {/* Widget: BERITA TERPOPULER */}
-            <div className="bg-white mt-8">
-              <h3 className="text-3xl font-black uppercase text-[#222] mb-6 tracking-tight">
+            <div className="bg-white dark:bg-[#0A0A0A] mt-8 transition-colors">
+              <h3 className="text-3xl font-black uppercase text-[#222] dark:text-white mb-6 tracking-tight">
                 BERITA TERPOPULER
               </h3>
 
               {/* Featured Popular Item */}
               <div className="mb-8 cursor-pointer group">
-                <div className="overflow-hidden rounded-sm mb-3">
+                <div className="overflow-hidden rounded-sm mb-3 bg-gray-100 dark:bg-gray-800">
                   <img 
                     src="https://www.owrite.id/wp-content/uploads/2025/10/Ilustrasi-Emas-Batang-615x410.webp" 
                     alt="TNI"
@@ -279,10 +278,10 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
                   />
                 </div>
                 <div className="flex items-center text-[11px] mb-2 font-sans">
-                  <span className="font-bold text-gray-600 mr-4 text-xs">Junot</span>
-                  <span className="text-gray-400 font-medium">Senin, 23 Mei 2024 / 19:15 WIB</span>
+                  <span className="font-bold text-gray-600 dark:text-gray-400 mr-4 text-xs">Junot</span>
+                  <span className="text-gray-400 dark:text-gray-600 font-medium">Senin, 23 Mei 2024 / 19:15 WIB</span>
                 </div>
-                <h3 className="font-bold text-lg leading-snug text-gray-900 group-hover:text-red-600 transition-colors">
+                <h3 className="font-bold text-lg leading-snug text-gray-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors">
                   Jalankan Misi Perdamaian, Satgas Kizi TNI Berangkat Ke Afrika Tengah
                 </h3>
               </div>
@@ -316,16 +315,16 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
                   }
                 ].map((item, index) => (
                   <div key={index} className="flex gap-4 group cursor-pointer items-start">
-                    <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-sm">
+                    <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-sm bg-gray-100 dark:bg-gray-800">
                         <img src={item.img} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     </div>
                     <div className="flex flex-col pt-0.5">
-                      <h4 className="text-[13px] font-bold leading-snug text-gray-900 mb-3 group-hover:text-red-600 transition-colors">
+                      <h4 className="text-[13px] font-bold leading-snug text-gray-900 dark:text-gray-200 mb-3 group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors">
                         {item.title}
                       </h4>
-                      <div className="flex items-center text-[10px] text-gray-500 font-sans mt-auto">
-                        <span className="font-bold text-gray-600 mr-3">{item.author}</span>
-                        <span className="text-gray-400 font-medium">{item.date}</span>
+                      <div className="flex items-center text-[10px] text-gray-500 dark:text-gray-500 font-sans mt-auto">
+                        <span className="font-bold text-gray-600 dark:text-gray-400 mr-3">{item.author}</span>
+                        <span className="text-gray-400 dark:text-gray-600 font-medium">{item.date}</span>
                       </div>
                     </div>
                   </div>
@@ -337,8 +336,8 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
         </div>
 
         {/* SECTION BERITA TERKAIT */}
-        <div className="border-t-2 border-gray-100 pt-8 mt-12 mb-20">
-          <h2 className="text-3xl font-bold uppercase text-gray-700 mb-8 tracking-tight">BERITA TERKAIT</h2>
+        <div className="border-t-2 border-gray-100 dark:border-gray-800 pt-8 mt-12 mb-20">
+          <h2 className="text-3xl font-bold uppercase text-gray-700 dark:text-white mb-8 tracking-tight">BERITA TERKAIT</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
             
@@ -349,29 +348,29 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
                 <img 
                   src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=250&fit=crop" 
                   alt="BPKH" 
-                  className="w-40 h-28 object-cover rounded-sm flex-shrink-0"
+                  className="w-40 h-28 object-cover rounded-sm flex-shrink-0 bg-gray-100 dark:bg-gray-800"
                 />
                 <div>
                   <div className="flex items-center gap-2 mb-2 text-[11px] uppercase font-bold tracking-wide">
                     <img src="https://i.pravatar.cc/150?u=dimas" className="w-5 h-5 rounded-full grayscale" alt="author"/>
-                    <span className="text-gray-800">DIMAS ANUGERAH</span>
-                    <span className="font-medium text-gray-400 normal-case ml-1">Senin, 23 Mei 2024</span>
+                    <span className="text-gray-800 dark:text-gray-300">DIMAS ANUGERAH</span>
+                    <span className="font-medium text-gray-400 dark:text-gray-500 normal-case ml-1">Senin, 23 Mei 2024</span>
                   </div>
-                  <h3 className="font-bold text-md leading-snug group-hover:text-red-600 transition-colors uppercase text-gray-900">
+                  <h3 className="font-bold text-md leading-snug group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors uppercase text-gray-900 dark:text-gray-100">
                     AGAR EFISIEN, AKADEMISI USUL BPKH DAN BADAN PENYELENGGARA HAJI DILEBUR
                   </h3>
                 </div>
               </div>
 
               {/* Text Links */}
-              <div className="space-y-5 mt-6 border-t border-gray-100 pt-5">
+              <div className="space-y-5 mt-6 border-t border-gray-100 dark:border-gray-800 pt-5">
                  <div className="cursor-pointer group">
-                    <h4 className="font-bold text-sm leading-relaxed text-gray-800 group-hover:text-red-600 uppercase">
+                    <h4 className="font-bold text-sm leading-relaxed text-gray-800 dark:text-gray-300 group-hover:text-red-600 dark:group-hover:text-red-500 uppercase">
                       JADI KETUA KOMISI IV, TITIEK SOEHARTO SIAP PERCEPAT SWASEMBADA & KETAHANAN PANGAN
                     </h4>
                  </div>
                  <div className="cursor-pointer group">
-                    <h4 className="font-bold text-sm leading-relaxed text-gray-800 group-hover:text-red-600 uppercase">
+                    <h4 className="font-bold text-sm leading-relaxed text-gray-800 dark:text-gray-300 group-hover:text-red-600 dark:group-hover:text-red-500 uppercase">
                       KEJAGUNG TANGKAP TIGA HAKIM PN SURABAYA YANG BERI VONIS BEBAS RONALD TANNUR
                     </h4>
                  </div>
@@ -385,29 +384,29 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
                 <img 
                   src="https://images.unsplash.com/photo-1555848962-6e79363ec58f?w=400&h=250&fit=crop" 
                   alt="KPK" 
-                  className="w-40 h-28 object-cover rounded-sm flex-shrink-0"
+                  className="w-40 h-28 object-cover rounded-sm flex-shrink-0 bg-gray-100 dark:bg-gray-800"
                 />
                 <div>
                   <div className="flex items-center gap-2 mb-2 text-[11px] uppercase font-bold tracking-wide">
                     <img src="https://i.pravatar.cc/150?u=george" className="w-5 h-5 rounded-full grayscale" alt="author"/>
-                    <span className="text-gray-800">GEORGE ASEP</span>
-                    <span className="font-medium text-gray-400 normal-case ml-1">Senin, 23 Mei 2024</span>
+                    <span className="text-gray-800 dark:text-gray-300">GEORGE ASEP</span>
+                    <span className="font-medium text-gray-400 dark:text-gray-500 normal-case ml-1">Senin, 23 Mei 2024</span>
                   </div>
-                  <h3 className="font-bold text-md leading-snug group-hover:text-red-600 transition-colors uppercase text-gray-900">
+                  <h3 className="font-bold text-md leading-snug group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors uppercase text-gray-900 dark:text-gray-100">
                     KPK PANGGIL MANTAN PEJABAT DITJEN PAJAK TERKAIT KLARIFIKASI LHKPN
                   </h3>
                 </div>
               </div>
 
               {/* Text Links */}
-              <div className="space-y-5 mt-6 border-t border-gray-100 pt-5">
+              <div className="space-y-5 mt-6 border-t border-gray-100 dark:border-gray-800 pt-5">
                  <div className="cursor-pointer group">
-                    <h4 className="font-bold text-sm leading-relaxed text-gray-800 group-hover:text-red-600 uppercase">
+                    <h4 className="font-bold text-sm leading-relaxed text-gray-800 dark:text-gray-300 group-hover:text-red-600 dark:group-hover:text-red-500 uppercase">
                       PEMERINTAH SIAPKAN ANGGARAN RP 71 TRILIUN UNTUK PROGRAM MAKAN BERGIZI GRATIS
                     </h4>
                  </div>
                  <div className="cursor-pointer group">
-                    <h4 className="font-bold text-sm leading-relaxed text-gray-800 group-hover:text-red-600 uppercase">
+                    <h4 className="font-bold text-sm leading-relaxed text-gray-800 dark:text-gray-300 group-hover:text-red-600 dark:group-hover:text-red-500 uppercase">
                       PRESIDEN JOKOWI RESMIKAN BENDUNGAN AMERORO DI SULAWESI TENGGARA
                     </h4>
                  </div>
@@ -420,86 +419,57 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
       </main>
 
       {/* VISUAL SLIDER POSTER SECTION */}
-      {/* Update: Menghapus border-t border-gray-100 (divider atas) */}
-      <div className="w-full bg-white relative py-12 mt-4 pb-24 overflow-hidden">
+      <div className="w-full bg-white dark:bg-[#0A0A0A] relative py-12 mt-4 pb-24 overflow-hidden transition-colors">
         
-        {/* Update: Mengubah padding container agar lebih lebar (menghapus px-8 md:px-20 lg:px-32) */}
-        {/* Menggunakan max-w-full atau max-w-7xl dengan padding standar agar menyentuh sisi ke sisi secara proporsional */}
         <div className="container mx-auto px-4 relative">
             
             {/* Background Watermark */}
-            <h2 className="absolute -top-12 -left-4 text-[100px] md:text-[140px] font-black text-gray-100/80 tracking-tighter select-none z-0 pointer-events-none uppercase -rotate-6 transform origin-bottom-left">
+            <h2 className="absolute -top-12 -left-4 text-[100px] md:text-[140px] font-black text-gray-100/80 dark:text-gray-800/30 tracking-tighter select-none z-0 pointer-events-none uppercase -rotate-6 transform origin-bottom-left transition-colors">
                 VISUAL
             </h2>
             
             <div className="relative z-10 pt-16">
-            {/* Grid poster tetap, namun karena container lebih lebar, poster akan otomatis melebar */}
             <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:pb-0 scrollbar-hide">
                 
-                {/* Poster 1: PRESIDEN */}
-                <div className="min-w-[85%] sm:min-w-0 snap-center relative group cursor-pointer overflow-hidden h-[700px] shadow-lg">
-                <img 
-                    src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=600&auto=format&fit=crop" 
-                    alt="Presiden" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                </div>
-
-                {/* Poster 2: BRICS */}
-                <div className="min-w-[85%] sm:min-w-0 snap-center relative group cursor-pointer overflow-hidden h-[700px] shadow-lg">
-                <img 
-                    src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=600&auto=format&fit=crop" 
-                    alt="BRICS" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                </div>
-
-                {/* Poster 3: BPOM */}
-                <div className="min-w-[85%] sm:min-w-0 snap-center relative group cursor-pointer overflow-hidden h-[700px] shadow-lg">
-                <img 
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop" 
-                    alt="BPOM" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                </div>
-
-                {/* Poster 4: PRIORITAS */}
-                <div className="min-w-[85%] sm:min-w-0 snap-center relative group cursor-pointer overflow-hidden h-[700px] shadow-lg">
-                <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop" 
-                    alt="Prioritas" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                </div>
+                {/* Posters */}
+                {['https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=600&auto=format&fit=crop', 
+                  'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=600&auto=format&fit=crop',
+                  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop',
+                  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop'
+                ].map((src, i) => (
+                  <div key={i} className="min-w-[85%] sm:min-w-0 snap-center relative group cursor-pointer overflow-hidden h-[700px] shadow-lg border border-transparent dark:border-gray-800 rounded-sm">
+                    <img src={src} alt="Poster" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                ))}
 
             </div>
 
             {/* Pagination Dots */}
             <div className="flex justify-center gap-3 mt-10">
-             <button className="w-2.5 h-2.5 rounded-full bg-gray-300 hover:bg-gray-800 transition-colors"></button>
-             <button className="w-2.5 h-2.5 rounded-full bg-gray-800"></button>
-             <button className="w-2.5 h-2.5 rounded-full bg-gray-300 hover:bg-gray-800 transition-colors"></button>
+             <button className="w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-400 transition-colors"></button>
+             <button className="w-2.5 h-2.5 rounded-full bg-gray-800 dark:bg-gray-200"></button>
+             <button className="w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-400 transition-colors"></button>
           </div>
           </div>
         </div>
       </div>
 
-      {/* BERITA TERKINI SECTION (New Centered Vertical List) */}
-      <div className="max-w-4xl mx-auto bg-gray-50/50 py-16 overflow-hidden">
+      {/* BERITA TERKINI SECTION */}
+      <div className="max-w-4xl mx-auto py-16 overflow-hidden transition-colors">
         <div className="container mx-auto px-4 relative">
           
           {/* Background Watermark Centered */}
           <div className="absolute -top-12 left-0 right-0 flex justify-center z-0 pointer-events-none select-none overflow-hidden">
-            <h2 className="text-[100px] md:text-[150px] font-black text-gray-200/60 uppercase tracking-tighter leading-none text-center">
+            <h2 className="text-[100px] md:text-[150px] font-black text-gray-200/60 dark:text-gray-800/30 uppercase tracking-tighter leading-none text-center transition-colors">
               BERITA<br/>TERKINI
             </h2>
           </div>
 
           <div className="relative z-10 pt-52 space-y-4">
              {latestNews.map((news) => (
-               <div key={news.id} className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 items-center group cursor-pointer hover:shadow-md transition-all">
+               <div key={news.id} className="bg-white dark:bg-[#0A0A0A] p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row gap-6 items-center group cursor-pointer hover:shadow-md transition-all">
                   {/* Image */}
-                  <div className="w-full md:w-1/3 aspect-[4/3] overflow-hidden rounded-md">
+                  <div className="w-full md:w-1/3 aspect-[4/3] overflow-hidden rounded-md bg-gray-100 dark:bg-gray-900">
                     <img 
                       src={news.image} 
                       alt={news.title} 
@@ -512,11 +482,11 @@ export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCate
                     <div className="flex items-center gap-3 mb-3">
                        <img src={`https://i.pravatar.cc/150?u=${news.id}`} className="w-8 h-8 rounded-full grayscale" alt="author"/>
                        <div className="flex flex-col">
-                          <span className="text-[10px] font-bold uppercase text-gray-900 tracking-wide">{news.author}</span>
-                          <span className="text-[10px] text-gray-400 font-medium">{news.date}</span>
+                          <span className="text-[10px] font-bold uppercase text-gray-900 dark:text-gray-300 tracking-wide">{news.author}</span>
+                          <span className="text-[10px] text-gray-400 dark:text-gray-600 font-medium">{news.date}</span>
                        </div>
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold uppercase text-gray-900 leading-tight group-hover:text-red-600 transition-colors">
+                    <h3 className="text-xl md:text-2xl font-bold uppercase text-gray-900 dark:text-gray-100 leading-tight group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors">
                       {news.title}
                     </h3>
                   </div>

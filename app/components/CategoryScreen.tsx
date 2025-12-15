@@ -104,7 +104,7 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
   }).map((item, index) => ({ ...item, id: 300 + index }));
 
   return (
-    <div className="min-h-screen bg-white font-sans text-black">
+    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] font-sans text-black dark:text-white transition-colors duration-300">
       <HeaderSection onNavigateToCategory={onNavigateToCategory} />
       
       {/* ================= HERO SECTION (FULL SCREEN) ================= */}
@@ -148,18 +148,17 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
 
         {/* KANAN: Sidebar List */}
         <div className="relative z-20 lg:w-[35%] w-full flex flex-col justify-center min-h-[40vh] lg:min-h-screen order-2 lg:order-2">
-          {/* 
-            Mobile: Solid Background (covers the fixed bg image behind it)
+          {/* Mobile: Solid Background (covers the fixed bg image behind it)
             Desktop: Transparent/Overlay Background
           */}
           <div className="bg-white dark:bg-[#0a0a0a] lg:bg-black/50 lg:backdrop-blur-sm 
                 h-[60vh] w-full 
-                border border-gray-800 rounded-lg lg:-ml-40">
+                border border-gray-800 rounded-lg lg:-ml-40 transition-colors duration-300">
             <div className="p-8 lg:p-12 space-y-8 overflow-y-auto max-h-screen custom-scrollbar h-full flex flex-col justify-center">
               {sideStories.map((story) => (
                 <div key={story.id} className="group flex items-center space-x-6 cursor-pointer">
                   <div className="flex-shrink-0">
-                    <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden bg-gray-200 lg:bg-gray-800 transition-all duration-300 shadow-md">
+                    <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800 transition-all duration-300 shadow-md">
                       <img 
                         src={story.image} 
                         alt={story.title} 
@@ -171,7 +170,7 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
                     <h3 className="text-sm lg:text-[15px] font-bold uppercase leading-tight text-black dark:text-white lg:text-gray-100 group-hover:text-red-500 transition-colors">
                       {story.title}
                     </h3>
-                    <p className="text-xs text-gray-500 lg:text-gray-400 mt-2 font-medium tracking-wide">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium tracking-wide">
                       {story.date}
                     </p>
                   </div>
@@ -184,13 +183,13 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
       </section>
 
       {/* ================= CATEGORY SECTION ================= */}
-      <section className="bg-white text-black pt-16 pb-8">
+      <section className="bg-white dark:bg-[#0A0A0A] text-black dark:text-white pt-16 pb-8 transition-colors duration-300">
         <div className="container mx-auto px-4">
           
           {/* Header Category */}
           <div className="flex items-center mb-10">
             <h2 className="text-3xl font-black uppercase tracking-tight mr-6">CATEGORY</h2>
-            <div className="flex-grow h-px bg-gray-300"></div>
+            <div className="flex-grow h-px bg-gray-300 dark:bg-gray-700"></div>
           </div>
 
           {/* Grid Layout */}
@@ -198,47 +197,47 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
             
             {/* COLUMN 1 */}
             <div className="lg:col-span-4 flex flex-col space-y-4">
-               <div className="w-full h-full aspect-video overflow-hidden rounded-sm bg-gray-200">
+               <div className="w-full h-full aspect-video overflow-hidden rounded-sm bg-gray-200 dark:bg-gray-800">
                  <img src={categoryLeftStory.image} alt={categoryLeftStory.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                </div>
-               <div className="flex items-center space-x-2 text-xs text-gray-500 mt-2">
-                  <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Author" className="w-full h-full object-cover" /></div>
-                  <span className="font-bold text-black uppercase">{categoryLeftStory.author}</span>
-                  <span className="text-gray-300">|</span>
+               <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400 mt-2">
+                  <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-700 overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Author" className="w-full h-full object-cover" /></div>
+                  <span className="font-bold text-black dark:text-white uppercase">{categoryLeftStory.author}</span>
+                  <span className="text-gray-300 dark:text-gray-600">|</span>
                   <span>{categoryLeftStory.date}</span>
                </div>
-               <h3 className="text-lg font-bold uppercase leading-tight hover:text-red-600 cursor-pointer transition-colors">{categoryLeftStory.title}</h3>
+               <h3 className="text-lg font-bold uppercase leading-tight hover:text-red-600 dark:hover:text-red-500 cursor-pointer transition-colors">{categoryLeftStory.title}</h3>
             </div>
 
             {/* COLUMN 2 */}
             <div className="lg:col-span-4 flex flex-col space-y-10">
-              <div className="flex flex-col space-y-3 pb-8 border-b border-gray-200">
-                 <div className="flex items-center space-x-2 text-xs text-gray-500">
-                    <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Author" className="w-full h-full object-cover" /></div>
-                    <span className="font-bold text-black uppercase">{categoryMiddleStories[0].author}</span>
-                    <span className="text-gray-300">|</span>
+              <div className="flex flex-col space-y-3 pb-8 border-b border-gray-200 dark:border-gray-800">
+                 <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-700 overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Author" className="w-full h-full object-cover" /></div>
+                    <span className="font-bold text-black dark:text-white uppercase">{categoryMiddleStories[0].author}</span>
+                    <span className="text-gray-300 dark:text-gray-600">|</span>
                     <span>{categoryMiddleStories[0].date}</span>
                  </div>
-                 <h3 className="text-lg font-bold uppercase leading-tight hover:text-red-600 cursor-pointer transition-colors">{categoryMiddleStories[0].title}</h3>
+                 <h3 className="text-lg font-bold uppercase leading-tight hover:text-red-600 dark:hover:text-red-500 cursor-pointer transition-colors">{categoryMiddleStories[0].title}</h3>
               </div>
               <div className="flex flex-col space-y-4">
-                 <div className="w-full h-full aspect-video overflow-hidden rounded-sm bg-gray-200">
+                 <div className="w-full h-full aspect-video overflow-hidden rounded-sm bg-gray-200 dark:bg-gray-800">
                    <img src={categoryMiddleStories[1].image} alt={categoryMiddleStories[1].title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                  </div>
-                 <div className="flex items-center space-x-2 text-xs text-gray-500 mt-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Author" className="w-full h-full object-cover" /></div>
-                    <span className="font-bold text-black uppercase">{categoryMiddleStories[1].author}</span>
-                    <span className="text-gray-300">|</span>
+                 <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400 mt-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-700 overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Author" className="w-full h-full object-cover" /></div>
+                    <span className="font-bold text-black dark:text-white uppercase">{categoryMiddleStories[1].author}</span>
+                    <span className="text-gray-300 dark:text-gray-600">|</span>
                     <span>{categoryMiddleStories[1].date}</span>
                  </div>
-                 <h3 className="text-lg font-bold uppercase leading-tight hover:text-red-600 cursor-pointer transition-colors">{categoryMiddleStories[1].title}</h3>
+                 <h3 className="text-lg font-bold uppercase leading-tight hover:text-red-600 dark:hover:text-red-500 cursor-pointer transition-colors">{categoryMiddleStories[1].title}</h3>
               </div>
             </div>
 
             {/* COLUMN 3: Iklan */}
             <div className="lg:col-span-4">
-              <div className="w-full h-full min-h-[300px] bg-gray-200 flex items-center justify-center text-white font-bold text-2xl tracking-widest rounded-sm">
-                <span className="text-gray-400">ADS</span>
+              <div className="w-full h-full min-h-[300px] bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-white font-bold text-2xl tracking-widest rounded-sm">
+                <span className="text-gray-400 dark:text-gray-600">ADS</span>
               </div>
             </div>
 
@@ -247,8 +246,8 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
       </section>
 
       {/* ================= LATEST NEWS SECTION (NEW) ================= */}
-      <section className="bg-white text-black pb-20">
-        <div className="container mx-auto px-4 border-t border-gray-200 pt-10">
+      <section className="bg-white dark:bg-[#0A0A0A] text-black dark:text-white pb-20 transition-colors duration-300">
+        <div className="container mx-auto px-4 border-t border-gray-200 dark:border-gray-800 pt-10">
           
           <div className="flex flex-col lg:flex-row gap-12">
             
@@ -256,7 +255,7 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
             <div className="lg:w-8/12 w-full">
               <div className="flex flex-col space-y-2">
                 {latestNewsItems.map((item) => (
-                  <div key={item.id} className="flex flex-col md:flex-row gap-6 group cursor-pointer border-b border-gray-100 last:border-0">
+                  <div key={item.id} className="flex flex-col md:flex-row gap-6 group cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-0">
                     {/* Thumbnail Image */}
                     <div className="md:w-5/12 w-full aspect-video md:aspect-[4/3] overflow-hidden rounded-xs shrink-0">
                        <img 
@@ -270,17 +269,17 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
                     <div className="flex flex-col justify-center -mt-12">
                        {/* Meta Header */}
                        <div className="flex items-center space-x-3 mb-3">
-                          <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-700 overflow-hidden shrink-0">
                              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Author" className="w-full h-full object-cover" />
                           </div>
-                          <div className="flex flex-col md:flex-row md:items-center text-xs text-gray-500 font-medium">
-                            <span className="font-bold text-black uppercase mr-2">{item.author}</span>
-                            <span className="hidden md:inline text-gray-300 mr-2">|</span>
+                          <div className="flex flex-col md:flex-row md:items-center text-xs text-gray-500 dark:text-gray-400 font-medium">
+                            <span className="font-bold text-black dark:text-white uppercase mr-2">{item.author}</span>
+                            <span className="hidden md:inline text-gray-300 dark:text-gray-600 mr-2">|</span>
                             <span>{item.date}</span>
                           </div>
                        </div>
                        {/* Title */}
-                       <h3 className="text-xl md:text-2xl font-bold uppercase leading-tight group-hover:text-red-600 transition-colors">
+                       <h3 className="text-xl md:text-2xl font-bold uppercase leading-tight group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors">
                          {item.title}
                        </h3>
                     </div>
@@ -288,7 +287,7 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
                 ))}
 
                 {/* Button Load More */}
-                <button className="w-full py-4 bg-white border border-black hover:bg-black hover:text-white text-black font-bold uppercase tracking-widest text-sm transition-colors rounded-sm mt-4">
+                <button className="w-full py-4 bg-white dark:bg-[#1a1a1a] border border-black dark:border-gray-600 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black dark:text-white font-bold uppercase tracking-widest text-sm transition-colors rounded-sm mt-4">
                   Muat lagi
                 </button>
               </div>
@@ -300,24 +299,24 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
                  {/* Sidebar Header */}
                  <div className="flex items-center mb-8">
                     <h2 className="text-xl font-black uppercase tracking-tight mr-4 whitespace-nowrap">BERITA TERKINI</h2>
-                    <div className="flex-grow h-px bg-gray-300"></div>
+                    <div className="flex-grow h-px bg-gray-300 dark:bg-gray-700"></div>
                  </div>
 
                  {/* News List Text Only */}
                  <div className="flex flex-col space-y-6">
                    {trendingNewsItems.map((item) => (
-                     <div key={item.id} className="group cursor-pointer border-b border-gray-100 pb-4 last:border-0">
-                        <div className="text-xs font-bold text-gray-500 uppercase mb-1">{item.author}</div>
-                        <h4 className="text-sm font-bold uppercase leading-snug mb-2 group-hover:text-red-600 transition-colors">
+                     <div key={item.id} className="group cursor-pointer border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0">
+                        <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">{item.author}</div>
+                        <h4 className="text-sm font-bold uppercase leading-snug mb-2 group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors">
                           {item.title}
                         </h4>
-                        <div className="text-[10px] text-gray-400 font-medium">{item.date}</div>
+                        <div className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">{item.date}</div>
                      </div>
                    ))}
                  </div>
 
                  {/* Button Index */}
-                 <button className="w-full py-4 border border-gray-300 hover:bg-black hover:text-white hover:border-black text-gray-500 font-bold uppercase tracking-widest text-sm transition-all rounded-sm mt-8">
+                 <button className="w-full py-4 border border-gray-300 dark:border-gray-700 hover:bg-black hover:text-white hover:border-black dark:hover:bg-white dark:hover:text-black text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest text-sm transition-all rounded-sm mt-8">
                    INDEKS BERITA
                  </button>
                </div>

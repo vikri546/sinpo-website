@@ -2,35 +2,35 @@
 import React, { useState, useEffect } from "react";
 import { Search, Menu, Moon, Sun, User, X as CloseIcon } from "lucide-react";
 import { useTheme } from "./ThemeToggle";
-import LogoLight from "../images/sinpo.svg"
-import LogoDark from "../images/sinpodark.svg"
+import LogoLight from "../images/sinpo.svg";
+import LogoDark from "../images/sinpodark.svg";
 
-// ... (Social Icons tetap sama) ...
-const SocialIcon = ({ children }) => (
+// --- Components Helper ---
+const SocialIcon = ({ children }: { children: React.ReactNode }) => (
   <div className="text-[#1a1a1a] dark:text-gray-300 hover:text-[#D91B1B] dark:hover:text-[#D91B1B] transition-colors duration-200 cursor-pointer">
     {children}
   </div>
 );
 
-const TwitterIcon = ({ size }) => (
+const TwitterIcon = ({ size }: { size: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 12 12" fill="currentColor">
     <path d="M.076 0H3.61l3.145 4.498L10.53 0h1.129L7.185 5.114L12 12H8.468L5.183 7.303L1.128 12H0l4.753-5.312zM1.47.706l7.404 10.588h1.733L3.203.706z" />
   </svg>
 );
 
-const InstagramIcon = ({ size }) => (
+const InstagramIcon = ({ size }: { size: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 32 32" fill="currentColor">
     <path d="M16 0c-4.349 0-4.891.021-6.593.093c-1.709.084-2.865.349-3.885.745a7.847 7.847 0 0 0-2.833 1.849A7.757 7.757 0 0 0 .84 5.52C.444 6.54.179 7.696.095 9.405c-.077 1.703-.093 2.244-.093 6.593s.021 4.891.093 6.593c.084 1.704.349 2.865.745 3.885a7.847 7.847 0 0 0 1.849 2.833a7.757 7.757 0 0 0 2.833 1.849c1.02.391 2.181.661 3.885.745c1.703.077 2.244.093 6.593.093s4.891-.021 6.593-.093c1.704-.084 2.865-.355 3.885-.745a7.847 7.847 0 0 0-1.849-2.833A7.716 7.716 0 0 0 26.478.838c-1.02-.396-2.181-.661-3.885-.745C20.89.016 20.349 0 16 0zm0 2.88c4.271 0 4.781.021 6.469.093c1.557.073 2.405.333 2.968.553a4.989 4.989 0 0 1 1.844 1.197a4.931 4.931 0 0 1 1.192 1.839c.22.563.48 1.411.553 2.968c.072 1.688.093 2.199.093 6.469s-.021 4.781-.099 6.469c-.084 1.557-.344 2.405-.563 2.968c-.303.751-.641 1.276-1.199 1.844a5.048 5.048 0 0 1-1.844 1.192c-.556.22-1.416.48-2.979.553c-1.697.072-2.197.093-6.479.093s-4.781-.021-6.48-.099c-1.557-.084-2.416-.344-2.979-.563c-.76-.303-1.281-.641-1.839-1.199c-.563-.563-.921-1.099-1.197-1.844c-.224-.556-.48-1.416-.563-2.979c-.057-1.677-.084-2.197-.084-6.459c0-4.26.027-4.781.084-6.479c.083-1.563.339-2.421.563-2.979c.276-.761.635-1.281 1.197-1.844c.557-.557 1.079-.917 1.839-1.199c.563-.219 1.401-.479 2.964-.557c1.697-.061 2.197-.083 6.473-.083zm0 4.907A8.21 8.21 0 0 0 7.787 16A8.21 8.21 0 0 0 16 24.213A8.21 8.21 0 0 0 24.213 16A8.21 8.21 0 0 0 16 7.787zm0 13.546c-2.948 0-5.333-2.385-5.333-5.333s2.385-5.333 5.333-5.333c2.948 0 5.333 2.385 5.333 5.333S18.948 21.333 16 21.333zM26.464 7.459a1.923 1.923 0 0 1-1.923 1.921a1.919 1.919 0 1 1 0-3.838c1.057 0 1.923.86 1.923 1.917z" />
   </svg>
 );
 
-const FacebookIcon = ({ size }) => (
+const FacebookIcon = ({ size }: { size: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" stroke="currentColor">
     <path fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 2h-3a5 5 0 0 0-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2Z" />
   </svg>
 );
 
-const TiktokIcon = ({ size }) => (
+const TiktokIcon = ({ size }: { size: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" stroke="currentColor">
     <path fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20.2 10.1c0 .22-.18.401-.4.39a8 8 0 0 1-3.362-.93c-.281-.15-.638.045-.638.364V15.5a6 6 0 1 1-6.4-5.987a.38.38 0 0 1 .4.387v2.8c0 .22-.18.397-.398.433A2.4 2.4 0 1 0 12.2 15.5V2.9a.4.4 0 0 1 .4-.4h2.8a.43.43 0 0 1 .418.4a4.4 4.4 0 0 0 3.983 3.982c.22.02.4.197.4.418z" />
   </svg>
@@ -44,7 +44,9 @@ export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [dateStr, setDateStr] = useState("");
-  const { theme, toggleTheme } = useTheme();
+  
+  // Ambil state dari ThemeToggle
+  const { theme, toggleTheme, isMounted } = useTheme();
 
   useEffect(() => {
     const updateDate = () => {
@@ -72,6 +74,14 @@ export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
     "GALERI", "OLAHRAGA", "BUDAYA", "INDEKS",
   ];
 
+  // Fungsi helper untuk menentukan logo yang ditampilkan
+  const getLogoSrc = () => {
+    // Tampilkan logo default (Light) jika belum mounted untuk menghindari hydration mismatch
+    // ATAU jika tema memang 'light'
+    if (!isMounted) return LogoLight.src || LogoLight;
+    return theme === 'light' ? (LogoLight.src || LogoLight) : (LogoDark.src || LogoDark);
+  };
+
   return (
     <header className="w-full bg-white dark:bg-[#0A0A0A] transition-colors duration-300 font-sans border-b border-gray-100 dark:border-gray-800 relative z-50 sticky top-0">
       
@@ -85,9 +95,9 @@ export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
            <div className="flex justify-center w-auto">
              <a href="/" className="block">
                 <img 
-                  src={theme === 'light' ? (LogoLight.src || LogoLight) : (LogoDark.src || LogoDark)}
+                  src={getLogoSrc()}
                   alt="SIN PO Logo" 
-                  className="h-6 w-auto object-contain dark:brightness-0 dark:invert"
+                  className="h-6 w-auto object-contain"
                 />
              </a>
            </div>
@@ -98,12 +108,22 @@ export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
                 className="w-12 h-6 rounded-full bg-gray-200 dark:bg-gray-700 relative transition-colors flex items-center px-1"
                 aria-label="Toggle Theme"
               >
-                 <div className={`w-4 h-4 rounded-full bg-white shadow-sm flex items-center justify-center transform transition-transform duration-300 ${theme === 'dark' ? 'translate-x-6' : 'translate-x-0'}`}>
-                    {theme === 'dark' 
-                      ? <Moon size={10} className="text-black fill-black" /> 
-                      : <Sun size={10} className="text-yellow-500 fill-yellow-500" />
-                    }
-                 </div>
+                 {/* Circle Knob - Posisi diatur oleh translate */}
+                 {isMounted && (
+                   <div 
+                     className={`w-4 h-4 rounded-full bg-white shadow-sm flex items-center justify-center transform transition-transform duration-300 ${
+                       theme === 'dark' ? 'translate-x-6' : 'translate-x-0'
+                     }`}
+                   >
+                      {theme === 'dark' 
+                        ? <Moon size={10} className="text-black fill-black" /> 
+                        : <Sun size={10} className="text-yellow-500 fill-yellow-500" />
+                      }
+                   </div>
+                 )}
+                 {!isMounted && (
+                    <div className="w-4 h-4 rounded-full bg-white shadow-sm" />
+                 )}
               </button>
               
               <div className="h-5 w-px bg-gray-300 dark:bg-gray-700 mx-1"></div>
@@ -164,19 +184,19 @@ export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
             </div>
 
             <div className="hidden lg:flex items-center gap-4 pl-4 border-l border-gray-200 dark:border-gray-700">
-              <SocialIcon><TwitterIcon size="14" /></SocialIcon>
-              <SocialIcon><InstagramIcon size="16" /></SocialIcon>
-              <SocialIcon><FacebookIcon size="16" /></SocialIcon>
-              <SocialIcon><TiktokIcon size="16" /></SocialIcon>
+              <SocialIcon><TwitterIcon size={14} /></SocialIcon>
+              <SocialIcon><InstagramIcon size={16} /></SocialIcon>
+              <SocialIcon><FacebookIcon size={16} /></SocialIcon>
+              <SocialIcon><TiktokIcon size={16} /></SocialIcon>
             </div>
           </div>
 
           <div className="w-auto md:w-1/3 flex justify-center absolute left-1/2 transform -translate-x-1/2">
             <a href="/" className="block group">
               <img 
-                src={theme === 'light' ? (LogoLight.src || LogoLight) : (LogoDark.src || LogoDark)}
+                src={getLogoSrc()}
                 alt="SIN PO Logo" 
-                className="h-8 md:h-12 w-auto object-contain dark:brightness-0 dark:invert transition-transform group-hover:scale-105"
+                className="h-8 md:h-12 w-auto object-contain"
               />
             </a>
           </div>
@@ -203,12 +223,21 @@ export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
               className="w-14 h-7 rounded-full bg-gray-200 dark:bg-gray-700 relative transition-colors flex items-center px-1"
               aria-label="Toggle Theme"
             >
-               <div className={`w-5 h-5 rounded-full bg-white shadow-sm flex items-center justify-center transform transition-transform duration-300 ${theme === 'dark' ? 'translate-x-[26px]' : 'translate-x-0'}`}>
-                  {theme === 'dark' 
-                    ? <Moon size={12} className="text-black fill-black" /> 
-                    : <Sun size={12} className="text-yellow-500 fill-yellow-500" />
-                  }
-               </div>
+               {isMounted && (
+                 <div 
+                   className={`w-5 h-5 rounded-full bg-white shadow-sm flex items-center justify-center transform transition-transform duration-300 ${
+                     theme === 'dark' ? 'translate-x-[26px]' : 'translate-x-0'
+                   }`}
+                 >
+                    {theme === 'dark' 
+                      ? <Moon size={12} className="text-black fill-black" /> 
+                      : <Sun size={12} className="text-yellow-500 fill-yellow-500" />
+                    }
+                 </div>
+               )}
+               {!isMounted && (
+                  <div className="w-5 h-5 rounded-full bg-white shadow-sm" />
+               )}
             </button>
           </div>
         </div>

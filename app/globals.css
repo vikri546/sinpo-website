@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
-/* Mengatur variabel warna dasar untuk Light & Dark Mode */
+/* PENTING: Baris ini memaksa Tailwind v4 untuk menggunakan strategi 'class' 
+   untuk dark mode, bukan strategi 'media' (sistem) defaultnya.
+   Tanpa ini, class="dark" di tag HTML tidak akan memicu style dark:bg-... 
+*/
+@variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     /* Light Mode Colors */
@@ -29,7 +34,7 @@
     transition-timing-function: ease;
   }
 
-  /* Kecuali untuk transform dan animations lain */
+  /* Kecuali untuk transform dan animations lain agar tidak conflict */
   *:where([class*="transform"], [class*="scale"], [class*="rotate"]) {
     transition-property: transform, background-color, border-color, color;
   }
