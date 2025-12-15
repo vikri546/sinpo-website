@@ -283,7 +283,7 @@ const ThirdSection = () => {
   const trendingTopics = [{ name: "Pemilu 2024", link: "#" }, { name: "Pembekalan Menteri", link: "#" }, { name: "Jakarta", link: "#" }, { name: "btc", link: "#" }, { name: "DPR", link: "#" }, { name: "Jakarta", link: "#" }, { name: "Kasus Travel", link: "#" }, { name: "eth", link: "#" }];
 
   return (
-    <section className="hidden md:block w-full bg-white dark:bg-[#0A0A0A] font-sans py-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+    <section className="hidden md:block w-full bg-gray-100 dark:bg-[#0A0A0A] font-sans py-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10"><h2 className="text-3xl font-black uppercase text-[#1a1a1a] dark:text-white tracking-tight">Tren Hari Ini</h2></div>
         <div className="relative">

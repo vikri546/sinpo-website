@@ -108,21 +108,24 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
       <HeaderSection onNavigateToCategory={onNavigateToCategory} />
       
       {/* ================= HERO SECTION (FULL SCREEN) ================= */}
-      <section className="relative w-full min-h-screen bg-black text-white flex flex-col lg:flex-row overflow-hidden">
+      <section className="relative w-full min-h-screen flex flex-col lg:flex-row overflow-hidden">
         
-        {/* KIRI: Berita Utama */}
-        <div className="relative lg:w-[65%] w-full p-8 lg:p-24 flex flex-col justify-end min-h-[60vh] lg:min-h-screen order-2 lg:order-1">
-          <div className="absolute inset-0 z-0">
-            <img 
-              src={mainStory.backgroundImage} 
-              alt="Main Story" 
-              className="w-full h-full object-cover grayscale brightness-50 contrast-125"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/20 to-transparent"></div>
-          </div>
+        {/* BACKGROUND IMAGE (FULL SCREEN DESKTOP) */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={mainStory.backgroundImage} 
+            alt="Main Story" 
+            className="w-full h-full object-cover grayscale brightness-50 contrast-125"
+          />
+          {/* Global Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/20 to-transparent"></div>
+        </div>
 
-          <div className="relative z-10 mt-10 lg:mt-0 max-w-4xl">
+        {/* KIRI: Berita Utama */}
+        <div className="relative z-10 lg:w-[65%] w-full p-8 lg:p-24 flex flex-col justify-end min-h-[60vh] lg:min-h-screen order-1 lg:order-1">
+          {/* Content Wrapper */}
+          <div className="mt-10 lg:mt-0 max-w-4xl text-white -translate-y-26">
             <div className="flex items-center space-x-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-gray-500 overflow-hidden border-2 border-gray-400">
                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60" alt="Author" className="w-full h-full object-cover" />
@@ -131,10 +134,10 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
                 {mainStory.author}
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold uppercase leading-none mb-8 tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold uppercase leading-none mb-8 tracking-tight shadow-black drop-shadow-lg">
               {mainStory.title}
             </h1>
-            <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-2xl mb-8">
+            <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-2xl mb-8 drop-shadow-md">
               {mainStory.excerpt}
             </p>
             <div className="inline-block bg-red-600 hover:bg-red-700 transition-colors text-white font-bold text-sm px-6 py-3 uppercase tracking-wide rounded-sm shadow-lg">
@@ -144,37 +147,45 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
         </div>
 
         {/* KANAN: Sidebar List */}
-        <div className="relative lg:w-[35%] w-full bg-[#0a0a0a] lg:border-l border-gray-800 flex flex-col justify-center min-h-[40vh] lg:min-h-screen order-1 lg:order-2 z-20">
-          <div className="p-8 lg:p-12 space-y-8 overflow-y-auto max-h-screen custom-scrollbar">
-            {sideStories.map((story) => (
-              <div key={story.id} className="group flex items-center space-x-6 cursor-pointer">
-                <div className="flex-shrink-0">
-                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden bg-gray-800 transition-all duration-300 shadow-md">
-                    <img 
-                      src={story.image} 
-                      alt={story.title} 
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0"
-                    />
+        <div className="relative z-20 lg:w-[35%] w-full flex flex-col justify-center min-h-[40vh] lg:min-h-screen order-2 lg:order-2">
+          {/* 
+            Mobile: Solid Background (covers the fixed bg image behind it)
+            Desktop: Transparent/Overlay Background
+          */}
+          <div className="bg-white dark:bg-[#0a0a0a] lg:bg-black/50 lg:backdrop-blur-sm 
+                h-[60vh] w-full 
+                border border-gray-800 rounded-lg lg:-ml-40">
+            <div className="p-8 lg:p-12 space-y-8 overflow-y-auto max-h-screen custom-scrollbar h-full flex flex-col justify-center">
+              {sideStories.map((story) => (
+                <div key={story.id} className="group flex items-center space-x-6 cursor-pointer">
+                  <div className="flex-shrink-0">
+                    <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden bg-gray-200 lg:bg-gray-800 transition-all duration-300 shadow-md">
+                      <img 
+                        src={story.image} 
+                        alt={story.title} 
+                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 lg:grayscale lg:group-hover:grayscale-0"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-sm lg:text-[15px] font-bold uppercase leading-tight text-black dark:text-white lg:text-gray-100 group-hover:text-red-500 transition-colors">
+                      {story.title}
+                    </h3>
+                    <p className="text-xs text-gray-500 lg:text-gray-400 mt-2 font-medium tracking-wide">
+                      {story.date}
+                    </p>
                   </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-sm lg:text-[15px] font-bold uppercase leading-tight text-white group-hover:text-red-500 transition-colors">
-                    {story.title}
-                  </h3>
-                  <p className="text-xs text-gray-400 mt-2 font-medium tracking-wide">
-                    {story.date}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
       </section>
 
       {/* ================= CATEGORY SECTION ================= */}
-      <section className="bg-white text-black pt-16 pb-8 px-4 lg:px-10">
-        <div className="w-full max-w-7xl mx-auto">
+      <section className="bg-white text-black pt-16 pb-8">
+        <div className="container mx-auto px-4">
           
           {/* Header Category */}
           <div className="flex items-center mb-10">
@@ -187,7 +198,7 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
             
             {/* COLUMN 1 */}
             <div className="lg:col-span-4 flex flex-col space-y-4">
-               <div className="w-full aspect-video overflow-hidden rounded-sm bg-gray-200">
+               <div className="w-full h-full aspect-video overflow-hidden rounded-sm bg-gray-200">
                  <img src={categoryLeftStory.image} alt={categoryLeftStory.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                </div>
                <div className="flex items-center space-x-2 text-xs text-gray-500 mt-2">
@@ -211,7 +222,7 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
                  <h3 className="text-lg font-bold uppercase leading-tight hover:text-red-600 cursor-pointer transition-colors">{categoryMiddleStories[0].title}</h3>
               </div>
               <div className="flex flex-col space-y-4">
-                 <div className="w-full aspect-video overflow-hidden rounded-sm bg-gray-200">
+                 <div className="w-full h-full aspect-video overflow-hidden rounded-sm bg-gray-200">
                    <img src={categoryMiddleStories[1].image} alt={categoryMiddleStories[1].title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                  </div>
                  <div className="flex items-center space-x-2 text-xs text-gray-500 mt-2">
@@ -236,27 +247,27 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
       </section>
 
       {/* ================= LATEST NEWS SECTION (NEW) ================= */}
-      <section className="bg-white text-black pb-20 px-4 lg:px-10">
-        <div className="w-full max-w-7xl mx-auto border-t border-gray-200 pt-10">
+      <section className="bg-white text-black pb-20">
+        <div className="container mx-auto px-4 border-t border-gray-200 pt-10">
           
           <div className="flex flex-col lg:flex-row gap-12">
             
             {/* LEFT COLUMN: News Feed (70%) */}
             <div className="lg:w-8/12 w-full">
-              <div className="flex flex-col space-y-10">
+              <div className="flex flex-col space-y-2">
                 {latestNewsItems.map((item) => (
-                  <div key={item.id} className="flex flex-col md:flex-row gap-6 group cursor-pointer border-b border-gray-100 pb-8 last:border-0">
+                  <div key={item.id} className="flex flex-col md:flex-row gap-6 group cursor-pointer border-b border-gray-100 last:border-0">
                     {/* Thumbnail Image */}
-                    <div className="md:w-5/12 w-full aspect-video md:aspect-[4/3] overflow-hidden rounded-sm bg-gray-200 shrink-0">
+                    <div className="md:w-5/12 w-full aspect-video md:aspect-[4/3] overflow-hidden rounded-xs shrink-0">
                        <img 
                         src={item.image} 
                         alt={item.title} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-[250px] object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
 
                     {/* Content */}
-                    <div className="flex flex-col justify-center">
+                    <div className="flex flex-col justify-center -mt-12">
                        {/* Meta Header */}
                        <div className="flex items-center space-x-3 mb-3">
                           <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden shrink-0">
@@ -277,7 +288,7 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
                 ))}
 
                 {/* Button Load More */}
-                <button className="w-full py-4 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold uppercase tracking-widest text-sm transition-colors rounded-sm mt-4">
+                <button className="w-full py-4 bg-white border border-black hover:bg-black hover:text-white text-black font-bold uppercase tracking-widest text-sm transition-colors rounded-sm mt-4">
                   Muat lagi
                 </button>
               </div>
@@ -285,7 +296,7 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
 
             {/* RIGHT COLUMN: Sidebar Berita Terkini (30%) */}
             <div className="lg:w-4/12 w-full">
-               <div className="sticky top-10">
+               <div className="sticky top-36">
                  {/* Sidebar Header */}
                  <div className="flex items-center mb-8">
                     <h2 className="text-xl font-black uppercase tracking-tight mr-4 whitespace-nowrap">BERITA TERKINI</h2>
@@ -316,6 +327,8 @@ const CategoryScreen = ({ onNavigateToHome, onNavigateToCategory }: CategoryScre
 
         </div>
       </section>
+
+      <FooterSection />
 
     </div>
   );
