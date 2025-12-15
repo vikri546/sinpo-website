@@ -71,7 +71,11 @@ const TiktokIcon = ({ size }) => (
   </svg>
 );
 
-export default function Header() {
+interface HeaderProps {
+  onNavigateToCategory?: () => void;
+}
+
+export default function Header({ onNavigateToCategory }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [theme, setTheme] = useState('light');
@@ -205,7 +209,18 @@ export default function Header() {
                  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
                `}</style>
                {navItems.map((item) => (
-                 <a key={item} href={`/category/${item.toLowerCase()}`} className="text-[11px] font-bold text-[#1a1a1a] dark:text-gray-300 whitespace-nowrap uppercase hover:text-[#D91B1B] transition-colors">
+                 <a 
+                   key={item} 
+                   href={item === "INDEKS" ? "#" : `/category/${item.toLowerCase()}`}
+                   onClick={(e) => {
+                     if (item === "INDEKS" && onNavigateToCategory) {
+                       e.preventDefault();
+                       onNavigateToCategory();
+                       setIsMobileMenuOpen(false);
+                     }
+                   }}
+                   className="text-[11px] font-bold text-[#1a1a1a] dark:text-gray-300 whitespace-nowrap uppercase hover:text-[#D91B1B] transition-colors"
+                 >
                     {item}
                  </a>
                ))}
@@ -322,7 +337,13 @@ export default function Header() {
                 {navItems.map((item) => (
                   <li key={item}>
                     <a
-                      href={`/category/${item.toLowerCase()}`}
+                      href={item === "INDEKS" ? "#" : `/category/${item.toLowerCase()}`}
+                      onClick={(e) => {
+                        if (item === "INDEKS" && onNavigateToCategory) {
+                          e.preventDefault();
+                          onNavigateToCategory();
+                        }
+                      }}
                       className="block px-5 py-3 text-[13px] font-bold text-[#1a1a1a] dark:text-gray-300 hover:text-[#D91B1B] dark:hover:text-white transition-colors tracking-wide border-b-2 border-transparent hover:border-[#D91B1B]"
                     >
                       {item}
@@ -367,9 +388,15 @@ export default function Header() {
               {navItems.map((item) => (
                 <a
                   key={item}
-                  href={`/category/${item.toLowerCase()}`}
+                  href={item === "INDEKS" ? "#" : `/category/${item.toLowerCase()}`}
                   className="px-3 py-2 text-sm font-bold text-[#1a1a1a] dark:text-gray-200 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-[#D91B1B] transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    if (item === "INDEKS" && onNavigateToCategory) {
+                      e.preventDefault();
+                      onNavigateToCategory();
+                    }
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   {item}
                 </a>

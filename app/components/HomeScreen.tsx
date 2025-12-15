@@ -16,6 +16,7 @@ import FooterSection from "./FooterSection";
 
 interface HomeScreenProps {
   onNavigateToDetail: () => void;
+  onNavigateToCategory: () => void;
 }
 
 // --- COMPONENTS ---
@@ -193,7 +194,7 @@ const SecondSection = () => {
         <section className="w-full bg-white dark:bg-[#0A0A0A] font-sans py-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <div className="hidden lg:block lg:col-span-4 bg-black dark:bg-[#111] text-white p-6 rounded-md h-fit top-24 shadow-lg sticky transition-colors">
+                    <div className="hidden lg:block lg:col-span-4 bg-black dark:bg-[#111] text-white p-6 rounded-md h-fit top-36 shadow-lg sticky transition-colors">
                         <div className="mb-6 pb-4">
                             <h2 className="text-3xl font-bold uppercase tracking-wider text-white">TDK KALAH PENTING</h2>
                             <div className="w-16 h-1 bg-red-500 mt-2"></div>
@@ -242,7 +243,7 @@ const SecondSection = () => {
                             <div className="relative border-l border-gray-200 dark:border-gray-800 ml-4 pl-8 flex flex-col gap-8">
                                 {recentNews.map((news) => (
                                     <div key={news.id} className="relative group cursor-pointer bg-white dark:bg-[#0A0A0A] hover:bg-gray-50 dark:hover:bg-[#111] p-4 rounded-lg transition-all border border-transparent hover:border-gray-100 dark:hover:border-gray-800 shadow-sm hover:shadow-md">
-                                        <div className="absolute -left-[39px] top-1/2 -translate-y-1/2 w-3 h-3 bg-white dark:bg-[#0A0A0A] rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-red-500 group-hover:scale-125 transition-all z-10"></div>
+                                        <div className="absolute -left-[40px] top-1/2 -translate-y-1/2 w-3 h-3 bg-white dark:bg-[#0A0A0A] rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:bg-red-500 group-hover:border-red-500 group-hover:scale-125 transition-all z-10"></div>
                                         <div className="flex flex-col md:flex-row gap-6 items-start">
                                             <div className="w-full md:w-56 h-36 flex-shrink-0 overflow-hidden rounded-md relative shadow-sm bg-gray-100 dark:bg-gray-900"><img src={news.image} alt={news.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" /></div>
                                             <div className="flex-1 flex flex-col justify-between h-36 py-1">
@@ -469,7 +470,7 @@ const SixthSection = () => {
                 </div>
               ))}
             </div>
-            <div className="mt-8"><button className="w-full bg-gray-50 dark:bg-[#111] hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black text-gray-600 dark:text-gray-400 font-bold py-3 rounded-sm transition-all text-sm uppercase tracking-wider border border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white hover:shadow-lg">Muat Berita Lainnya</button></div>
+            <div className="mt-8"><button className="w-full bg-white dark:bg-[#111] hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black text-gray-600 dark:text-gray-400 font-bold py-3 rounded-sm transition-all text-sm uppercase tracking-wider border border-black dark:border-gray-800 hover:border-black dark:hover:border-white hover:shadow-lg">Muat Berita Lainnya</button></div>
           </div>
           <div className="order-1 lg:order-2 lg:col-span-4 flex flex-col gap-12">
             <div className="relative">
@@ -554,10 +555,10 @@ const SeventhSection = () => {
 
 // 7. SEVENTH SECTION was up there (no changes needed to params but need to be careful with range)
 
-export default function HomeScreen({ onNavigateToDetail }: HomeScreenProps) {
+export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }: HomeScreenProps) {
   return (
     <>
-      <HeaderSection />
+      <HeaderSection onNavigateToCategory={onNavigateToCategory} />
       <FirstSection onNavigateToDetail={onNavigateToDetail} />
       <SecondSection />
       <ThirdSection />

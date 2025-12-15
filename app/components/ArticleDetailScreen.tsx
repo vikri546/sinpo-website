@@ -5,23 +5,24 @@ import FooterSection from './FooterSection';
 
 interface ArticleDetailScreenProps {
   onNavigateToHome?: () => void;
+  onNavigateToCategory?: () => void;
 }
 
-export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailScreenProps) {
+export default function ArticleDetailScreen({ onNavigateToHome, onNavigateToCategory }: ArticleDetailScreenProps) {
   // Data untuk sidebar widget
   const sidebarNews = [
     {
       id: 1,
       category: "POJOK SINPO",
       title: "PECINAN SEMARANG, TERGESER KEBIJAKAN KOLONIAL ...",
-      image: "https://images.unsplash.com/photo-1560964645-5c9f3e87d3a7?w=500&auto=format&fit=crop",
+      image: "https://www.owrite.id/wp-content/uploads/2025/12/Luban_17653769715179a927ffc-2ee5-4afd-95d5-8213ad1bfcc3-860x645.webp",
       isRedTitle: false
     },
     {
       id: 2,
       category: "BONGKAR",
       title: "POLEMIK KAMAR DAGANG INDUSTRI, ANINDYA VERSUS ARSJAD ...",
-      image: "https://images.unsplash.com/photo-1575320181282-9afab399332c?w=500&auto=format&fit=crop",
+      image: "https://www.owrite.id/wp-content/uploads/2025/12/Screenshot-2025-12-10-160356-420x280.webp",
       isRedTitle: true
     }
   ];
@@ -67,10 +68,21 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900">
-      <HeaderSection />
+      <HeaderSection onNavigateToCategory={onNavigateToCategory} />
       {/* Container Utama */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="container mx-auto px-4 py-8">
         
+        {/* Breadcrumb */}
+        <div className="flex items-center text-xs md:text-sm font-bold uppercase mb-4 text-gray-500">
+          <button onClick={onNavigateToHome} className="hover:text-red-600 transition-colors">
+            HOME
+          </button>
+          <span className="mx-2">/</span>
+          <span className="text-red-600 line-clamp-1">
+             TEGAS, PRABOWO KE PARA MENTERI: COPOT PEJABAT YANG TAK KERJA KERAS
+          </span>
+        </div>
+
         {/* Judul Artikel Utama */}
         <div className="mb-6 border-b pb-4">
           <h1 className="text-3xl md:text-4xl font-extrabold uppercase leading-tight tracking-tight mb-4">
@@ -98,7 +110,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
             {/* Gambar Utama */}
             <div className="mb-3">
               <img 
-                src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=1000&auto=format&fit=crop" 
+                src="https://www.owrite.id/wp-content/uploads/2025/12/Luban_1765522081433fb02b075-0084-416c-b134-9ee972d60efa-615x410.webp" 
                 alt="Presiden Prabowo Subianto" 
                 className="w-full h-auto object-cover rounded-sm aspect-video"
               />
@@ -127,7 +139,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
 
               {/* Kutipan 1 */}
               <div className="bg-gray-50 p-6 md:p-8 mb-8 mt-10 relative rounded-sm">
-                <span className="text-6xl text-black absolute -top-6 left-6 font-serif font-bold leading-none">“</span>
+                <span className="text-6xl text-black absolute -top-4 left-6 font-serif font-bold leading-none">“</span>
                 <p className="relative z-10 text-gray-900 leading-relaxed text-lg pt-2">
                   Bahkan ada pembicaraan oleh rakyat kita bahwa birokrasi pemerintah kita sering mempersulit, bukan mempermudah keperluan rakyat. Bahkan ada yang mengatakan kalau bisa dibikin sulit kenapa dibikin mudah. Ini saya minta menteri-menteri sekarang mari kita lebih berani, tidak ragu ragu untuk memberi pelayanan terbaik untuk rakyat kita," ujar Prabowo.
                 </p>
@@ -151,7 +163,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
 
               {/* Kutipan 2 */}
               <div className="bg-gray-50 p-6 md:p-8 mb-8 mt-10 relative rounded-sm">
-                <span className="text-6xl text-black absolute -top-6 left-6 font-serif font-bold leading-none">“</span>
+                <span className="text-6xl text-black absolute -top-4 left-6 font-serif font-bold leading-none">“</span>
                 <p className="relative z-10 text-gray-900 leading-relaxed text-lg pt-2">
                   Kalau Anda tidak puas dengan pejabat pejabat di bawah Anda, laporkan, kita segera ganti. Begitu banyak orang yang mau mengabdi. Tidak ada orang di sini yang kebal. Yang tidak patuh, tidak bekerja keras untuk bangsa dan negara dan rakyat. Saudara saya beri wewenang, copot dan suruh tinggal di rumah saja dari pada bikin susah kita, tegasnya.
                 </p>
@@ -165,11 +177,11 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
               </p>
 
               {/* Baca Juga Section */}
-              <div className="border border-gray-200 rounded-lg p-6 my-8 relative overflow-hidden bg-white shadow-sm">
+              <div className="p-6 my-8 relative overflow-hidden">
                 
                 {/* Watermark "S" Background */}
-                <div className="absolute -right-4 -bottom-10 pointer-events-none select-none z-0">
-                   <span className="font-serif text-[180px] leading-none text-red-50 opacity-80 italic">S</span>
+                <div className="absolute right-10 -bottom-2 pointer-events-none select-none z-0">
+                   <span className="font-serif text-[150px] leading-none text-red-50 opacity-1000 italic">S</span>
                 </div>
 
                 {/* Header Section dengan Garis */}
@@ -198,7 +210,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
               <div className="mb-4">
                 <h3 className="text-xl font-bold uppercase border-b-2 border-gray-200 inline-block pb-1 pr-4">
                   PROGRAM ANDALAN MAKAN BERGIZI
-                  <div className="h-[3px] w-1/2 bg-black mt-1 absolute"></div> 
+                  <div className="h-[3px] w-1/4 bg-black mt-1 absolute"></div> 
                 </h3>
               </div>
               
@@ -212,7 +224,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
           </div>
 
           {/* Kolom Kanan (Sidebar) */}
-          <div className="lg:col-span-4 space-y-8 lg:sticky lg:top-8 h-fit self-start">
+          <div className="lg:col-span-4 space-y-8 lg:sticky lg:top-36 h-fit self-start">
             
             {/* Widget: TDK KALAH PENTING */}
             <div className="bg-black dark:bg-[#111] text-white p-6 rounded-md shadow-lg transition-colors">
@@ -261,7 +273,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
               <div className="mb-8 cursor-pointer group">
                 <div className="overflow-hidden rounded-sm mb-3">
                   <img 
-                    src="https://images.unsplash.com/photo-1596529847208-d8d17e69c110?w=500&auto=format&fit=crop" 
+                    src="https://www.owrite.id/wp-content/uploads/2025/10/Ilustrasi-Emas-Batang-615x410.webp" 
                     alt="TNI"
                     className="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -413,7 +425,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
         
         {/* Update: Mengubah padding container agar lebih lebar (menghapus px-8 md:px-20 lg:px-32) */}
         {/* Menggunakan max-w-full atau max-w-7xl dengan padding standar agar menyentuh sisi ke sisi secara proporsional */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
+        <div className="container mx-auto px-4 relative">
             
             {/* Background Watermark */}
             <h2 className="absolute -top-12 -left-4 text-[100px] md:text-[140px] font-black text-gray-100/80 tracking-tighter select-none z-0 pointer-events-none uppercase -rotate-6 transform origin-bottom-left">
@@ -422,10 +434,10 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
             
             <div className="relative z-10 pt-16">
             {/* Grid poster tetap, namun karena container lebih lebar, poster akan otomatis melebar */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:pb-0 scrollbar-hide">
                 
                 {/* Poster 1: PRESIDEN */}
-                <div className="relative group cursor-pointer overflow-hidden h-[450px] shadow-lg">
+                <div className="min-w-[85%] sm:min-w-0 snap-center relative group cursor-pointer overflow-hidden h-[700px] shadow-lg">
                 <img 
                     src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=600&auto=format&fit=crop" 
                     alt="Presiden" 
@@ -434,7 +446,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
                 </div>
 
                 {/* Poster 2: BRICS */}
-                <div className="relative group cursor-pointer overflow-hidden h-[450px] shadow-lg">
+                <div className="min-w-[85%] sm:min-w-0 snap-center relative group cursor-pointer overflow-hidden h-[700px] shadow-lg">
                 <img 
                     src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=600&auto=format&fit=crop" 
                     alt="BRICS" 
@@ -443,7 +455,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
                 </div>
 
                 {/* Poster 3: BPOM */}
-                <div className="relative group cursor-pointer overflow-hidden h-[450px] shadow-lg">
+                <div className="min-w-[85%] sm:min-w-0 snap-center relative group cursor-pointer overflow-hidden h-[700px] shadow-lg">
                 <img 
                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop" 
                     alt="BPOM" 
@@ -452,7 +464,7 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
                 </div>
 
                 {/* Poster 4: PRIORITAS */}
-                <div className="relative group cursor-pointer overflow-hidden h-[450px] shadow-lg">
+                <div className="min-w-[85%] sm:min-w-0 snap-center relative group cursor-pointer overflow-hidden h-[700px] shadow-lg">
                 <img 
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop" 
                     alt="Prioritas" 
@@ -473,17 +485,17 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
       </div>
 
       {/* BERITA TERKINI SECTION (New Centered Vertical List) */}
-      <div className="w-full bg-gray-50/50 py-16 overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 relative">
+      <div className="max-w-4xl mx-auto bg-gray-50/50 py-16 overflow-hidden">
+        <div className="container mx-auto px-4 relative">
           
           {/* Background Watermark Centered */}
-          <div className="absolute top-0 left-0 right-0 flex justify-center z-0 pointer-events-none select-none overflow-hidden">
+          <div className="absolute -top-12 left-0 right-0 flex justify-center z-0 pointer-events-none select-none overflow-hidden">
             <h2 className="text-[100px] md:text-[150px] font-black text-gray-200/60 uppercase tracking-tighter leading-none text-center">
               BERITA<br/>TERKINI
             </h2>
           </div>
 
-          <div className="relative z-10 pt-20 space-y-4">
+          <div className="relative z-10 pt-52 space-y-4">
              {latestNews.map((news) => (
                <div key={news.id} className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 items-center group cursor-pointer hover:shadow-md transition-all">
                   {/* Image */}
@@ -512,11 +524,12 @@ export default function ArticleDetailScreen({ onNavigateToHome }: ArticleDetailS
              ))}
 
              {/* Button Muat Lagi */}
-             <div className="pt-8">
-               <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-500 font-bold py-4 rounded-lg uppercase tracking-wider text-sm transition-colors">
+             <div className="pt-8 flex justify-center">
+               <button className="px-8 py-4 w-full bg-white dark:bg-[#1a1a1a] hover:bg-[#1a1a1a] dark:hover:bg-white hover:text-white dark:hover:text-[#1a1a1a] text-[#1a1a1a] dark:text-white font-bold text-sm rounded-sm border-2 border-[#1a1a1a] dark:border-gray-600 transition-all uppercase tracking-widest shadow-sm hover:shadow-lg text-center">
                  Muat lagi
                </button>
              </div>
+
           </div>
 
         </div>
