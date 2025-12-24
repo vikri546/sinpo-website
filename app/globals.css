@@ -60,6 +60,22 @@
   animation: slide-in-from-top 0.2s ease-out;
 }
 
+/* Animasi Fade In untuk Category Sections */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
 /* Custom scrollbar styling */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;

@@ -37,10 +37,13 @@ const TiktokIcon = ({ size }: { size: number }) => (
 );
 
 interface HeaderProps {
-  onNavigateToCategory?: () => void;
+  onNavigateToHome: () => void;
+  onNavigateToCategory: (id?: string | number) => void;
+  onNavigateToGallery: () => void;
 }
 
-export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
+export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, onNavigateToGallery }: HeaderProps) {
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [dateStr, setDateStr] = useState("");
@@ -71,7 +74,7 @@ export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
 
   const navItems = [
     "POLITIK", "HUKUM", "EKBIS", "PERISTIWA", 
-    "GALERI", "OLAHRAGA", "BUDAYA", "INDEKS",
+    "GALERI", "OLAHRAGA", "BUDAYA",
   ];
 
   // Fungsi helper untuk menentukan logo yang ditampilkan
@@ -148,20 +151,21 @@ export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
                  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
                `}</style>
                {navItems.map((item) => (
-                 <a 
+                 <button 
                    key={item} 
-                   href={item === "INDEKS" ? "#" : `/category/${item.toLowerCase()}`}
-                   onClick={(e) => {
-                     if (item === "INDEKS" && onNavigateToCategory) {
-                       e.preventDefault();
+                   onClick={() => {
+                     if (item === "INDEKS") {
                        onNavigateToCategory();
-                       setIsMobileMenuOpen(false);
+                     } else if (item === "GALERI") {
+                       onNavigateToGallery();
+                     } else {
+                       onNavigateToCategory(item.toLowerCase());
                      }
                    }}
                    className="text-[11px] font-bold text-[#1a1a1a] dark:text-gray-300 whitespace-nowrap uppercase hover:text-[#D91B1B] transition-colors"
                  >
                     {item}
-                 </a>
+                 </button>
                ))}
             </div>
 
@@ -252,18 +256,16 @@ export default function HeaderSection({ onNavigateToCategory }: HeaderProps) {
               <ul className="flex space-x-1">
                 {navItems.map((item) => (
                   <li key={item}>
-                    <a
-                      href={item === "INDEKS" ? "#" : `/category/${item.toLowerCase()}`}
-                      onClick={(e) => {
-                        if (item === "INDEKS" && onNavigateToCategory) {
-                          e.preventDefault();
-                          onNavigateToCategory();
-                        }
+                    <button
+                      onClick={() => {
+                        if (item === "INDEKS") onNavigateToCategory();
+                        else if (item === "GALERI") onNavigateToGallery();
+                        else onNavigateToCategory(item.toLowerCase());
                       }}
                       className="block px-5 py-3 text-[13px] font-bold text-[#1a1a1a] dark:text-gray-300 hover:text-[#D91B1B] dark:hover:text-white transition-colors tracking-wide border-b-2 border-transparent hover:border-[#D91B1B]"
                     >
                       {item}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>

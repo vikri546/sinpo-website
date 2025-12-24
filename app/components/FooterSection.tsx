@@ -1,5 +1,7 @@
 "use client";
 import React from 'react';
+import NewsletterSection from './NewsletterSection';
+
 
 export default function FooterSection() {
   const channels = ["POLITIK", "HUKUM", "GAYA HIDUP", "PERISTIWA"];
@@ -13,7 +15,13 @@ export default function FooterSection() {
   return (
     <footer className="w-full bg-[#0A0A0A] text-white font-sans pt-20 pb-10 border-t border-[#D91B1B]/50">
       <div className="container mx-auto px-4">
+        {/* Newsletter Section */}
+        <div className="mb-20">
+          <NewsletterSection />
+        </div>
+        
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+
           
           {/* --- KOLOM 1: Identitas (Logo & Alamat) --- */}
           <div className="lg:col-span-4 flex flex-col gap-8">
