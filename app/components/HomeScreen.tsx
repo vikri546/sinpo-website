@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { User, RefreshCw, AlertCircle, Shuffle, Share2, Clock } from "lucide-react";
+import { User, RefreshCw, AlertCircle, Shuffle, Share2, Clock, Play, ChevronRight } from "lucide-react";
 import HeaderSection from "./HeaderSection";
 import FooterSection from "./FooterSection";
 import AdSection from "./AdSection";
@@ -43,7 +43,6 @@ const BeritaUtamaSection = ({ news, onNavigateToDetail }: { news: NewsItem[], on
                 loading="lazy"
                 onError={(e) => { 
                   const target = e.currentTarget;
-                  // If storage/ prefix failed, try uploads/ before giving up
                   if (target.src.includes('/storage/')) {
                     target.src = target.src.replace('/storage/', '/uploads/');
                   } else {
@@ -53,7 +52,6 @@ const BeritaUtamaSection = ({ news, onNavigateToDetail }: { news: NewsItem[], on
                />
              </div>
              <div className="flex-1 py-1">
-               {/* Metadata di atas judul sesuai gambar */}
                <div className="flex items-center gap-3 text-[10px] font-black text-gray-400 uppercase tracking-[0.1em] mb-3">
                   <span className="flex items-center gap-1.5"><User size={12} className="text-red-600" /> {formatAuthorName(item.author?.name)}</span>
                   <span className="w-1 h-1 rounded-full bg-gray-300"></span>
@@ -62,7 +60,6 @@ const BeritaUtamaSection = ({ news, onNavigateToDetail }: { news: NewsItem[], on
                <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white group-hover:text-red-600 transition-colors leading-tight line-clamp-2 uppercase tracking-tight">
                  {item.title}
                </h3>
-               {/* Summary jika dibutuhkan untuk "Konten Berita" */}
                {item.summary && (
                  <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
                    {truncateText(item.summary, 120)}
@@ -82,7 +79,6 @@ const OpiniSection = ({ opini, onNavigateToDetail }: { opini: StatisItem[], onNa
 
   return (
     <div className="relative p-10 rounded-[2.5rem] bg-gray-50 dark:bg-[#0D0D0D] border border-gray-100 dark:border-gray-800 overflow-hidden shadow-sm">
-      {/* Watermark Design */}
       <div className="absolute top-10 right-4 text-gray-200 dark:text-gray-800/30 font-black text-9xl -rotate-12 pointer-events-none select-none opacity-50 tracking-tighter">OPINI!</div>
       
       <div className="relative z-10">
@@ -159,93 +155,6 @@ const VisualMajalahSection = ({ gallery }: { gallery: GalleryItem | null }) => {
   );
 };
 
-// 10. CATEGORY NEWS SECTION (POLITIK, EKBIS, OLAHRAGA, BUDAYA)
-const CategoryNewsSection = ({ 
-  data, 
-  onNavigateToDetail, 
-  onNavigateToCategory 
-}: { 
-  data: Record<string, NewsItem[]>, 
-  onNavigateToDetail: (id: string | number) => void,
-  onNavigateToCategory: (slug: string) => void
-}) => {
-  const categories = [
-    { title: 'Politik', slug: 'politik', color: 'bg-red-600', text: 'text-red-600', bg: 'bg-red-50' },
-    { title: 'Ekonomi Bisnis', slug: 'ekbis', color: 'bg-green-600', text: 'text-green-600', bg: 'bg-green-50' },
-    { title: 'Olahraga', slug: 'olahraga', color: 'bg-blue-600', text: 'text-blue-600', bg: 'bg-blue-50' },
-    { title: 'Budaya', slug: 'budaya', color: 'bg-amber-800', text: 'text-amber-800', bg: 'bg-amber-50' }
-  ];
-
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mt-20">
-      {categories.map((cat, idx) => {
-        const newsItems = safeArray<NewsItem>(data[cat.slug]);
-        if (newsItems.length === 0) return null;
-
-        return (
-          <div 
-            key={cat.slug} 
-            className="group animate-fadeIn"
-            style={{ animationDelay: `${idx * 150}ms`, animationFillMode: 'both' }}
-          >
-            {/* Category Header */}
-            <div className="flex items-center justify-between mb-8 pb-4 border-b-2 border-gray-100 dark:border-gray-800">
-              <div className="flex items-center gap-4">
-                <div className={`w-3 h-10 ${cat.color} rounded-sm`}></div>
-                <h3 className="text-2xl font-black uppercase tracking-widest text-gray-900 dark:text-white">{cat.title}</h3>
-              </div>
-              <button 
-                onClick={() => onNavigateToCategory(cat.slug)}
-                className={`text-[10px] font-black uppercase tracking-widest ${cat.text} hover:opacity-70 transition-opacity flex items-center gap-2`}
-              >
-                Lihat Semua <span>→</span>
-              </button>
-            </div>
-
-            {/* News Grid (2 items) */}
-            <div className="space-y-8">
-              {newsItems.slice(0, 2).map((item: NewsItem) => (
-                <div 
-                  key={item.id} 
-                  className="flex gap-5 cursor-pointer group/item"
-                  onClick={() => onNavigateToDetail(item.id)}
-                >
-                  <div className="w-28 sm:w-40 aspect-[16/9] rounded-xl overflow-hidden shrink-0 shadow-sm bg-gray-100 dark:bg-gray-800">
-                    <img 
-                      src={getImageUrl(item.image || item.cover || (item.gallery?.[0]?.image))} 
-                      className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" 
-                      alt={item.title}
-                      loading="lazy"
-                      onError={(e) => { 
-                        const target = e.currentTarget;
-                        if (target.src.includes('/storage/')) {
-                          target.src = target.src.replace('/storage/', '/uploads/');
-                        } else {
-                          target.src = 'https://placehold.co/800x450/eee/999?text=SinPo+Media';
-                        }
-                      }}
-                    />
-                  </div>
-                  <div className="flex flex-col justify-center gap-2">
-                    <h4 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white group-hover/item:text-red-600 transition-colors line-clamp-2 uppercase leading-tight tracking-tight">
-                      {item.title}
-                    </h4>
-                    <div className="flex items-center gap-2 text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                      <span>{formatAuthorName(item.author?.name)}</span>
-                      <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                      <span>{formatDate(item.published_at || item.created_at)}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
-
 const FirstSection = ({ 
   onNavigateToDetail, 
   headline, 
@@ -264,10 +173,8 @@ const FirstSection = ({
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* Main Headline - MODIFIED: Overlay Style (Hero Layout) */}
           <div className="lg:col-span-8 group cursor-pointer" onClick={() => onNavigateToDetail(headline.id)}>
             <div className="relative w-full aspect-[4/3] md:aspect-[16/9] lg:aspect-[16/10] overflow-hidden rounded-sm">
-              {/* Image */}
               <img 
                 src={getImageUrl(headline.image || headline.cover)} 
                 alt={headline.title} 
@@ -278,11 +185,8 @@ const FirstSection = ({
                   e.currentTarget.src = 'https://placehold.co/800x600/eee/999?text=SinPo+Media'; 
                 }}
               />
-              
-              {/* Overlay Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 transition-opacity duration-500"></div>
 
-              {/* Text Content Overlay */}
               <div className="absolute bottom-0 left-0 w-full p-4 md:p-8 z-20 flex flex-col justify-end h-full">
                 <div className="bg-[#D91B1B] p-6 md:p-10 rounded-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
                   <span className="inline-block bg-white text-[#D91B1B] text-[10px] md:text-xs font-black px-4 py-2 uppercase tracking-[0.2em] mb-4 rounded-xs shadow-md">
@@ -317,10 +221,8 @@ const FirstSection = ({
             </div>
           </div>
 
-          {/* Right Sidebar containing Random + Popular */}
           <div className="lg:col-span-4 h-full flex flex-col gap-8">
             
-            {/* Random News / Recommendation - Styled as Secondary Hero */}
             {randomNews && (
               <div className="group cursor-pointer relative overflow-hidden rounded-sm shadow-md h-[265px]" onClick={() => onNavigateToDetail(randomNews.id)}>
                  <img 
@@ -341,7 +243,6 @@ const FirstSection = ({
               </div>
             )}
 
-            {/* Popular News List */}
             <div className="bg-gray-50 dark:bg-[#111] p-6 rounded-sm border border-gray-100 dark:border-gray-800 flex-1 mb-[-2px]">
               <div className="flex items-center gap-3 mb-6">
                 <h3 className="text-lg font-black uppercase text-[#1a1a1a] dark:text-white tracking-widest">Terpopuler</h3>
@@ -374,8 +275,6 @@ const FirstSection = ({
   );
 };
 
-// 2. TDK KALAH PENTING (SIDEBAR WING)
-// MODIFIED: Menggunakan style dari ArticleDetailScreen
 const TdkKalahPenting = ({ latestNews, onNavigateToDetail }: { latestNews: NewsItem[], onNavigateToDetail: (id: string | number) => void }) => {
   return (
     <div className="bg-black dark:bg-[#111] text-white p-6 rounded-md shadow-lg transition-colors border border-gray-800 h-fit">
@@ -388,7 +287,6 @@ const TdkKalahPenting = ({ latestNews, onNavigateToDetail }: { latestNews: NewsI
         {latestNews.slice(0, 2).map((item, index) => (
           <div key={item.id} className="group cursor-pointer" onClick={() => onNavigateToDetail(item.id)}>
             
-            {/* Tambahan teks khusus sebelum kategori */}
             {index === 0 && (
               <div className="mb-2">
                 <span className="block text-[24px] font-extrabold text-white uppercase">
@@ -405,7 +303,6 @@ const TdkKalahPenting = ({ latestNews, onNavigateToDetail }: { latestNews: NewsI
               </div>
             )}
 
-            {/* Kategori */}
             <div className="flex items-center gap-2 mb-3">
               <span className="font-black text-[18px] uppercase text-white">
                 {formatCategoryName(item.category?.name)}
@@ -413,12 +310,11 @@ const TdkKalahPenting = ({ latestNews, onNavigateToDetail }: { latestNews: NewsI
               <div className="flex-1 h-px bg-gray-700"></div>
             </div>
             
-            {/* Gambar */}
             <div className="w-full aspect-video overflow-hidden mb-3 rounded-sm border border-gray-700/50">
               <img 
                 src={getImageUrl(item.image || item.cover)} 
                 alt={item.title} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover"
                 loading="lazy"
                 onError={(e) => { 
                   console.error("Image load failed:", item.image || item.cover);
@@ -427,7 +323,6 @@ const TdkKalahPenting = ({ latestNews, onNavigateToDetail }: { latestNews: NewsI
               />
             </div>
 
-            {/* Judul */}
             <h4 className="text-[20px] font-bold leading-snug text-gray-100 group-hover:text-red-500 transition-colors">
               {item.title}
             </h4>
@@ -438,7 +333,6 @@ const TdkKalahPenting = ({ latestNews, onNavigateToDetail }: { latestNews: NewsI
   );
 };
 
-// 3. SECOND SECTION (LATEST NEWS WITH TIMELINE UI)
 const SecondSection = ({ 
   latestNews, 
   onNavigateToDetail, 
@@ -457,12 +351,10 @@ const SecondSection = ({
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                     
-                    {/* LEFT COLUMN: TDK KALAH PENTING (Desktop Only Sticky) */}
                     <div className="hidden lg:block lg:col-span-4 lg:sticky lg:top-36 h-fit">
                         <TdkKalahPenting latestNews={latestNews} onNavigateToDetail={onNavigateToDetail} />
                     </div>
 
-                    {/* RIGHT COLUMN: BERITA TERKINI TIMELINE */}
                     <div className="lg:col-span-8">
                         <div className="flex items-center gap-4 mb-10">
                           <h2 className="text-4xl font-black uppercase text-black dark:text-white whitespace-nowrap tracking-tighter">Berita Terkini</h2>
@@ -470,22 +362,19 @@ const SecondSection = ({
                         </div>
                         
                         <div className="relative pl-8 md:pl-10 space-y-8">
-                            {/* Vertical Line */}
                             <div className="absolute left-[7px] md:left-[9px] top-2 bottom-2 w-[2px] bg-gray-200 dark:bg-gray-700"></div>
 
                             {latestNews.map((news) => (
                                 <div key={news.id} className="relative group cursor-pointer" onClick={() => onNavigateToDetail(news.id)}>
-                                    {/* Timeline Dot */}
                                     <div className="absolute -left-[31px] md:-left-[38px] top-19 w-4 h-4 rounded-full border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0A0A0A] group-hover:border-[#D91B1B] group-hover:bg-[#D91B1B] transition-all z-10"></div>
                                     
                                     <div className="bg-gray-50 dark:bg-[#0d0d0d] p-5 md:p-6 rounded-sm border border-gray-100/50 dark:border-gray-900 transition-all group-hover:border-[#D91B1B]/50">
                                         <div className="flex flex-col md:flex-row gap-6">
-                                            {/* Thumbnail */}
                                             <div className="w-full md:w-52 aspect-video shrink-0 overflow-hidden rounded-sm bg-gray-200 dark:bg-gray-900">
                                               <img 
                                                 src={getImageUrl(news.image || news.cover)} 
                                                 alt={news.title} 
-                                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                                                className="w-full h-full object-cover" 
                                                 loading="lazy"
                                                 onError={(e) => { 
                                                   console.error("Image load failed:", news.image || news.cover);
@@ -494,7 +383,6 @@ const SecondSection = ({
                                               />
                                             </div>
 
-                                            {/* Content */}
                                             <div className="flex-1 flex flex-col justify-center">
                                                 <div className="flex items-center gap-3 mb-3">
                                                     <div className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
@@ -516,7 +404,6 @@ const SecondSection = ({
                                 </div>
                             ))}
 
-                            {/* Load More Button or State */}
                             <div className="pt-6 flex justify-center pb-8">
                                 {hasMore ? (
                                     <button 
@@ -552,7 +439,6 @@ const SecondSection = ({
     );
 };
 
-// 4. TREN HARI INI SECTION
 const TrendingSection = ({ trendingNews, onNavigateToDetail }: { trendingNews: NewsItem[], onNavigateToDetail: (id: string | number) => void }) => {
   if (safeArray(trendingNews).length === 0) return null;
 
@@ -570,11 +456,11 @@ const TrendingSection = ({ trendingNews, onNavigateToDetail }: { trendingNews: N
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {trendingNews.map((news) => (
             <div key={news.id} className="group cursor-pointer flex flex-col" onClick={() => onNavigateToDetail(news.id)}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl mb-4 shadow-sm group-hover:shadow-xl transition-all duration-500">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-4">
                 <img 
                   src={getImageUrl(news.image || news.cover)} 
                   alt={news.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -595,51 +481,171 @@ const TrendingSection = ({ trendingNews, onNavigateToDetail }: { trendingNews: N
   );
 };
 
-// 5. SIN PO TV SECTION
+// 5. SIN PO TV SECTION - REVISED (Half Black & White Background + Layout)
 const SinpoTVSection = ({ videos }: { videos: Link[] }) => {
-  if (safeArray(videos).length === 0) return null;
+  const [activeVideoIdx, setActiveVideoIdx] = useState(0);
+  
+  const dummyVideos: Link[] = [
+    { id: 101, name: "PENGUNDIAN NOMOR URUT PILGUB JAKARTA", url: "#" },
+    { id: 102, name: "PIMPINAN DPR RI TERIMA AUDIENSI SOLIDARITAS...", url: "#" },
+    { id: 103, name: "DEBAT CALON GUBERNUR JAKARTA 2024", url: "#" },
+    { id: 104, name: "DISKUSI PUBLIK: MASA DEPAN JAKARTA", url: "#" },
+    { id: 105, name: "PELANTIKAN ANGGOTA DPRD TERPILIH", url: "#" }
+  ];
+
+  const videoList = videos && videos.length > 0 ? safeArray<Link>(videos) : dummyVideos;
+  const currentVideo: Link = videoList[activeVideoIdx];
 
   return (
-    <section className="w-full bg-black py-20 transition-colors">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-gray-800 pb-8">
-           <div className="space-y-2">
-              <span className="text-red-600 font-black tracking-[0.3em] uppercase text-xs">Premium VideoContent</span>
-              <h2 className="text-5xl font-black text-white tracking-tighter uppercase">SIN PO TV</h2>
-           </div>
-           <button className="px-8 py-3 bg-red-600 text-white rounded-full font-black text-xs uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg hover:shadow-red-600/20">
-              Lihat Semua Video
-           </button>
+    <section className="w-full relative pt-16 pb-24 group/section">
+      {/* BACKGROUND SPLIT DESIGN 
+         Top half: White/Light
+         Bottom half: Black
+      */}
+      <div className="absolute top-0 left-0 w-full h-[280px] bg-white dark:bg-[#0A0A0A] z-0 transition-colors duration-300"></div>
+      <div className="absolute top-[280px] bottom-0 left-0 w-full bg-black z-0"></div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        
+        {/* Header - Situated on the White/Light background part */}
+        <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center gap-3">
+               <div className="w-10 h-10 bg-[#D91B1B] rounded flex items-center justify-center text-white shadow-lg">
+                  <Play size={20} fill="currentColor" />
+               </div>
+               <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-black dark:text-white">
+                  SIN PO <span className="text-[#D91B1B]">TV</span>
+               </h2>
+            </div>
+            <div className="hidden md:block h-px flex-1 bg-gray-200 dark:bg-gray-800 mx-8"></div>
+            <button className="text-[10px] md:text-xs font-black uppercase tracking-widest text-gray-500 hover:text-[#D91B1B] flex items-center gap-2 transition-colors">
+               Lihat Semua Video <ChevronRight size={16} />
+            </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {videos.map((vid, idx) => (
-            <div key={vid.id} className={`group cursor-pointer ${idx === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}`}>
-              <div className="relative aspect-video rounded-2xl overflow-hidden mb-6 bg-gray-900 shadow-2xl group-hover:ring-4 ring-red-600/30 transition-all duration-500">
-                 {/* This would be an embed. Simplification: using a placeholder with a play button */}
-                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-red-600 text-white flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
-                       <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-2"></div>
+        {/* Main TV Container */}
+        <div className="bg-[#111] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-800">
+           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+              
+              {/* Main Player (Left - 8 cols) */}
+              <div className="lg:col-span-8 relative aspect-video bg-black group">
+                 {/* Main Image */}
+                 <img 
+                    src={`https://placehold.co/1280x720/000/333?text=SinPo+TV+Live`} 
+                    className="w-full h-full object-cover opacity-70 group-hover:opacity-50 transition-opacity duration-500" 
+                    alt="Main Player"
+                 />
+                 
+                 {/* Play Button Center */}
+                  <div className="absolute inset-0 flex items-center justify-center z-20">
+                    <button
+                      className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#D91B1B]/90 text-white flex items-center justify-center shadow-[0_0_40px_rgba(217,27,27,0.4)] cursor-pointer hover:scale-110 transition-transform ease-in-out duration-300 backdrop-blur-sm border border-white/20"
+                    >
+                      <Play size={40} fill="currentColor" />
+                    </button>
+                  </div>
+
+                 {/* Top Left Label */}
+                 <div className="absolute top-6 left-6 z-20">
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-2 bg-[#D91B1B] text-white px-3 py-1.5 rounded-sm">
+                        <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                        <span className="text-[10px] font-black uppercase tracking-widest">Live Stream</span>
+                      </div>
                     </div>
                  </div>
-                 <img 
-                  src={`https://placehold.co/1280x720/000/666?text=SinPo+TV+Video+${idx+1}`} 
-                  alt={vid.name} 
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" 
-                 />
+
+                 {/* Bottom Info Overlay */}
+                 <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 bg-gradient-to-t from-black via-black/90 to-transparent z-20">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white uppercase leading-none mb-3 drop-shadow-lg line-clamp-2">
+                       {currentVideo?.name}
+                    </h3>
+                    <div className="flex items-center gap-4 text-gray-400 text-[10px] font-bold uppercase tracking-wider">
+                       <span className="flex items-center gap-2"><Clock size={12} /> Baru Saja</span>
+                       <span className="w-1 h-1 rounded-full bg-gray-600"></span>
+                       <span>SinPo Official</span>
+                    </div>
+                 </div>
               </div>
-              <h3 className={`${idx === 0 ? 'text-2xl' : 'text-lg'} font-bold text-white group-hover:text-red-500 transition-colors leading-tight line-clamp-2`}>
-                {vid.name}
-              </h3>
-            </div>
-          ))}
+
+              {/* Sidebar Playlist (Right - 4 cols) */}
+              <div className="lg:col-span-4 bg-[#1a1a1a] border-l border-white/5 flex flex-col h-full max-h-[500px] lg:max-h-auto">
+                 <div className="p-5 border-b border-white/5 bg-[#222] flex items-center justify-between">
+                    <h4 className="text-white font-bold uppercase tracking-wider text-sm">
+                       Playlist Terkini
+                    </h4>
+                    <span className="text-[10px] bg-white/10 text-gray-400 px-2 py-1 rounded">
+                      {videoList.length} Video
+                    </span>
+                 </div>
+                 
+                 <div className="flex-1 overflow-y-auto custom-scrollbar">
+                   {videoList.map((vid, idx) => (
+                      <div 
+                         key={vid.id} 
+                         onClick={() => setActiveVideoIdx(idx)}
+                         className={`flex gap-4 p-4 border-b border-white/5 cursor-pointer hover:bg-white/5 transition-colors group/item relative
+                          ${activeVideoIdx === idx ? 'bg-white/5' : ''}`}
+                      >
+                         {activeVideoIdx === idx && (
+                           <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#D91B1B]"></div>
+                         )}
+                         
+                         <div className="w-28 aspect-video bg-black rounded overflow-hidden shrink-0 relative">
+                            <img 
+                              src={`https://placehold.co/320x180/111/555?text=${idx+1}`}
+                              className="w-full h-full object-cover opacity-80 group-hover/item:opacity-100 transition-opacity" 
+                              alt="" 
+                            />
+                            {activeVideoIdx === idx && (
+                               <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                                  <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-white border-b-[6px] border-b-transparent ml-1"></div>
+                               </div>
+                            )}
+                         </div>
+                         <div className="flex-1 flex flex-col justify-center">
+                            <h5 className={`text-[11px] font-bold uppercase leading-snug line-clamp-2 mb-2 ${activeVideoIdx === idx ? 'text-[#D91B1B]' : 'text-gray-300 group-hover/item:text-white'}`}>
+                               {vid.name}
+                            </h5>
+                            <span className="text-[9px] font-bold text-gray-600 uppercase tracking-wider">
+                               04:20
+                            </span>
+                         </div>
+                      </div>
+                   ))}
+                 </div>
+              </div>
+           </div>
         </div>
+
+        {/* Ad Banner Below (Preserved as requested) */}
+        <div className="mt-16 flex justify-center">
+          <div className="w-full max-w-[970px] aspect-[970/90] bg-white rounded-sm shadow-2xl flex items-center justify-center cursor-pointer overflow-hidden border-4 border-white/10 relative">
+            <div className="flex items-center gap-12 px-12 relative z-10 w-full">
+              <div className="flex flex-col items-center">
+                <span className="text-[14px] text-gray-400 font-bold tracking-widest">970x90</span>
+              </div>
+              <div className="h-10 w-px bg-gray-100"></div>
+              <div className="flex flex-col">
+                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Smart & Responsive</span>
+                <span className="text-[16px] text-black font-black uppercase tracking-widest">ADVERTISEMENT</span>
+              </div>
+              <div className="flex-1"></div>
+              {/* Button hanya berubah saat di-hover */}
+              <button className="bg-black text-white px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-[#D91B1B] transition-all">
+                LEARN MORE
+              </button>
+            </div>
+            {/* Ad Decoration */}
+            <div className="absolute right-0 top-0 bottom-0 w-48 bg-gray-50 -skew-x-12 translate-x-12 transition-colors z-0"></div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
 };
 
-// 6. MODIFIED POLLING SECTION
 const PollingSection = ({ pollingData }: { pollingData: Polling[] }) => {
   const [voted, setVoted] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState<Record<string, boolean>>({});
@@ -724,11 +730,10 @@ const PollingSection = ({ pollingData }: { pollingData: Polling[] }) => {
   );
 };
 
-// --- MAIN PAGE COMPONENT ---
 export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }: HomeScreenProps) {
   const [headline, setHeadline] = useState<NewsItem | null>(null);
   const [popularNews, setPopularNews] = useState<NewsItem[]>([]);
-  const [randomNews, setRandomNews] = useState<NewsItem | null>(null); // State untuk random news
+  const [randomNews, setRandomNews] = useState<NewsItem | null>(null);
   const [latestNews, setLatestNews] = useState<NewsItem[]>([]);
   const [trendingNews, setTrendingNews] = useState<NewsItem[]>([]);
   const [videoLinks, setVideoLinks] = useState<Link[]>([]);
@@ -739,12 +744,10 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
   const [categories, setCategories] = useState<Category[]>([]);
   const [polling, setPolling] = useState<Polling[]>([]);
   
-  // Pagination State
   const [latestPage, setLatestPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  // Berita Utama Pagination
   const [utamaPage, setUtamaPage] = useState(1);
   const [loadingMoreUtama, setLoadingMoreUtama] = useState(false);
   const [hasMoreUtama, setHasMoreUtama] = useState(true);
@@ -756,7 +759,6 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
     setLoading(true);
     setError(null);
     try {
-      // Reset pagination on initial fetch
       setLatestPage(1);
       setHasMore(true);
       setUtamaPage(1);
@@ -769,17 +771,16 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
       ] = await Promise.allSettled([
         getBerita.headline({ limit: 1 }),
         getBerita.populer({ limit: 5 }),
-        // MODIFIKASI: Ubah limit menjadi 10 agar sinkron dengan yang ditampilkan dan pagination selanjutnya
         getBerita.list({ limit: 10, page: 1 }), 
         getPolling.list({ limit: 3 }),
         getKategori.list(),
-        getBerita.list({ limit: 5, sort: 'desc' }), // Assuming this is for trending
+        getBerita.list({ limit: 5, sort: 'desc' }), 
         getLink.list({ q: 'sinpo_tv', limit: 5 }),
-        getBerita.list({ limit: 8, sort: 'desc' }), // Change from getBerita.utama to general getBerita.list
+        getBerita.list({ limit: 8, sort: 'desc' }), 
         getStatis.opini({ limit: 3 }),
         getGallery.majalah({ limit: 1 }),
-        getBerita.byKategori(2, 2), // Politik ID: 2
-        getBerita.byKategori(5, 2), // Ekbis ID: 5
+        getBerita.byKategori(2, 2), 
+        getBerita.byKategori(5, 2), 
         getBerita.byKategori('olahraga', 2),
         getBerita.byKategori('budaya', 2)
       ]);
@@ -787,7 +788,6 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
       let hasSomeNews = false;
       let currentHeadlineId: string | number | null = null;
 
-      // Set Headline
       if (headlineRes.status === 'fulfilled') {
         const headlineData = safeArray<NewsItem>(headlineRes.value.data)[0];
         setHeadline(headlineData || null);
@@ -795,23 +795,17 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
         hasSomeNews = true;
       }
 
-      // Set Popular
       if (popularRes.status === 'fulfilled') {
         setPopularNews(safeArray<NewsItem>(popularRes.value.data));
       }
 
-      // Set Latest & Pick Random
       if (latestRes.status === 'fulfilled') {
         const data = safeArray<NewsItem>(latestRes.value.data);
-        // MODIFIKASI: Langsung set data (karena limit sudah 10), tidak perlu di-slice lagi
         setLatestNews(data); 
         
-        // Cek jika data kurang dari 10, berarti tidak ada halaman berikutnya
         if (data.length < 10) setHasMore(false);
         hasSomeNews = true;
 
-        // LOGIKA PICK RANDOM NEWS
-        // Mengambil satu berita secara acak dari list latest, tapi bukan yang sedang jadi headline
         const availableForRandom = data.filter(item => item.id !== currentHeadlineId);
         if (availableForRandom.length > 0) {
             const randomIndex = Math.floor(Math.random() * availableForRandom.length);
@@ -819,34 +813,28 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
         }
       }
 
-      // Set Trending
       if (trendingRes.status === 'fulfilled') {
         setTrendingNews(safeArray<NewsItem>(trendingRes.value.data));
       }
 
-      // Set Videos
       if (videoRes.status === 'fulfilled') {
         setVideoLinks(safeArray<Link>(videoRes.value.data));
       }
 
-      // Set Utama
       if (utamaRes.status === 'fulfilled') {
         const data = safeArray<NewsItem>(utamaRes.value.data);
         setMainNews(data);
         if (data.length < 8) setHasMoreUtama(false);
       }
 
-      // Set Opini
       if (opiniRes.status === 'fulfilled') {
         setOpinionNews(safeArray<StatisItem>(opiniRes.value.data));
       }
 
-      // Set Majalah
       if (majalahRes.status === 'fulfilled') {
         setMagazineVisual(safeArray<GalleryItem>(majalahRes.value.data)[0] || null);
       }
 
-      // Set Category News
       const catNews: Record<string, NewsItem[]> = {};
       if (politikRes.status === 'fulfilled') catNews['politik'] = safeArray<NewsItem>(politikRes.value.data);
       if (ekbisRes.status === 'fulfilled') catNews['ekbis'] = safeArray<NewsItem>(ekbisRes.value.data);
@@ -879,22 +867,17 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
     const nextPage = latestPage + 1;
     
     try {
-      // MODIFIKASI: Ubah limit jadi 10 agar konsisten dengan initial fetch (Page 1 = 10 items, Page 2 = 10 items)
-      // Ini mencegah duplikasi offset
       const res = await getBerita.list({ limit: 10, page: nextPage });
       const newData = safeArray<NewsItem>(res.data);
       
       if (newData.length > 0) {
         setLatestNews(prev => {
-          // MODIFIKASI: Filter Duplikasi (Client-side safety)
-          // Memastikan tidak ada ID yang sama yang masuk ke list
           const existingIds = new Set(prev.map(item => item.id));
           const uniqueNewData = newData.filter(item => !existingIds.has(item.id));
           return [...prev, ...uniqueNewData];
         });
         
         setLatestPage(nextPage);
-        // Jika yang dikembalikan kurang dari 10, anggap sudah habis
         if (newData.length < 10) setHasMore(false);
       } else {
         setHasMore(false);
@@ -910,17 +893,9 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
     if (loadingMoreUtama || !hasMoreUtama) return;
     
     setLoadingMoreUtama(true);
-    // Jika awalnya 8, dan kita ingin page 2 dengan limit 3,
-    // maka kita butuh offset 8. Jika limit=3, page 3 offset (3-1)*3=6, page 4 offset (4-1)*3=9.
-    // Kita gunakan limit 3 secara konsisten mulai dari page 4 (item ke-10).
-    // Atau lebih baik, gunakan limit 8 saja untuk konsistensi?
-    // User minta 3 items. Mari kita coba limit 3 dan hitung page yang mendekati offset 8.
-    // Offset 8 / 3 ~= 2.66. Page 4 dengan limit 3 = offset 9. 
-    // Kita pakai limit 3, page mulai dari itungan offset.
     const nextPage = utamaPage === 1 ? 4 : utamaPage + 1; 
 
     try {
-      // Menggunakan getBerita.list (umum) seperti Berita Terkini
       const res = await getBerita.list({ 
         limit: 3, 
         page: nextPage,
@@ -930,7 +905,6 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
       
       if (newData.length > 0) {
         setMainNews(prev => {
-           // Tambahkan juga filter duplikasi untuk Berita Utama agar lebih aman
            const existingIds = new Set(prev.map(item => item.id));
            const uniqueNewData = newData.filter(item => !existingIds.has(item.id));
            return [...prev, ...uniqueNewData];
@@ -981,8 +955,8 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
     <>
       <HeaderSection 
         onNavigateToHome={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-        onNavigateToCategory={() => {}} // Disabled as requested
-        onNavigateToGallery={() => {}} // TODO: implement
+        onNavigateToCategory={() => {}} 
+        onNavigateToGallery={() => {}} 
       />
       <div className="bg-white dark:bg-[#0A0A0A] pt-4">
         <AdSection position="top" className="container mx-auto px-4" />
@@ -1012,11 +986,9 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
 
       <PollingSection pollingData={polling} />
 
-      {/* NEW SECTION PHASE 11: MAIN NEWS, OPINION & MAGAZINE */}
       <section className="w-full bg-white dark:bg-[#0A0A0A] py-24 transition-colors border-t border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            {/* Kolom Kiri: Berita Utama */}
             <div className="lg:col-span-8">
               <BeritaUtamaSection news={mainNews} onNavigateToDetail={onNavigateToDetail} />
               {hasMoreUtama && (
@@ -1039,7 +1011,6 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
               )}
             </div>
 
-            {/* Kolom Kanan: Opini & Visual */}
             <div className="lg:col-span-4 space-y-16">
               <OpiniSection opini={opinionNews} onNavigateToDetail={onNavigateToDetail} />
               <div className="pt-4">
