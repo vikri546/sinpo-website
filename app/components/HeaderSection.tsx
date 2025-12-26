@@ -74,7 +74,7 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
 
   const navItems = [
     "POLITIK", "HUKUM", "EKBIS", "PERISTIWA", 
-    "GALERI", "OLAHRAGA", "BUDAYA",
+    "GALERI", "OLAHRAGA", "BUDAYA", "INDEKS",
   ];
 
   // Fungsi helper untuk menentukan logo yang ditampilkan
@@ -137,7 +137,7 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
            </div>
         </div>
 
-        <div className="flex items-center justify-between px-4 py-2.5 bg-white dark:bg-[#0A0A0A]">
+        <div className="flex items-center justify-between px-4 py-2.5 bg-white dark:bg-gray-800">
             <div className="flex-shrink-0 mr-4">
                <div className="bg-black text-white px-2.5 py-1 rounded-sm flex items-center gap-1.5 shadow-sm">
                   <span className="font-bold text-[10px] tracking-wider">LIVE TV</span>
@@ -246,7 +246,7 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
           </div>
         </div>
 
-        <div className="hidden lg:block border-t border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-[#0A0A0A]">
+        <div className="hidden lg:block border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-[#1a1a1a]">
           <div className="container mx-auto px-4 flex justify-between items-center">
             <div className="text-xs font-medium text-gray-500 dark:text-gray-400">
               {dateStr}

@@ -34,38 +34,48 @@ const BeritaUtamaSection = ({ news, onNavigateToDetail }: { news: NewsItem[], on
       </div>
       <div className="space-y-10">
         {news.map((item) => (
-          <div key={item.id} className="group cursor-pointer flex gap-6 items-start" onClick={() => onNavigateToDetail(item.id)}>
-             <div className="w-32 md:w-56 aspect-[3/2] rounded-xl overflow-hidden shrink-0 shadow-lg transition-all duration-500 group-hover:shadow-2xl bg-gray-100 dark:bg-gray-900">
-               <img 
-                src={getImageUrl(item.image || item.cover || (item.gallery?.[0]?.image))} 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                alt={item.title} 
-                loading="lazy"
-                onError={(e) => { 
-                  const target = e.currentTarget;
-                  if (target.src.includes('/storage/')) {
-                    target.src = target.src.replace('/storage/', '/uploads/');
-                  } else {
-                    target.src = 'https://placehold.co/800x600/eee/999?text=SinPo+Media';
-                  }
-                }}
-               />
-             </div>
-             <div className="flex-1 py-1">
-               <div className="flex items-center gap-3 text-[10px] font-black text-gray-400 uppercase tracking-[0.1em] mb-3">
-                  <span className="flex items-center gap-1.5"><User size={12} className="text-red-600" /> {formatAuthorName(item.author?.name)}</span>
-                  <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                  <span>{formatDate(item.published_at || item.created_at)}</span>
-               </div>
-               <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white group-hover:text-red-600 transition-colors leading-tight line-clamp-2 uppercase tracking-tight">
-                 {item.title}
-               </h3>
-               {item.summary && (
-                 <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
-                   {truncateText(item.summary, 120)}
-                 </p>
-               )}
-             </div>
+          <div 
+            key={item.id} 
+            className="group cursor-pointer" 
+            onClick={() => onNavigateToDetail(item.id)}
+          >
+            <div className="bg-gray-100/50 dark:bg-[#0d0d0d] p-5 md:p-6 rounded-sm border border-gray-100/50 dark:border-gray-900 transition-all group-hover:border-[#D91B1B]/50">
+              <div className="flex gap-6 items-start">
+                <div className="w-32 md:w-56 aspect-[3/2] rounded-sm overflow-hidden shrink-0 bg-gray-200 dark:bg-gray-900">
+                  <img 
+                    src={getImageUrl(item.image || item.cover || (item.gallery?.[0]?.image))} 
+                    className="w-full h-full object-cover" 
+                    alt={item.title} 
+                    loading="lazy"
+                    onError={(e) => { 
+                      const target = e.currentTarget;
+                      if (target.src.includes('/storage/')) {
+                        target.src = target.src.replace('/storage/', '/uploads/');
+                      } else {
+                        target.src = 'https://placehold.co/800x600/eee/999?text=SinPo+Media';
+                      }
+                    }}
+                  />
+                </div>
+                <div className="flex-1 py-1">
+                  <div className="flex items-center gap-3 text-[10px] font-black text-gray-400 uppercase tracking-[0.1em] mb-3">
+                    <span className="flex items-center gap-1.5">
+                      <User size={12} className="text-red-600" /> {formatAuthorName(item.author?.name)}
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+                    <span>{formatDate(item.published_at || item.created_at)}</span>
+                  </div>
+                  <h3 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white group-hover:text-red-600 transition-colors leading-tight line-clamp-2 uppercase tracking-tight">
+                    {item.title}
+                  </h3>
+                  {item.summary && (
+                    <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
+                      {truncateText(item.summary, 120)}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -169,7 +179,7 @@ const FirstSection = ({
   if (!headline) return null;
 
   return (
-    <section className="w-full bg-white dark:bg-[#0A0A0A] font-sans pb-12 transition-colors duration-300">
+    <section className="w-full bg-white dark:bg-[#0A0A0A] font-sans pb-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
@@ -347,7 +357,7 @@ const SecondSection = ({
   hasMore: boolean
 }) => {
     return (
-        <section className="w-full bg-white dark:bg-[#0A0A0A] font-sans py-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+        <section className="w-full bg-white dark:bg-[#1a1a1a] font-sans py-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                     
@@ -443,7 +453,7 @@ const TrendingSection = ({ trendingNews, onNavigateToDetail }: { trendingNews: N
   if (safeArray(trendingNews).length === 0) return null;
 
   return (
-    <section className="w-full bg-gray-50 dark:bg-[#0D0D0D] py-16 border-y border-gray-100 dark:border-gray-800 transition-colors">
+    <section className="w-full bg-gray-50 dark:bg-[#0D0D0D] py-16 border-b border-gray-100 dark:border-gray-800 transition-colors">
       <div className="container mx-auto px-4">
         <div className="flex items-center gap-4 mb-10">
           <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center shadow-lg">
@@ -502,7 +512,7 @@ const SinpoTVSection = ({ videos }: { videos: Link[] }) => {
          Top half: White/Light
          Bottom half: Black
       */}
-      <div className="absolute top-0 left-0 w-full h-[280px] bg-white dark:bg-[#0A0A0A] z-0 transition-colors duration-300"></div>
+      <div className="absolute top-0 left-0 w-full h-[280px] bg-white dark:bg-[#131111] z-0 transition-colors duration-300"></div>
       <div className="absolute top-[280px] bottom-0 left-0 w-full bg-black z-0"></div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -620,15 +630,15 @@ const SinpoTVSection = ({ videos }: { videos: Link[] }) => {
 
         {/* Ad Banner Below (Preserved as requested) */}
         <div className="mt-16 flex justify-center">
-          <div className="w-full max-w-[970px] aspect-[970/90] bg-white rounded-sm shadow-2xl flex items-center justify-center cursor-pointer overflow-hidden border-4 border-white/10 relative">
+          <div className="w-full max-w-[970px] aspect-[970/90] bg-white dark:bg-[#1a1a1a] rounded-sm shadow-2xl flex items-center justify-center cursor-pointer overflow-hidden border-2 border-white/10 relative">
             <div className="flex items-center gap-12 px-12 relative z-10 w-full">
               <div className="flex flex-col items-center">
                 <span className="text-[14px] text-gray-400 font-bold tracking-widest">970x90</span>
               </div>
-              <div className="h-10 w-px bg-gray-100"></div>
+              <div className="h-10 w-px bg-gray-300 dark:bg-gray-100"></div>
               <div className="flex flex-col">
                 <span className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Smart & Responsive</span>
-                <span className="text-[16px] text-black font-black uppercase tracking-widest">ADVERTISEMENT</span>
+                <span className="text-[16px] text-black dark:text-white font-black uppercase tracking-widest">ADVERTISEMENT</span>
               </div>
               <div className="flex-1"></div>
               {/* Button hanya berubah saat di-hover */}
@@ -637,7 +647,7 @@ const SinpoTVSection = ({ videos }: { videos: Link[] }) => {
               </button>
             </div>
             {/* Ad Decoration */}
-            <div className="absolute right-0 top-0 bottom-0 w-48 bg-gray-50 -skew-x-12 translate-x-12 transition-colors z-0"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-48 bg-gray-200 dark:bg-[#0a0a0a] -skew-x-12 translate-x-12 transition-colors z-0"></div>
           </div>
         </div>
 
@@ -986,17 +996,21 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
 
       <PollingSection pollingData={polling} />
 
-      <section className="w-full bg-white dark:bg-[#0A0A0A] py-24 transition-colors border-t border-gray-100 dark:border-gray-800">
+      <section className="w-full bg-gray-50 dark:bg-[#010101] py-24 transition-colors border-t border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-8">
               <BeritaUtamaSection news={mainNews} onNavigateToDetail={onNavigateToDetail} />
               {hasMoreUtama && (
-                <div className="mt-16 text-center">
+                <div className="mt-16 flex justify-center">
                   <button 
                     onClick={handleLoadMoreUtama}
                     disabled={loadingMoreUtama}
-                    className="bg-gray-100 dark:bg-[#111] text-gray-900 dark:text-gray-100 px-12 py-4 rounded-full font-black text-[10px] uppercase tracking-[0.2em] hover:bg-red-600 hover:text-white transition-all shadow-sm disabled:opacity-50"
+                    className={`px-12 py-4 rounded-full font-black uppercase tracking-[0.2em] text-[10px] transition-all flex items-center gap-3
+                      ${loadingMoreUtama 
+                        ? 'bg-gray-100 text-gray-400 dark:bg-gray-900 cursor-not-allowed shadow-sm' 
+                        : 'bg-black text-white hover:bg-[#D91B1B] hover:text-white shadow-lg hover:shadow-xl dark:bg-white dark:text-black dark:hover:bg-[#D91B1B] dark:hover:text-white'
+                      }`}
                   >
                     {loadingMoreUtama ? (
                       <span className="flex items-center gap-2">
@@ -1004,7 +1018,7 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
                         Memuat...
                       </span>
                     ) : (
-                      "Muat Lebih Banyak Berita Utama"
+                      "Muat Lebih Banyak"
                     )}
                   </button>
                 </div>
