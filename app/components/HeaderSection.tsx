@@ -91,11 +91,19 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
       {/* MOBILE HEADER */}
       <div className="md:hidden flex flex-col w-full bg-white dark:bg-[#0A0A0A]">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-800">
-           <span className="text-[10px] text-gray-500 dark:text-gray-400 w-auto max-w-[35%] truncate">
-             {dateStr}
-           </span>
+           
+           {/* 1. KIRI: Hamburger Menu */}
+           <div className="flex justify-start w-12">
+             <button 
+               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+               className="text-[#1a1a1a] dark:text-white"
+             >
+               {isMobileMenuOpen ? <CloseIcon size={24} /> : <Menu size={24} />}
+             </button>
+           </div>
 
-           <div className="flex justify-center w-auto">
+           {/* 2. TENGAH: Logo */}
+           <div className="flex justify-center flex-1">
              <a href="/" className="block">
                 <img 
                   src={getLogoSrc()}
@@ -105,7 +113,8 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
              </a>
            </div>
 
-           <div className="flex justify-end gap-3 w-auto items-center">
+           {/* 3. KANAN: Toggle Theme */}
+           <div className="flex justify-end w-12 items-center">
               <button 
                 onClick={toggleTheme}
                 className="w-12 h-6 rounded-full bg-gray-200 dark:bg-gray-700 relative transition-colors flex items-center px-1"
@@ -128,19 +137,14 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
                     <div className="w-4 h-4 rounded-full bg-white shadow-sm" />
                  )}
               </button>
-              
-              <div className="h-5 w-px bg-gray-300 dark:bg-gray-700 mx-1"></div>
-              
-              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-[#1a1a1a] dark:text-white">
-                 {isMobileMenuOpen ? <CloseIcon size={24} /> : <Menu size={24} />}
-              </button>
            </div>
         </div>
 
+        {/* Mobile Sub-Header (Live TV, Nav, Search) */}
         <div className="flex items-center justify-between px-4 py-2.5 bg-white dark:bg-gray-800">
             <div className="flex-shrink-0 mr-4">
                <div className="bg-black text-white px-2.5 py-1 rounded-sm flex items-center gap-1.5 shadow-sm">
-                  <span className="font-bold text-[10px] tracking-wider">LIVE TV</span>
+                  <span className="font-oswald font-medium text-[10px] tracking-wider">LIVE TV</span>
                   <span className="w-1.5 h-1.5 bg-[#D91B1B] rounded-full animate-pulse border border-white/50"></span>
                </div>
             </div>
@@ -162,7 +166,7 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
                        onNavigateToCategory(item.toLowerCase());
                      }
                    }}
-                   className="text-[11px] font-bold text-[#1a1a1a] dark:text-gray-300 whitespace-nowrap uppercase hover:text-[#D91B1B] transition-colors"
+                    className="text-[11px] font-montserrat font-bold text-[#1a1a1a] dark:text-gray-300 whitespace-nowrap uppercase hover:text-[#D91B1B] transition-colors"
                  >
                     {item}
                  </button>
@@ -181,7 +185,7 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
           
           <div className="flex items-center gap-4 md:w-1/3">
             <div className="hidden md:flex bg-black text-white px-3 py-1.5 items-center gap-2 rounded-sm shadow-md hover:bg-[#D91B1B] transition-colors cursor-pointer">
-              <span className="font-serif font-bold text-[11px] tracking-widest leading-none">
+              <span className="font-roboto-condensed font-bold text-[11px] tracking-widest leading-none">
                 SIN PO TV
               </span>
               <span className="w-2 h-2 bg-[#D91B1B] rounded-full animate-pulse border border-white"></span>
@@ -248,7 +252,7 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
 
         <div className="hidden lg:block border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-[#1a1a1a]">
           <div className="container mx-auto px-4 flex justify-between items-center">
-            <div className="text-xs font-medium text-gray-500 dark:text-gray-400">
+            <div className="text-xs font-nunito font-bold text-gray-500 dark:text-gray-400">
               {dateStr}
             </div>
 
@@ -262,7 +266,7 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
                         else if (item === "GALERI") onNavigateToGallery();
                         else onNavigateToCategory(item.toLowerCase());
                       }}
-                      className="block px-5 py-3 text-[13px] font-bold text-[#1a1a1a] dark:text-gray-300 hover:text-[#D91B1B] dark:hover:text-white transition-colors tracking-wide border-b-2 border-transparent hover:border-[#D91B1B]"
+                      className="block px-5 py-3 text-[13px] font-montserrat font-bold text-[#1a1a1a] dark:text-gray-300 hover:text-[#D91B1B] dark:hover:text-white transition-colors tracking-wide border-b-2 border-transparent hover:border-[#D91B1B]"
                     >
                       {item}
                     </button>
@@ -325,7 +329,7 @@ export default function HeaderSection({ onNavigateToHome, onNavigateToCategory, 
               <SocialIcon><TiktokIcon size={20} /></SocialIcon>
             </div>
             
-            <div className="text-center mt-4 text-[10px] text-gray-400">
+            <div className="text-center mt-4 text-[10px] font-nunito font-bold text-gray-400">
                {dateStr}
             </div>
           </div>

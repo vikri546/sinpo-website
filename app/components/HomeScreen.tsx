@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
-import { User, RefreshCw, AlertCircle, Shuffle, Share2, Clock, Play, ChevronRight } from "lucide-react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { User, RefreshCw, AlertCircle, Shuffle, Share2, Clock, Play, ChevronRight, BarChart2, CheckCircle } from "lucide-react";
 import HeaderSection from "./HeaderSection";
 import FooterSection from "./FooterSection";
 import AdSection from "./AdSection";
@@ -14,7 +14,8 @@ import {
   formatCategoryName,
   safeArray,
   formatDate,
-  truncateText
+  truncateText,
+  getAuthorName
 } from "../utils/helpers";
 
 interface HomeScreenProps {
@@ -29,22 +30,25 @@ const BeritaUtamaSection = ({ news, onNavigateToDetail }: { news: NewsItem[], on
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-3 mb-8">
-        <h2 className="text-3xl font-black uppercase text-black dark:text-white tracking-widest">Berita Utama</h2>
+        <h2 className="text-3xl font-montserrat font-black uppercase text-black dark:text-white tracking-widest">Berita Utama</h2>
         <div className="h-1 flex-1 bg-red-600/10 dark:bg-red-600/20"></div>
       </div>
-      <div className="space-y-10">
+      <div className="space-y-4">
         {news.map((item) => (
           <div 
             key={item.id} 
             className="group cursor-pointer" 
             onClick={() => onNavigateToDetail(item.id)}
           >
-            <div className="bg-gray-100/50 dark:bg-[#0d0d0d] p-5 md:p-6 rounded-sm border border-gray-100/50 dark:border-gray-900 transition-all group-hover:border-[#D91B1B]/50">
-              <div className="flex gap-6 items-start">
-                <div className="w-32 md:w-56 aspect-[3/2] rounded-sm overflow-hidden shrink-0 bg-gray-200 dark:bg-gray-900">
+            {/* Menggunakan style yang sama persis dengan List Berita Terkini */}
+            <div className="bg-gray-100 dark:bg-[#0d0d0d] p-4 rounded-sm border border-gray-100/50 dark:border-gray-900 transition-all group-hover:border-[#D91B1B]/50">
+              <div className="flex flex-row gap-2 md:gap-6 items-center">
+                
+                {/* Gambar di Kiri - Ukuran dan Rasio disamakan dengan Berita Terkini */}
+                <div className="w-28 md:w-40 aspect-[4/3] md:aspect-video shrink-0 overflow-hidden rounded-sm bg-gray-200 dark:bg-gray-900">
                   <img 
                     src={getImageUrl(item.image || item.cover || (item.gallery?.[0]?.image))} 
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                     alt={item.title} 
                     loading="lazy"
                     onError={(e) => { 
@@ -57,22 +61,18 @@ const BeritaUtamaSection = ({ news, onNavigateToDetail }: { news: NewsItem[], on
                     }}
                   />
                 </div>
-                <div className="flex-1 py-1">
-                  <div className="flex items-center gap-3 text-[10px] font-black text-gray-400 uppercase tracking-[0.1em] mb-3">
-                    <span className="flex items-center gap-1.5">
-                      <User size={12} className="text-red-600" /> {formatAuthorName(item.author?.name)}
-                    </span>
-                    <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                    <span>{formatDate(item.published_at || item.created_at)}</span>
+
+                {/* Teks di Kanan - Struktur Publisher, Waktu, dan Judul disamakan */}
+                <div className="flex-1 flex flex-col justify-center">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase">{getAuthorName(item)}</span>
+                    <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700"></span>
+                    <span className="text-[10px] text-gray-400 font-medium">{formatRelativeTime(item.published_at || item.created_at)}</span>
                   </div>
-                  <h3 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white group-hover:text-red-600 transition-colors leading-tight line-clamp-2 uppercase tracking-tight">
+                  
+                  <h3 className="text-base md:text-lg font-bold text-black dark:text-white leading-snug group-hover:text-[#D91B1B] transition-colors line-clamp-3 md:line-clamp-2">
                     {item.title}
                   </h3>
-                  {item.summary && (
-                    <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
-                      {truncateText(item.summary, 120)}
-                    </p>
-                  )}
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@ const OpiniSection = ({ opini, onNavigateToDetail }: { opini: StatisItem[], onNa
       <div className="relative z-10">
         <div className="flex items-center gap-4 mb-12">
           <div className="w-2 h-10 bg-red-600"></div>
-          <h2 className="text-3xl font-black uppercase text-black dark:text-white tracking-widest">Opini</h2>
+          <h2 className="text-3xl font-raleway font-black uppercase text-black dark:text-white tracking-widest">Opini</h2>
         </div>
 
         <div className="space-y-12">
@@ -135,8 +135,8 @@ const VisualMajalahSection = ({ gallery }: { gallery: GalleryItem | null }) => {
       <div className="relative group overflow-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-transform duration-700 hover:rotate-y-6">
          <div className="absolute top-6 left-6 z-20">
             <div className="flex flex-col gap-1">
-               <span className="bg-red-600 text-white text-[10px] font-black px-5 py-2 uppercase shadow-2xl tracking-[0.25em] inline-block">Visual SinPo</span>
-               <span className="bg-white text-black text-[9px] font-black px-3 py-1 uppercase shadow-xl tracking-widest inline-block text-center">Terbaru</span>
+               <span className="bg-red-600 text-white text-[10px] font-poppins font-black px-5 py-2 uppercase shadow-2xl tracking-[0.25em] inline-block">Visual SinPo</span>
+               <span className="bg-white text-black text-[9px] font-poppins font-black px-3 py-1 uppercase shadow-xl tracking-widest inline-block text-center">Terbaru</span>
             </div>
          </div>
          <img 
@@ -179,12 +179,12 @@ const FirstSection = ({
   if (!headline) return null;
 
   return (
-    <section className="w-full bg-white dark:bg-[#0A0A0A] font-sans pb-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
-      <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+    <section className="w-full bg-white dark:bg-[#0A0A0A] font-sans pb-2 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+      <div className="container mx-auto -mt-4 px-0 py-0 md:px-4 md:py-6 transition-all duration-500 ease-in-out">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           <div className="lg:col-span-8 group cursor-pointer" onClick={() => onNavigateToDetail(headline.id)}>
-            <div className="relative w-full aspect-[4/3] md:aspect-[16/9] lg:aspect-[16/10] overflow-hidden rounded-sm">
+            <div className="relative w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[16/10] overflow-hidden rounded-none md:rounded-sm">
               <img 
                 src={getImageUrl(headline.image || headline.cover)} 
                 alt={headline.title} 
@@ -197,13 +197,37 @@ const FirstSection = ({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 transition-opacity duration-500"></div>
 
-              <div className="absolute bottom-0 left-0 w-full p-4 md:p-8 z-20 flex flex-col justify-end h-full">
-                <div className="bg-[#D91B1B] p-6 md:p-10 rounded-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
-                  <span className="inline-block bg-white text-[#D91B1B] text-[10px] md:text-xs font-black px-4 py-2 uppercase tracking-[0.2em] mb-4 rounded-xs shadow-md">
+              <div className="absolute bottom-0 left-0 w-full p-5 md:p-8 z-20 flex flex-col justify-end h-full">
+                
+                {/* --- TAMPILAN KHUSUS MOBILE --- */}
+                <div className="md:hidden flex flex-col gap-3 mb-2">
+                    <div className="flex items-center justify-between w-full text-white">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/90 drop-shadow-md">
+                             {formatRelativeTime(headline.published_at || headline.created_at)}
+                        </span>
+
+                        <span className="bg-[#D91B1B] text-white text-[10px] font-black px-3 py-1 uppercase tracking-[0.2em] rounded-xs shadow-md mx-2">
+                             {formatCategoryName(headline.category?.name)}
+                        </span>
+
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-white/90 drop-shadow-md text-right">
+                             {getAuthorName(headline)}
+                        </span>
+                    </div>
+
+                    <h2 className="text-center font-oswald text-3xl font-bold leading-tight mb-2 text-white uppercase tracking-[0.05em] drop-shadow-lg line-clamp-3">
+                        {headline.title}
+                    </h2>
+                </div>
+
+
+                {/* --- TAMPILAN TABLET & DESKTOP --- */}
+                <div className="hidden md:block bg-[#D91B1B] p-6 md:p-10 rounded-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">
+                  <span className="font-lato inline-block bg-white text-[#D91B1B] text-[10px] md:text-xs font-black px-4 py-2 uppercase tracking-[0.2em] mb-4 rounded-xs shadow-md">
                     {formatCategoryName(headline.category?.name)}
                   </span>
                   
-                  <h2 className="text-2xl md:text-4xl lg:text-5xl font-black leading-tight mb-4 md:mb-6 text-white transition-colors duration-300 uppercase tracking-tight line-clamp-3">
+                  <h2 className="font-oswald text-2xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 md:mb-6 text-white transition-colors duration-300 uppercase tracking-[0.05em] line-clamp-3">
                     {headline.title}
                   </h2>
                   
@@ -213,29 +237,30 @@ const FirstSection = ({
                         <User size={16} className="text-white" />
                       </div>
                       <span className="text-xs font-bold uppercase tracking-widest text-white">
-                        {formatAuthorName(headline.author?.name)}
+                        {getAuthorName(headline)}
                       </span>
                     </div>
                     
                     <div className="hidden md:block h-4 w-px bg-white/30"></div>
                     
                     <div className="flex items-center gap-2">
-                       <Clock size={16} className="text-white" />
-                       <span className="text-xs font-medium uppercase tracking-widest text-white/80">
-                         {formatRelativeTime(headline.published_at || headline.created_at)}
-                       </span>
+                        <Clock size={16} className="text-white" />
+                        <span className="text-xs font-medium uppercase tracking-widest text-white/80">
+                          {formatRelativeTime(headline.published_at || headline.created_at)}
+                        </span>
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-4 h-full flex flex-col gap-8">
+          <div className="lg:col-span-4 h-full flex flex-col gap-8 px-4 md:px-0">
             
             {randomNews && (
-              <div className="group cursor-pointer relative overflow-hidden rounded-sm shadow-md h-[265px]" onClick={() => onNavigateToDetail(randomNews.id)}>
-                 <img 
+              <div className="group cursor-pointer relative overflow-hidden rounded-sm shadow-md h-[265px] hidden lg:block" onClick={() => onNavigateToDetail(randomNews.id)}>
+                  <img 
                     src={getImageUrl(randomNews.image || randomNews.cover)} 
                     alt={randomNews.title} 
                     className="w-full h-full object-cover rounded-sm" 
@@ -243,10 +268,10 @@ const FirstSection = ({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent opacity-80"></div>
                   <div className="absolute bottom-0 left-0 w-full p-5 z-10">
-                    <span className="inline-block bg-[#D91B1B] text-white text-[10px] md:text-xs font-black px-4 py-2 uppercase tracking-[0.2em] mb-4 rounded-xs shadow-md">
+                    <span className="font-lato inline-block bg-[#D91B1B] text-white text-[10px] md:text-xs font-black px-4 py-2 uppercase tracking-[0.2em] mb-4 rounded-xs shadow-md">
                        Pilihan Editor
                     </span>
-                    <h3 className="text-lg font-bold leading-tight text-white group-hover:text-[#D91B1B] transition-colors uppercase line-clamp-2">
+                    <h3 className="font-lato font-black font-900 text-lg leading-tight text-white group-hover:text-[#D91B1B] transition-colors uppercase line-clamp-2">
                       {randomNews.title}
                     </h3>
                   </div>
@@ -255,7 +280,7 @@ const FirstSection = ({
 
             <div className="bg-gray-50 dark:bg-[#111] p-6 rounded-sm border border-gray-100 dark:border-gray-800 flex-1 mb-[-2px]">
               <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-lg font-black uppercase text-[#1a1a1a] dark:text-white tracking-widest">Terpopuler</h3>
+                <h3 className="text-lg font-lato font-black uppercase text-[#1a1a1a] dark:text-white tracking-widest">Terpopuler</h3>
                 <div className="h-1 flex-1 bg-[#D91B1B]/20">
                     <div className="w-1/3 h-full bg-[#D91B1B]"></div>
                 </div>
@@ -287,9 +312,9 @@ const FirstSection = ({
 
 const TdkKalahPenting = ({ latestNews, onNavigateToDetail }: { latestNews: NewsItem[], onNavigateToDetail: (id: string | number) => void }) => {
   return (
-    <div className="bg-black dark:bg-[#111] text-white p-6 rounded-md shadow-lg transition-colors border border-gray-800 h-fit">
+    <div className="hidden md:block bg-black dark:bg-[#111] text-white p-6 rounded-md shadow-lg transition-colors border border-gray-800 h-fit">
       <div className="mb-6 pb-4">
-        <h2 className="text-3xl font-bold uppercase tracking-wider text-white">TDK KALAH PENTING</h2>
+        <h2 className="text-3xl font-open-sans font-extrabold uppercase tracking-wider text-white">TDK KALAH PENTING</h2>
         <div className="w-16 h-1 bg-red-500 mt-2"></div>
       </div>
 
@@ -343,6 +368,7 @@ const TdkKalahPenting = ({ latestNews, onNavigateToDetail }: { latestNews: NewsI
   );
 };
 
+// 2. BERITA TERKINI SECTION
 const SecondSection = ({ 
   latestNews, 
   onNavigateToDetail, 
@@ -356,57 +382,114 @@ const SecondSection = ({
   loadingMore: boolean,
   hasMore: boolean
 }) => {
+    // Pisahkan berita pertama dengan sisa berita
+    const mainStory = latestNews.length > 0 ? latestNews[0] : null;
+    const listStories = latestNews.length > 1 ? latestNews.slice(1) : [];
+
     return (
-        <section className="w-full bg-white dark:bg-[#1a1a1a] font-sans py-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
-            <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <section className="w-full bg-white dark:bg-[#1a1a1a] font-sans pt-6 pb-12 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+            <div className="container mx-auto mt-6 px-4 transition-all duration-500 ease-in-out">
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-10">
                     
-                    <div className="hidden lg:block lg:col-span-4 lg:sticky lg:top-36 h-fit">
+                    {/* Sidebar Sticky (Tdk Kalah Penting) */}
+                    <div className="block lg:col-span-4 lg:sticky lg:top-36 h-fit order-2 lg:order-1 transition-all duration-500 ease-in-out">
                         <TdkKalahPenting latestNews={latestNews} onNavigateToDetail={onNavigateToDetail} />
                     </div>
 
-                    <div className="lg:col-span-8">
+                    {/* Main Content Berita Terkini */}
+                    <div className="lg:col-span-8 order-1 lg:order-2 transition-all duration-500 ease-in-out">
                         <div className="flex items-center gap-4 mb-10">
-                          <h2 className="text-4xl font-black uppercase text-black dark:text-white whitespace-nowrap tracking-tighter">Berita Terkini</h2>
+                          <h2 className="text-4xl font-roboto font-black uppercase text-black dark:text-white whitespace-nowrap tracking-tighter">Berita Terkini</h2>
                           <div className="w-full h-[1px] bg-gray-200 dark:bg-gray-700"></div>
                         </div>
                         
-                        <div className="relative pl-8 md:pl-10 space-y-8">
-                            <div className="absolute left-[7px] md:left-[9px] top-2 bottom-2 w-[2px] bg-gray-200 dark:bg-gray-700"></div>
+                        {/* Container Berita - Mobile: pl-0, Desktop: pl-10 (untuk space garis timeline) */}
+                        <div className="relative pl-0 md:pl-10 space-y-5">
+                            
+                            {/* Garis Vertikal Timeline (HANYA DESKTOP) */}
+                            <div className="hidden md:block absolute left-[9px] top-2 bottom-2 w-[2px] bg-gray-200 dark:bg-gray-700"></div>
 
-                            {latestNews.map((news) => (
-                                <div key={news.id} className="relative group cursor-pointer" onClick={() => onNavigateToDetail(news.id)}>
-                                    <div className="absolute -left-[31px] md:-left-[38px] top-19 w-4 h-4 rounded-full border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0A0A0A] group-hover:border-[#D91B1B] group-hover:bg-[#D91B1B] transition-all z-10"></div>
+                            {/* 1. KONTEN PERTAMA (GAMBAR BESAR) */}
+                            {/* PERUBAHAN DISINI: Ditambahkan 'block md:hidden' */}
+                            {/* Artinya: Tampil di Mobile, Hilang Total di Tablet/Desktop */}
+                            {mainStory && (
+                                <div className="block md:hidden relative group cursor-pointer" onClick={() => onNavigateToDetail(mainStory.id)}>
+                                    {/* Dot Timeline (HANYA DESKTOP - Disembunyikan karena parentnya hidden di desktop, tapi dibiarkan code-nya) */}
                                     
-                                    <div className="bg-gray-50 dark:bg-[#0d0d0d] p-5 md:p-6 rounded-sm border border-gray-100/50 dark:border-gray-900 transition-all group-hover:border-[#D91B1B]/50">
-                                        <div className="flex flex-col md:flex-row gap-6">
-                                            <div className="w-full md:w-52 aspect-video shrink-0 overflow-hidden rounded-sm bg-gray-200 dark:bg-gray-900">
-                                              <img 
-                                                src={getImageUrl(news.image || news.cover)} 
-                                                alt={news.title} 
-                                                className="w-full h-full object-cover" 
-                                                loading="lazy"
-                                                onError={(e) => { 
-                                                  console.error("Image load failed:", news.image || news.cover);
-                                                  e.currentTarget.src = 'https://placehold.co/800x600/eee/999?text=SinPo+Media'; 
-                                                }}
-                                              />
+                                    <div className="bg-gray-50 dark:bg-[#0d0d0d] p-5 md:p-6 rounded-sm border border-gray-100/50 dark:border-gray-900 transition-all group-hover:border-[#D91B1B]/50 h-full">
+                                        {/* Layout Column untuk Berita Utama */}
+                                        <div className="flex flex-col gap-5">
+                                            {/* Gambar Besar */}
+                                            <div className="w-full aspect-video overflow-hidden rounded-sm bg-gray-200 dark:bg-gray-900">
+                                                <img 
+                                                  src={getImageUrl(mainStory.image || mainStory.cover)} 
+                                                  alt={mainStory.title} 
+                                                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                                                  loading="lazy"
+                                                  onError={(e) => { 
+                                                    e.currentTarget.src = 'https://placehold.co/800x600/eee/999?text=SinPo+Media'; 
+                                                  }}
+                                                />
                                             </div>
 
-                                            <div className="flex-1 flex flex-col justify-center">
+                                            {/* Konten Teks */}
+                                            <div className="flex flex-col">
                                                 <div className="flex items-center gap-3 mb-3">
                                                     <div className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
-                                                        {news.author?.avatar ? (
-                                                            <img src={news.author.avatar} alt="" className="w-full h-full object-cover" />
+                                                        {mainStory.author?.avatar ? (
+                                                            <img src={mainStory.author.avatar} alt="" className="w-full h-full object-cover" />
                                                         ) : (
                                                             <User size={14} className="text-gray-400" />
                                                         )}
                                                     </div>
-                                                    <span className="text-[11px] font-bold text-gray-700 dark:text-gray-300 uppercase underline decoration-gray-300 dark:decoration-gray-700 underline-offset-2">{formatAuthorName(news.author?.name)}</span>
-                                                    <span className="text-[11px] text-gray-400 font-medium">{formatRelativeTime(news.published_at || news.created_at)}</span>
+                                                    <span className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">{getAuthorName(mainStory)}</span>
+                                                    <span className="text-xs text-gray-400 font-medium">• {formatRelativeTime(mainStory.published_at || mainStory.created_at)}</span>
                                                 </div>
-                                                <h3 className="text-xl md:text-2xl font-bold text-black dark:text-white leading-tight group-hover:text-[#D91B1B] transition-colors line-clamp-3">
-                                                  {news.title}
+                                                <h3 className="text-2xl font-bold text-black dark:text-white leading-tight group-hover:text-[#D91B1B] transition-colors line-clamp-3">
+                                                    {mainStory.title}
+                                                </h3>
+                                                {mainStory.summary && (
+                                                    <p className="mt-3 text-sm text-gray-500 line-clamp-2 dark:text-gray-400">
+                                                        {truncateText(mainStory.summary, 150)}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* 2. LIST BERITA SELANJUTNYA (GAMBAR KIRI - TEKS KANAN) */}
+                            {/* List ini akan tetap tampil baik di mobile maupun desktop */}
+                            {listStories.map((news) => (
+                                <div key={news.id} className="relative group cursor-pointer" onClick={() => onNavigateToDetail(news.id)}>
+                                    {/* Dot Timeline (HANYA DESKTOP) */}
+                                    <div className="hidden md:block absolute -left-[38px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0A0A0A] group-hover:border-[#D91B1B] group-hover:bg-[#D91B1B] transition-all z-10"></div>
+                                    
+                                    <div className="bg-gray-50 dark:bg-[#0d0d0d] p-4 rounded-sm border border-gray-100/50 dark:border-gray-900 transition-all group-hover:border-[#D91B1B]/50">
+                                        <div className="flex flex-row gap-2 md:gap-6 items-center">
+                                            {/* Gambar di Kiri */}
+                                            <div className="w-28 md:w-40 aspect-[4/3] md:aspect-video shrink-0 overflow-hidden rounded-sm bg-gray-200 dark:bg-gray-900">
+                                                <img 
+                                                  src={getImageUrl(news.image || news.cover)} 
+                                                  alt={news.title} 
+                                                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                                                  loading="lazy"
+                                                  onError={(e) => { 
+                                                    e.currentTarget.src = 'https://placehold.co/800x600/eee/999?text=SinPo+Media'; 
+                                                  }}
+                                                />
+                                            </div>
+
+                                            {/* Teks di Kanan */}
+                                            <div className="flex-1 flex flex-col justify-center">
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase">{getAuthorName(news)}</span>
+                                                    <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700"></span>
+                                                    <span className="text-[10px] text-gray-400 font-medium">{formatRelativeTime(news.published_at || news.created_at)}</span>
+                                                </div>
+                                                <h3 className="text-base md:text-lg font-bold text-black dark:text-white leading-snug group-hover:text-[#D91B1B] transition-colors line-clamp-3 md:line-clamp-2">
+                                                    {news.title}
                                                 </h3>
                                             </div>
                                         </div>
@@ -414,6 +497,7 @@ const SecondSection = ({
                                 </div>
                             ))}
 
+                            {/* Tombol Load More */}
                             <div className="pt-6 flex justify-center pb-8">
                                 {hasMore ? (
                                     <button 
@@ -463,7 +547,7 @@ const TrendingSection = ({ trendingNews, onNavigateToDetail }: { trendingNews: N
           <div className="flex-1 h-1 bg-red-600/10 dark:bg-red-600/20"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 transition-all duration-500 ease-in-out">
           {trendingNews.map((news) => (
             <div key={news.id} className="group cursor-pointer flex flex-col" onClick={() => onNavigateToDetail(news.id)}>
               <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-4">
@@ -479,7 +563,7 @@ const TrendingSection = ({ trendingNews, onNavigateToDetail }: { trendingNews: N
                 {news.title}
               </h3>
               <div className="mt-auto flex items-center gap-2 text-[10px] uppercase font-bold text-gray-400 tracking-wider">
-                 <span>{formatAuthorName(news.author?.name)}</span>
+                 <span>{getAuthorName(news)}</span>
                  <span>•</span>
                  <span>{formatDate(news.published_at)}</span>
               </div>
@@ -509,8 +593,8 @@ const SinpoTVSection = ({ videos }: { videos: Link[] }) => {
   return (
     <section className="w-full relative pt-16 pb-24 group/section">
       {/* BACKGROUND SPLIT DESIGN 
-         Top half: White/Light
-         Bottom half: Black
+          Top half: White/Light
+          Bottom half: Black
       */}
       <div className="absolute top-0 left-0 w-full h-[280px] bg-white dark:bg-[#131111] z-0 transition-colors duration-300"></div>
       <div className="absolute top-[280px] bottom-0 left-0 w-full bg-black z-0"></div>
@@ -523,8 +607,8 @@ const SinpoTVSection = ({ videos }: { videos: Link[] }) => {
                <div className="w-10 h-10 bg-[#D91B1B] rounded flex items-center justify-center text-white shadow-lg">
                   <Play size={20} fill="currentColor" />
                </div>
-               <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-black dark:text-white">
-                  SIN PO <span className="text-[#D91B1B]">TV</span>
+               <h2 className="text-4xl md:text-5xl font-roboto-condensed font-bold uppercase tracking-tighter text-black dark:text-white">
+                 SIN PO <span className="text-[#D91B1B]">TV</span>
                </h2>
             </div>
             <div className="hidden md:block h-px flex-1 bg-gray-200 dark:bg-gray-800 mx-8"></div>
@@ -535,15 +619,15 @@ const SinpoTVSection = ({ videos }: { videos: Link[] }) => {
 
         {/* Main TV Container */}
         <div className="bg-[#111] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gray-800">
-           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-0 transition-all duration-500 ease-in-out">
               
               {/* Main Player (Left - 8 cols) */}
               <div className="lg:col-span-8 relative aspect-video bg-black group">
                  {/* Main Image */}
                  <img 
-                    src={`https://placehold.co/1280x720/000/333?text=SinPo+TV+Live`} 
-                    className="w-full h-full object-cover opacity-70 group-hover:opacity-50 transition-opacity duration-500" 
-                    alt="Main Player"
+                   src={`https://placehold.co/1280x720/000/333?text=SinPo+TV+Live`} 
+                   className="w-full h-full object-cover opacity-70 group-hover:opacity-50 transition-opacity duration-500" 
+                   alt="Main Player"
                  />
                  
                  {/* Play Button Center */}
@@ -629,25 +713,37 @@ const SinpoTVSection = ({ videos }: { videos: Link[] }) => {
         </div>
 
         {/* Ad Banner Below (Preserved as requested) */}
-        <div className="mt-16 flex justify-center">
-          <div className="w-full max-w-[970px] aspect-[970/90] bg-white dark:bg-[#1a1a1a] rounded-sm shadow-2xl flex items-center justify-center cursor-pointer overflow-hidden border-2 border-white/10 relative">
-            <div className="flex items-center gap-12 px-12 relative z-10 w-full">
+        <div className="mt-8 flex justify-center px-2">
+          <div className="w-full max-w-[970px] bg-white dark:bg-[#1a1a1a] rounded-md shadow-lg flex items-center justify-between cursor-pointer overflow-hidden border border-white/10 relative p-4 sm:p-6 md:p-8">
+            
+            <div className="flex items-center gap-4 sm:gap-8 w-full relative z-10">
+              {/* Info kiri */}
               <div className="flex flex-col items-center">
-                <span className="text-[14px] text-gray-400 font-bold tracking-widest">970x90</span>
+                <span className="text-xs sm:text-sm text-gray-400 font-bold tracking-widest">970x90</span>
               </div>
-              <div className="h-10 w-px bg-gray-300 dark:bg-gray-100"></div>
+
+              <div className="hidden sm:block h-8 w-px bg-gray-300 dark:bg-gray-100"></div>
+
+              {/* Text tengah */}
               <div className="flex flex-col">
-                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Smart & Responsive</span>
-                <span className="text-[16px] text-black dark:text-white font-black uppercase tracking-widest">ADVERTISEMENT</span>
+                <span className="text-[10px] sm:text-xs text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">
+                  Smart & Responsive
+                </span>
+                <span className="text-sm sm:text-base md:text-lg text-black dark:text-white font-black uppercase tracking-widest">
+                  Advertisement
+                </span>
               </div>
+
               <div className="flex-1"></div>
-              {/* Button hanya berubah saat di-hover */}
-              <button className="bg-black text-white px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-[#D91B1B] transition-all">
-                LEARN MORE
+
+              {/* Button */}
+              <button className="bg-black text-white px-2 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 rounded-full text-[6px] sm:text-xs md:text-sm font-black uppercase tracking-widest hover:bg-[#D91B1B] transition-all">
+                Learn More
               </button>
             </div>
+
             {/* Ad Decoration */}
-            <div className="absolute right-0 top-0 bottom-0 w-48 bg-gray-200 dark:bg-[#0a0a0a] -skew-x-12 translate-x-12 transition-colors z-0"></div>
+            <div className="hidden md:block absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gray-200 dark:bg-[#0a0a0a] -skew-x-12 translate-x-8 md:translate-x-12 transition-colors z-0"></div>
           </div>
         </div>
 
@@ -659,6 +755,8 @@ const SinpoTVSection = ({ videos }: { videos: Link[] }) => {
 const PollingSection = ({ pollingData }: { pollingData: Polling[] }) => {
   const [voted, setVoted] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState<Record<string, boolean>>({});
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const handleVote = async (pollingId: number, optionId: number) => {
     setLoading(prev => ({ ...prev, [pollingId]: true }));
@@ -672,69 +770,125 @@ const PollingSection = ({ pollingData }: { pollingData: Polling[] }) => {
     }
   };
 
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const scrollLeft = scrollContainerRef.current.scrollLeft;
+      const cardWidth = scrollContainerRef.current.offsetWidth * 0.85; // Approximate snap width
+      const index = Math.round(scrollLeft / cardWidth);
+      // Ensure index is within bounds (0 to 2 for 3 items)
+      const maxIndex = Math.min(pollingData.slice(0, 3).length - 1, 2);
+      setActiveIndex(Math.min(Math.max(index, 0), maxIndex));
+    }
+  };
+
   if (safeArray(pollingData).length === 0) return null;
 
   return (
-    <section className="w-full bg-white dark:bg-[#0A0A0A] py-24 transition-colors">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center mb-16">
-           <span className="text-red-600 font-black tracking-[0.2em] uppercase text-xs mb-4 block">Jajak Pendapat</span>
-           <h2 className="text-5xl font-black text-black dark:text-white tracking-tighter uppercase mb-6">Suara Anda Menentukan</h2>
-           <p className="text-gray-500 dark:text-gray-400 font-medium text-lg">Ikuti jajak pendapat terbaru kami mengenai isu-isu terkini yang sedang berkembang.</p>
+    <section className="w-full bg-white dark:bg-[#0A0A0A] py-12 md:py-24 transition-colors">
+      <div className="container mx-auto">
+        <div className="max-w-4xl mx-auto text-center mb-8 md:mb-16 px-4">
+           <span className="text-red-600 font-nunito font-black tracking-[0.2em] uppercase text-xs mb-4 block">Jajak Pendapat</span>
+           <h2 className="text-3xl md:text-5xl font-nunito font-black text-black dark:text-white tracking-tighter uppercase mb-6">Suara Anda Menentukan</h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {pollingData.slice(0, 3).map((item) => (
-            <div key={item.id} className="relative bg-gray-50 dark:bg-[#0D0D0D] p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col">
-               <div className="absolute top-0 left-0 w-2 h-full bg-red-600"></div>
+        {/* Horizontal Scroll Container */}
+        <div 
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 px-6 pb-8 -mx-4 md:mx-0 md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-10 md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+          style={{ scrollBehavior: 'smooth' }}
+        >
+          {pollingData.slice(0, 3).map((item, index) => (
+            <div 
+              key={item.id} 
+              className="flex-shrink-0 w-[85vw] md:w-full snap-center relative bg-white dark:bg-[#0D0D0D] p-6 md:p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col group"
+            >
+               {/* Decorative Top Accent */}
+               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-600 to-red-400"></div>
                
-               <div className="mb-8">
-                 <span className="bg-red-600/10 text-red-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">Aktif</span>
-                 <h3 className="text-xl font-bold dark:text-white leading-tight">{item.question || item.title || "Polling SinPo"}</h3>
+               <div className="mb-6 md:mb-8 mt-2">
+                 <div className="flex justify-between items-start mb-4">
+                    <span className="bg-red-50 dark:bg-red-900/20 text-red-600 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider inline-block">
+                       Polling #{item.id}
+                    </span>
+                    <BarChart2 size={18} className="text-gray-300 dark:text-gray-700" />
+                 </div>
+                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-tight font-sans tracking-tight">
+                   {item.question || item.title || "Polling SinPo"}
+                 </h3>
                </div>
 
-               <div className="space-y-4 flex-1">
+               <div className="space-y-3 flex-1">
                  {safeArray<PollingOption>(item.options).map((opt) => {
                    const percentage = item.total_votes > 0 ? Math.round((opt.votes / item.total_votes) * 100) : 0;
                    const isVoted = voted[item.id];
 
                    return (
-                     <div key={opt.id} className="relative group">
-                       <button 
-                        onClick={() => handleVote(item.id, opt.id)}
-                        disabled={isVoted || loading[item.id]}
-                        className={`w-full relative z-10 text-left p-4 rounded-xl border transition-all flex flex-col gap-2 overflow-hidden
-                          ${isVoted 
-                            ? 'border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0A0A0A]' 
-                            : 'bg-white dark:bg-[#0A0A0A] border-gray-200 dark:border-gray-800 hover:border-red-600'
-                          }`}
-                       >
-                         <div className="flex justify-between items-center w-full z-10">
-                            <span className={`font-bold text-sm ${isVoted ? 'text-gray-400' : 'text-gray-900 dark:text-gray-100'}`}>{opt.label}</span>
-                            {isVoted && <span className="text-red-600 font-black text-xs">{percentage}%</span>}
-                         </div>
+                     <button 
+                      key={opt.id}
+                      onClick={() => handleVote(item.id, opt.id)}
+                      disabled={isVoted || loading[item.id]}
+                      className={`relative w-full text-left p-4 rounded-xl border transition-all duration-300 overflow-hidden group/btn
+                        ${isVoted 
+                          ? 'border-transparent bg-gray-50 dark:bg-gray-800/50' 
+                          : 'bg-white dark:bg-[#0A0A0A] border-gray-200 dark:border-gray-800 hover:border-red-600 hover:shadow-md'
+                        }`}
+                     >
+                        {/* Progress Bar Background */}
+                        {isVoted && (
+                           <div 
+                              className="absolute inset-y-0 left-0 bg-red-100/50 dark:bg-red-900/20 transition-all duration-1000 ease-out" 
+                              style={{ width: `${percentage}%` }}
+                           ></div>
+                        )}
 
-                         {isVoted && (
-                           <div className="absolute inset-0 bg-red-600/5 transition-all" style={{ width: `${percentage}%` }}></div>
-                         )}
-                       </button>
-                     </div>
+                       <div className="relative z-10 flex justify-between items-center w-full">
+                          <div className="flex items-center gap-3">
+                              {isVoted ? (
+                                <CheckCircle size={16} className="text-red-600" />
+                              ) : (
+                                <div className={`w-4 h-4 rounded-full border-2 ${loading[item.id] ? 'border-gray-300' : 'border-gray-300 group-hover/btn:border-red-600'} transition-colors`}></div>
+                              )}
+                              <span className={`font-bold text-sm ${isVoted ? 'text-gray-700 dark:text-gray-300' : 'text-gray-900 dark:text-white'}`}>
+                                {opt.label}
+                              </span>
+                          </div>
+                          {isVoted && <span className="text-red-600 font-black text-xs">{percentage}%</span>}
+                       </div>
+                     </button>
                    );
                  })}
                </div>
 
-               <div className="mt-10 pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center">
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-gray-400 uppercase font-black tracking-widest">Total Suara</span>
-                    <span className="text-lg font-black dark:text-white">{item.total_votes.toLocaleString()}</span>
+               <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <User size={14} className="text-gray-400" />
+                    <span className="text-xs font-bold text-gray-500 dark:text-gray-400">
+                        {item.total_votes.toLocaleString()} <span className="font-normal text-[10px] uppercase tracking-wider">Votes</span>
+                    </span>
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm">
-                     <Share2 size={16} className="text-gray-400" />
-                  </div>
+                  <button className="text-gray-400 hover:text-red-600 transition-colors">
+                     <Share2 size={18} />
+                  </button>
                </div>
             </div>
           ))}
+          {/* Spacer for scroll snap on mobile */}
+          <div className="w-2 shrink-0 md:hidden"></div>
         </div>
+
+        {/* Mobile Dot Indicators */}
+        <div className="flex justify-center items-center gap-2 mt-4 md:hidden">
+           {pollingData.slice(0, 3).map((_, idx) => (
+              <div 
+                key={idx}
+                className={`h-2 rounded-full transition-all duration-300 ease-in-out ${
+                   activeIndex === idx ? 'w-8 bg-red-600' : 'w-2 bg-gray-200 dark:bg-gray-800'
+                }`}
+              ></div>
+           ))}
+        </div>
+
       </div>
     </section>
   );
@@ -915,9 +1069,9 @@ export default function HomeScreen({ onNavigateToDetail, onNavigateToCategory }:
       
       if (newData.length > 0) {
         setMainNews(prev => {
-           const existingIds = new Set(prev.map(item => item.id));
-           const uniqueNewData = newData.filter(item => !existingIds.has(item.id));
-           return [...prev, ...uniqueNewData];
+            const existingIds = new Set(prev.map(item => item.id));
+            const uniqueNewData = newData.filter(item => !existingIds.has(item.id));
+            return [...prev, ...uniqueNewData];
         });
         setUtamaPage(nextPage);
         if (newData.length < 3) setHasMoreUtama(false);

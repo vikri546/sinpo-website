@@ -109,6 +109,13 @@ export const formatAuthorName = (name?: string) => {
 };
 
 /**
+ * Gets author name prioritizing journalist, then author name, then fallback
+ */
+export const getAuthorName = (item: any) => {
+  return item?.journalist || item?.author?.name || 'Redaksi';
+};
+
+/**
  * Formats category name with fallback
  */
 export const formatCategoryName = (name?: string) => {

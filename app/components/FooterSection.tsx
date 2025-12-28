@@ -28,7 +28,7 @@ export default function FooterSection() {
              {/* Logo Type */}
              <div className="flex flex-col gap-1">
                <h2 
-                 className="text-5xl font-black text-[#D91B1B] tracking-tighter"
+                 className="text-5xl font-oswald font-black text-[#D91B1B] tracking-tighter"
                  style={{ fontFamily: '"Times New Roman", Times, serif' }}
                >
                  SIN PO MEDIA
@@ -38,7 +38,7 @@ export default function FooterSection() {
              {/* Address */}
              <div className="flex flex-col gap-4">
                <div className="w-12 h-1 bg-[#D91B1B]"></div>
-               <p className="text-xs font-medium text-gray-400 leading-relaxed uppercase max-w-sm tracking-wide">
+               <p className="text-xs font-lato font-medium text-gray-400 leading-relaxed uppercase max-w-sm tracking-wide">
                  GEDUNG SENATAMA, LT.3, JLN. KRAMAT KWITANG NO. 8, KWITANG, SENEN, JAKARTA PUSAT.
                </p>
              </div>
@@ -46,10 +46,10 @@ export default function FooterSection() {
 
           {/* --- KOLOM 2: SALURAN --- */}
           <div className="lg:col-span-2">
-            <h3 className="text-xs font-black text-white uppercase mb-6 tracking-widest">SALURAN</h3>
+            <h3 className="text-xs font-raleway font-black text-white uppercase mb-6 tracking-widest">SALURAN</h3>
             <ul className="space-y-4">
               {channels.map((item, idx) => (
-                <li key={idx} className="text-xs font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
+                <li key={idx} className="text-xs font-open-sans font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
                   {item}
                 </li>
               ))}
@@ -58,12 +58,12 @@ export default function FooterSection() {
 
           {/* --- KOLOM 3: PERUSAHAAN --- */}
           <div className="lg:col-span-3">
-            <h3 className="text-xs font-black text-white uppercase mb-6 tracking-widest">PERUSAHAAN</h3>
+            <h3 className="text-xs font-raleway font-black text-white uppercase mb-6 tracking-widest">PERUSAHAAN</h3>
             <div className="flex gap-10">
                {/* Sub Kolom Kiri */}
                <ul className="space-y-4">
                   {companyLeft.map((item, idx) => (
-                    <li key={idx} className="text-xs font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
+                    <li key={idx} className="text-xs font-open-sans font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
                       {item}
                     </li>
                   ))}
@@ -71,7 +71,7 @@ export default function FooterSection() {
                {/* Sub Kolom Kanan */}
                <ul className="space-y-4">
                   {companyRight.map((item, idx) => (
-                    <li key={idx} className="text-xs font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
+                    <li key={idx} className="text-xs font-open-sans font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
                       {item}
                     </li>
                   ))}
@@ -81,12 +81,12 @@ export default function FooterSection() {
 
           {/* --- KOLOM 4: SOSIAL --- */}
           <div className="lg:col-span-3">
-            <h3 className="text-xs font-black text-white uppercase mb-6 tracking-widest">SOSIAL MEDIA</h3>
+            <h3 className="text-xs font-raleway font-black text-white uppercase mb-6 tracking-widest">SOSIAL MEDIA</h3>
             <div className="flex gap-12">
                {/* Sub Kolom Kiri */}
                <ul className="space-y-4">
                   {socialsLeft.map((item, idx) => (
-                    <li key={idx} className="text-xs font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
+                    <li key={idx} className="text-xs font-open-sans font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
                       {item}
                     </li>
                   ))}
@@ -94,7 +94,7 @@ export default function FooterSection() {
                {/* Sub Kolom Kanan */}
                <ul className="space-y-4">
                   {socialsRight.map((item, idx) => (
-                    <li key={idx} className="text-xs font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
+                    <li key={idx} className="text-xs font-open-sans font-bold text-gray-400 hover:text-white cursor-pointer transition-colors tracking-wide">
                       {item}
                     </li>
                   ))}

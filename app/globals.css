@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --font-anton: var(--font-anton);
+  --font-caprasimo: var(--font-caprasimo);
+  --font-cormorant: var(--font-cormorant);
+  --font-lato: var(--font-lato);
+  --font-shippori: var(--font-shippori);
+  --font-montserrat: var(--font-montserrat);
+  --font-poppins: var(--font-poppins);
+  --font-open-sans: var(--font-open-sans);
+  --font-nunito: var(--font-nunito);
+  --font-roboto: var(--font-roboto);
+  --font-roboto-condensed: var(--font-roboto-condensed);
+  --font-oswald: var(--font-oswald);
+  --font-raleway: var(--font-raleway);
+}
+
 /* PENTING: Baris ini memaksa Tailwind v4 untuk menggunakan strategi 'class' 
    untuk dark mode, bukan strategi 'media' (sistem) defaultnya.
    Tanpa ini, class="dark" di tag HTML tidak akan memicu style dark:bg-... 
@@ -9,14 +25,14 @@
 @layer base {
   :root {
     /* Light Mode Colors */
-    --background: #F1F1F1;
+    --background: #f1f1f1;
     --foreground: #171717;
   }
 
   .dark {
     /* Dark Mode Colors */
-    --background: #0A0A0A;
-    --foreground: #EDEDED;
+    --background: #0a0a0a;
+    --foreground: #ededed;
   }
 
   /* Terapkan ke body */

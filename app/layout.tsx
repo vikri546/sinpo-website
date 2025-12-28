@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { 
+  geistSans,
+  geistMono,
+  anton, 
+  caprasimo, 
+  cormorant, 
+  lato, 
+  shippori,
+  montserrat,
+  poppins,
+  openSans,
+  nunito,
+  roboto,
+  robotoCondensed,
+  oswald,
+  raleway
+} from "./fonts";
 import "./globals.css";
 import { ThemeProvider } from "./components/ThemeToggle";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Sin Po Media",
@@ -45,7 +51,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${anton.variable} ${caprasimo.variable} ${cormorant.variable} ${lato.variable} ${shippori.variable} ${montserrat.variable} ${poppins.variable} ${openSans.variable} ${nunito.variable} ${roboto.variable} ${robotoCondensed.variable} ${oswald.variable} ${raleway.variable} antialiased`}>
         <ThemeProvider>
           {children}
         </ThemeProvider>
